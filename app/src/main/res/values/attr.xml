@@ -8,4 +8,11 @@
         <attr name="indicator" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="ValueEditView">
+        <attr name="name" format="string" />
+        <attr name="nameColor" format="color" />
+        <attr name="nameSize" format="dimension" />
+        <attr name="icon" format="reference" />
+    </declare-styleable>
+
 </resources>

@@ -25,13 +25,13 @@ import com.yfbx.widgets.R;
 public class ValueTextView extends TextView {
 
     private Context context;
+    private TextPaint paint;
     private int height;
     private int width;
     private float valueSize;
     private int valueColor;
     private String value;
     private Bitmap indicator;
-    private TextPaint paint;
 
     public ValueTextView(Context context) {
         this(context, null);
@@ -95,7 +95,7 @@ public class ValueTextView extends TextView {
             canvas.drawBitmap(indicator, left, top, null);
 
             if (value != null) {
-                Rect valueSize = getValueBounds();
+                Rect valueSize = getTextBounds(value);
                 int valueLeft = left - valueSize.right;
                 int valueTop = (height - valueSize.top) / 2;
                 canvas.drawText(value, valueLeft, valueTop, paint);
@@ -104,7 +104,7 @@ public class ValueTextView extends TextView {
         }
 
         if (value != null) {
-            Rect valueSize = getValueBounds();
+            Rect valueSize = getTextBounds(value);
             int left = width - valueSize.right - getPaddingRight();
             int top = (height - valueSize.top) / 2;
             canvas.drawText(value, left, top, paint);
@@ -116,19 +116,10 @@ public class ValueTextView extends TextView {
     /**
      * 测量文字
      */
-    private Rect getValueBounds() {
+    private Rect getTextBounds(String text) {
         Rect rect = new Rect();
-        paint.getTextBounds(value, 0, value.length(), rect);
+        paint.getTextBounds(text, 0, text.length(), rect);
         return rect;
-    }
-
-
-    /**
-     * dp转换成px
-     */
-    private int dp2px(float dpValue) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
     }
 
     /**

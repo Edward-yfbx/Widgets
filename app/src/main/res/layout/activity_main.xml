@@ -6,14 +6,34 @@
     android:layout_height="match_parent"
     android:background="#8A8A8A"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context="com.yfbx.widgets.MainActivity">
 
-    <com.yfbx.widgets.text.ClearEditView
+    <com.yfbx.widgets.text.ValueEditView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
-        android:padding="10dp"
-        tools:text="测试内容" />
+        android:padding="14dp"
+        app:icon="@mipmap/ic_close"
+        app:name="账户" />
+
+    <com.yfbx.widgets.text.ValueEditView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="#FFFFFF"
+        android:inputType="textPassword"
+        android:padding="14dp"
+        app:icon="@mipmap/ic_close"
+        app:name="密码" />
+
+    <com.yfbx.widgets.text.ValueEditView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
+        android:padding="14dp"
+        app:name="Name" />
 
 
     <com.yfbx.widgets.text.ValueTextView
