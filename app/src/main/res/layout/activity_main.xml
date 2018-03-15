@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#8A8A8A"
     android:orientation="vertical"
     tools:context="com.yfbx.widgets.MainActivity">
 
-    <com.yfbx.widgets.ClearEditView
+    <com.yfbx.widgets.text.ClearEditView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
-        android:padding="10dp" />
+        android:padding="10dp"
+        tools:text="测试内容" />
+
+
+    <com.yfbx.widgets.text.ValueTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
+        android:padding="16dp"
+        android:text="Name"
+        app:indicator="@mipmap/ic_arr_right"
+        app:value="Value"
+        app:valueColor="@color/colorPrimary"
+        app:valueSize="14sp" />
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.yfbx.widgets;
+package com.yfbx.widgets.text;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.EditText;
+
+import com.yfbx.widgets.R;
 
 /**
  * Author:Edward
@@ -25,15 +27,14 @@ public class ClearEditView extends EditText implements TextWatcher {
     private int width;
     private boolean showDeleteBtn;
     private boolean showState;
+    private TextChangedListener listener;
 
     public ClearEditView(Context context) {
-        super(context);
-        init();
+        this(context, null);
     }
 
     public ClearEditView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs, 0);
     }
 
     public ClearEditView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -108,5 +109,24 @@ public class ClearEditView extends EditText implements TextWatcher {
             invalidate();
         }
         showState = showDeleteBtn;
+
+        if (listener != null) {
+            listener.afterTextChanged(s);
+        }
+    }
+
+    /**
+     * 设置输入监听
+     */
+    public void setTextChangedListener(TextChangedListener listener) {
+        this.listener = listener;
+    }
+
+    /**
+     * 输入监听
+     */
+    public interface TextChangedListener {
+
+        void afterTextChanged(Editable s);
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ValueTextView">
+        <attr name="value" format="string" />
+        <attr name="valueColor" format="color" />
+        <attr name="valueSize" format="dimension" />
+        <attr name="indicator" format="reference" />
+    </declare-styleable>
+
+</resources>
