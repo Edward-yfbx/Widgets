@@ -85,7 +85,8 @@ public class ValueEditView extends EditText implements TextWatcher {
         setFocusableInTouchMode(true);
         setSingleLine();
 
-        // TODO: 2018/3/15 待解决：输入过长会覆盖右侧图标，超过控件长度会导致移位
+        // TODO: 2018/3/15 bug：输入过长会覆盖右侧图标，超过控件长度会导致移位
+        // TODO: 2018/3/15 bug：设置Gravity时出错
     }
 
     /**
