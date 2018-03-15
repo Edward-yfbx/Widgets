@@ -18,7 +18,7 @@ import android.widget.EditText;
  */
 
 @SuppressLint("AppCompatCustomView")
-public class ClearEditText extends EditText implements TextWatcher {
+public class ClearEditView extends EditText implements TextWatcher {
 
     private Bitmap bitmap;
     private int height;
@@ -26,17 +26,17 @@ public class ClearEditText extends EditText implements TextWatcher {
     private boolean showDeleteBtn;
     private boolean showState;
 
-    public ClearEditText(Context context) {
+    public ClearEditView(Context context) {
         super(context);
         init();
     }
 
-    public ClearEditText(Context context, AttributeSet attrs) {
+    public ClearEditView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public ClearEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ClearEditView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }

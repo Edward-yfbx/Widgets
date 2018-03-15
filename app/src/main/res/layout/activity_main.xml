@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context="com.yfbx.widgets.MainActivity">
 
-    <com.yfbx.widgets.ClearEditText
+    <com.yfbx.widgets.ClearEditView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
