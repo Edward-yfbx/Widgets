@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="ValueTextView">
-        <attr name="value" format="string" />
-        <attr name="valueColor" format="color" />
-        <attr name="valueSize" format="dimension" />
+    <declare-styleable name="ValueText">
+        <attr name="title" format="string" />
+        <attr name="titleColor" format="color" />
+        <attr name="titleSize" format="dimension" />
         <attr name="indicator" format="reference" />
-    </declare-styleable>
-
-    <declare-styleable name="ValueEditView">
-        <attr name="name" format="string" />
-        <attr name="nameColor" format="color" />
-        <attr name="nameSize" format="dimension" />
-        <attr name="icon" format="reference" />
+        <attr name="alignLeft" format="boolean" />
     </declare-styleable>
 
 </resources>

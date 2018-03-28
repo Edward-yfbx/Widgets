@@ -9,43 +9,17 @@
     android:padding="10dp"
     tools:context="com.yfbx.widgets.MainActivity">
 
-    <com.yfbx.widgets.text.ValueEditView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:padding="14dp"
-        app:icon="@mipmap/ic_close"
-        app:name="账户" />
-
-    <com.yfbx.widgets.text.ValueEditView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:background="#FFFFFF"
-        android:inputType="textPassword"
-        android:padding="14dp"
-        app:icon="@mipmap/ic_close"
-        app:name="密码" />
-
-    <com.yfbx.widgets.text.ValueEditView
+    <com.yfbx.widgets.text.ValueText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="#FFFFFF"
-        android:padding="14dp"
-        app:name="Name" />
-
-
-    <com.yfbx.widgets.text.ValueTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#FFFFFF"
-        android:padding="16dp"
-        android:text="Name"
+        android:padding="10dp"
+        android:text="张三"
+        android:textColor="@color/colorPrimary"
+        app:alignLeft="true"
         app:indicator="@mipmap/ic_arr_right"
-        app:value="Value"
-        app:valueColor="@color/colorPrimary"
-        app:valueSize="14sp" />
+        app:title="姓名"
+        app:titleColor="@color/colorAccent" />
 
 </LinearLayout>
