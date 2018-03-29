@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8A8A8A"
+    android:background="#EEEEEE"
     android:orientation="vertical"
     android:padding="10dp"
     tools:context="com.yfbx.widgets.MainActivity">
@@ -17,8 +17,20 @@
         android:padding="10dp"
         android:text="张三"
         android:textColor="@color/colorPrimary"
-        app:alignLeft="true"
+        app:alignLeft="false"
         app:indicator="@mipmap/ic_arr_right"
+        app:title="姓名"
+        app:titleColor="@color/colorAccent" />
+
+    <com.yfbx.widgets.text.EditView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
+        android:padding="10dp"
+        android:textColor="@color/colorPrimary"
+        app:alignLeft="true"
+        app:indicator="@mipmap/ic_close"
         app:title="姓名"
         app:titleColor="@color/colorAccent" />
 

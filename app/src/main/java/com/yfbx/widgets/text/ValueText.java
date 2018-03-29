@@ -7,7 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Picture;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
@@ -33,6 +35,7 @@ public class ValueText extends TextView {
     private int titleColor;
     private String title;
     private Bitmap indicator;
+    private boolean showIndicator = true;
     private boolean isAlignLeft;
 
     public ValueText(Context context) {
@@ -120,6 +123,15 @@ public class ValueText extends TextView {
         this.indicator = indicator;
     }
 
+
+    public boolean isShowIndicator() {
+        return showIndicator;
+    }
+
+    public void setShowIndicator(boolean showIndicator) {
+        this.showIndicator = showIndicator;
+    }
+
     /**
      * 绘制
      */
@@ -139,7 +151,7 @@ public class ValueText extends TextView {
         canvas.drawText(title, left, top, paint);
 
         //indicator
-        if (indicator != null) {
+        if (indicator != null && showIndicator) {
             float imgH = indicator.getHeight();
             float imgW = indicator.getWidth();
             float imgLeft = width - imgW - getPaddingRight();
