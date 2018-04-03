@@ -2,12 +2,10 @@ package com.yfbx.widgets.text;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Rect;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.text.method.ArrowKeyMovementMethod;
 import android.text.method.MovementMethod;
 import android.util.AttributeSet;
@@ -22,10 +20,9 @@ import android.widget.TextView;
  */
 
 @SuppressLint("AppCompatCustomView")
-public class EditView extends ValueText implements TextWatcher {
+public class EditView extends ValueText {
 
-    private boolean showState;
-    private TextChangedListener listener;
+    private OnIconClickListener listener;
 
     public EditView(Context context) {
         this(context, null);
@@ -45,7 +42,6 @@ public class EditView extends ValueText implements TextWatcher {
      * 初始化
      */
     private void init() {
-        addTextChangedListener(this);
         setFocusable(true);
         setFocusableInTouchMode(true);
         setShowIndicator(false);
@@ -63,53 +59,24 @@ public class EditView extends ValueText implements TextWatcher {
             int imgW = getIndicator().getWidth();
             int left = getWidth() - imgW * 2;
             float rawX = event.getRawX();
-            if (rawX >= left) {
-                setText("");
+            if (rawX >= left && listener != null) {
+                listener.onClick();
             }
         }
         return super.onTouchEvent(event);
     }
 
-    @Override
-    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
-        super.onFocusChanged(focused, direction, previouslyFocusedRect);
-        if (!focused) {
-            setShowIndicator(false);
-            invalidate();
-        }
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        setInputType(getInputType());
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-        if (getIndicator() != null) {
-            setShowIndicator(s != null && s.length() > 0);
-            if (!showState && isShowIndicator()) {
-                invalidate();
-            }
-            showState = isShowIndicator();
-        }
-
-        if (listener != null) {
-            listener.afterTextChanged(s);
-        }
-    }
-
     /**
-     * 设置输入监听
+     * 图标点击事件
      */
-    public void setTextChangedListener(TextChangedListener listener) {
+    public void setOnIconClickListener(OnIconClickListener listener) {
         this.listener = listener;
     }
+
+    public interface OnIconClickListener {
+        void onClick();
+    }
+
 
     @Override
     public boolean getFreezesText() {
@@ -188,11 +155,5 @@ public class EditView extends ValueText implements TextWatcher {
         return EditText.class.getName();
     }
 
-    /**
-     * 输入监听
-     */
-    public interface TextChangedListener {
 
-        void afterTextChanged(Editable s);
-    }
 }

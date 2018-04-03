@@ -7,9 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Picture;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
@@ -95,41 +93,59 @@ public class ValueText extends TextView {
         return titleSize;
     }
 
-    public void setTitleSize(float titleSize) {
-        this.titleSize = titleSize;
-    }
-
     public int getTitleColor() {
         return titleColor;
-    }
-
-    public void setTitleColor(int titleColor) {
-        this.titleColor = titleColor;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public boolean isShowIndicator() {
+        return showIndicator;
     }
 
     public Bitmap getIndicator() {
         return indicator;
     }
 
+    /**
+     * 设置Title
+     */
+    public void setTitle(String title) {
+        this.title = title;
+        invalidate();
+    }
+
+    /**
+     * 设置Title尺寸
+     */
+    public void setTitleSize(float titleSize) {
+        this.titleSize = titleSize;
+        invalidate();
+    }
+
+    /**
+     * 设置Title颜色
+     */
+    public void setTitleColor(int titleColor) {
+        this.titleColor = titleColor;
+        invalidate();
+    }
+
+    /**
+     * 设置图标
+     */
     public void setIndicator(Bitmap indicator) {
         this.indicator = indicator;
+        invalidate();
     }
 
-
-    public boolean isShowIndicator() {
-        return showIndicator;
-    }
-
-    public void setShowIndicator(boolean showIndicator) {
-        this.showIndicator = showIndicator;
+    /**
+     * 是否显示图标
+     */
+    public void setShowIndicator(boolean enable) {
+        this.showIndicator = enable;
     }
 
     /**
@@ -137,18 +153,16 @@ public class ValueText extends TextView {
      */
     @Override
     protected void onDraw(Canvas canvas) {
-        if (title == null) {
-            return;
-        }
-
         //title
-        canvas.translate(0, height / 2);
-        paint.setColor(getTitleColor());
-        paint.setTextSize(getTitleSize());
-        Rect titleSize = getTextBounds(title);
-        float left = getPaddingLeft();
-        float top = -titleSize.exactCenterY();
-        canvas.drawText(title, left, top, paint);
+        if (title != null) {
+            canvas.translate(0, height / 2);
+            paint.setColor(getTitleColor());
+            paint.setTextSize(getTitleSize());
+            Rect titleSize = getTextBounds(title);
+            float left = getPaddingLeft();
+            float top = -titleSize.exactCenterY();
+            canvas.drawText(title, left, top, paint);
+        }
 
         //indicator
         if (indicator != null && showIndicator) {
@@ -179,7 +193,6 @@ public class ValueText extends TextView {
         }
         canvas.drawText(value, left, top, paint);
     }
-
 
     /**
      * 测量文字
