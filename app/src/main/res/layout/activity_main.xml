@@ -17,8 +17,7 @@
         android:padding="10dp"
         android:text="张三"
         android:textColor="@color/colorPrimary"
-        app:alignLeft="false"
-        app:indicator="@mipmap/ic_arr_right"
+        app:icon="@mipmap/ic_arr_right"
         app:title="姓名"
         app:titleColor="@color/colorAccent" />
 
@@ -29,8 +28,7 @@
         android:background="#FFFFFF"
         android:padding="10dp"
         android:textColor="@color/colorPrimary"
-        app:alignLeft="true"
-        app:indicator="@mipmap/ic_close"
+        app:icon="@mipmap/ic_close"
         app:title="姓名"
         app:titleColor="@color/colorAccent" />
 

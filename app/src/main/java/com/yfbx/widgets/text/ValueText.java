@@ -60,7 +60,7 @@ public class ValueText extends TextView {
         titleColor = array.getColor(R.styleable.ValueText_titleColor, 0xFF565656);
         titleSize = array.getDimension(R.styleable.ValueText_titleSize, getTextSize());
         isAlignLeft = array.getBoolean(R.styleable.ValueText_alignLeft, false);
-        indicator = BitmapFactory.decodeResource(getResources(), array.getResourceId(R.styleable.ValueText_indicator, 0));
+        indicator = BitmapFactory.decodeResource(getResources(), array.getResourceId(R.styleable.ValueText_icon, 0));
         array.recycle();
     }
 
@@ -85,9 +85,6 @@ public class ValueText extends TextView {
         height = h;
     }
 
-    public TextPaint getTextPaint() {
-        return paint;
-    }
 
     public float getTitleSize() {
         return titleSize;
@@ -182,12 +179,12 @@ public class ValueText extends TextView {
         }
         paint.setColor(getCurrentTextColor());
         paint.setTextSize(getTextSize());
-        Rect titleSize = getTextBounds(title);
         Rect rect = getTextBounds(value);
         float top = -rect.exactCenterY();
         float left = width - getPaddingRight() - rect.width();
         if (isAlignLeft) {
-            left = getPaddingLeft() + titleSize.width() + dp2px(8);
+            int titleWidth = title == null ? 0 : getTextBounds(title).width();
+            left = getPaddingLeft() + titleWidth + dp2px(8);
         } else {
             left = indicator == null ? left : left - indicator.getWidth();
         }
