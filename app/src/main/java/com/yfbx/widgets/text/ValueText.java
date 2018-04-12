@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ public class ValueText extends TextView {
     private Bitmap indicator;
     private boolean showIndicator = true;
     private boolean isAlignLeft;
+    private boolean showHint;
 
     public ValueText(Context context) {
         this(context, null);
@@ -73,6 +75,8 @@ public class ValueText extends TextView {
         paint.setTextSize(titleSize);
         paint.setStyle(Paint.Style.FILL);
         paint.setAntiAlias(true);
+
+        showHint = TextUtils.isEmpty(getText());
     }
 
     /**
@@ -169,15 +173,20 @@ public class ValueText extends TextView {
             canvas.drawBitmap(indicator, imgLeft, -imgH / 2, null);
         }
 
-        drawValue(canvas);
+        //text
+        if (!TextUtils.isEmpty(getText())) {
+            drawValue(canvas, getText().toString(), getCurrentTextColor());
+        }
+
+        //hint
+        if (showHint && !TextUtils.isEmpty(getHint())) {
+            drawValue(canvas, getHint().toString(), getCurrentHintTextColor());
+        }
+
     }
 
-    private void drawValue(Canvas canvas) {
-        String value = getText() == null ? null : getText().toString();
-        if (value == null) {
-            return;
-        }
-        paint.setColor(getCurrentTextColor());
+    private void drawValue(Canvas canvas, String value, int color) {
+        paint.setColor(color);
         paint.setTextSize(getTextSize());
         Rect rect = getTextBounds(value);
         float top = -rect.exactCenterY();
@@ -189,6 +198,19 @@ public class ValueText extends TextView {
             left = indicator == null ? left : left - indicator.getWidth();
         }
         canvas.drawText(value, left, top, paint);
+    }
+
+    @Override
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+        if (focused) {
+            showHint = false;
+        }
+
+        if (!focused && TextUtils.isEmpty(getText())) {
+            showHint = true;
+        }
+        invalidate();
     }
 
     /**
