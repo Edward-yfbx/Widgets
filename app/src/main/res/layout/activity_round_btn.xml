@@ -4,79 +4,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EEEEEE"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:paddingTop="10dp">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <com.yfbx.widgets.widgets.RoundBtn
+        android:id="@+id/rb1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:text="2"
+        app:centerColor="#FF8710F8"
+        app:endColor="#FFCB05FF"
+        app:startColor="#FF231EFB"
+        app:sub1="未处理"
+        app:sub2="异常" />
 
+    <com.yfbx.widgets.widgets.RoundBtn
+        android:id="@+id/rb2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="A"
+        app:bgColor="#3BE2C4"
+        app:sub1="20"
+        app:sub2="优秀" />
 
-        <com.yfbx.widgets.widgets.RoundBtn
-            android:id="@+id/rb1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="2"
-            app:centerColor="#FF8710F8"
-            app:endColor="#FFCB05FF"
-            app:startColor="#FF231EFB"
-            app:sub1="未处理"
-            app:sub2="异常" />
+    <com.yfbx.widgets.widgets.RoundBtn
+        android:id="@+id/rb3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="B"
+        app:bgColor="#BBFA77"
+        app:sub1="18"
+        app:sub2="优良" />
 
-        <com.yfbx.widgets.widgets.RoundBtn
-            android:id="@+id/rb2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="A"
-            app:bgColor="#3BE2C4"
-            app:sub1="20"
-            app:sub2="优秀" />
+    <com.yfbx.widgets.widgets.RoundBtn
+        android:id="@+id/rb4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="C"
+        app:bgColor="#FFBA23"
+        app:sub1="16"
+        app:sub2="良好" />
 
-        <com.yfbx.widgets.widgets.RoundBtn
-            android:id="@+id/rb3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="B"
-            app:bgColor="#BBFA77"
-            app:sub1="18"
-            app:sub2="优良" />
+    <com.yfbx.widgets.widgets.RoundBtn
+        android:id="@+id/rb5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="D"
+        app:bgColor="#FB833A"
+        app:sub1="10"
+        app:sub2="一般" />
 
-        <com.yfbx.widgets.widgets.RoundBtn
-            android:id="@+id/rb4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="C"
-            app:bgColor="#FFBA23"
-            app:sub1="16"
-            app:sub2="良好" />
-
-        <com.yfbx.widgets.widgets.RoundBtn
-            android:id="@+id/rb5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="D"
-            app:bgColor="#FB833A"
-            app:sub1="10"
-            app:sub2="一般" />
-
-        <com.yfbx.widgets.widgets.RoundBtn
-            android:id="@+id/rb6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="E"
-            app:bgColor="#F25C5D"
-            app:sub1="4"
-            app:sub2="较差" />
-
-    </LinearLayout>
+    <com.yfbx.widgets.widgets.RoundBtn
+        android:id="@+id/rb6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="E"
+        app:bgColor="#F25C5D"
+        app:sub1="4"
+        app:sub2="较差" />
 
 
 </LinearLayout>
