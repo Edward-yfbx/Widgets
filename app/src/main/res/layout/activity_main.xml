@@ -1,35 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EEEEEE"
-    android:orientation="vertical"
-    android:padding="10dp"
-    tools:context="com.yfbx.widgets.MainActivity">
+    android:orientation="vertical">
 
-    <com.yfbx.widgets.text.ValueText
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="#FFFFFF"
-        android:padding="10dp"
-        android:text="张三"
-        android:textColor="@color/colorPrimary"
-        app:icon="@mipmap/ic_arr_right"
-        app:title="姓名"
-        app:titleColor="@color/colorAccent" />
+        android:orientation="horizontal">
 
-    <com.yfbx.widgets.text.EditView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#FFFFFF"
-        android:padding="10dp"
-        android:textColor="@color/colorPrimary"
-        app:icon="@mipmap/ic_close"
-        app:title="姓名"
-        app:titleColor="@color/colorAccent" />
+
+        <com.yfbx.widgets.RoundBtn
+            android:id="@+id/rb1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:centerColor="#FF8710F8"
+            app:endColor="#FFCB05FF"
+            app:name="2"
+            app:startColor="#FF231EFB"
+            app:sub1="未处理"
+            app:sub2="异常" />
+
+        <com.yfbx.widgets.RoundBtn
+            android:id="@+id/rb2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:bgColor="#3BE2C4"
+            app:name="A"
+            app:sub1="20"
+            app:sub2="优秀" />
+
+        <com.yfbx.widgets.RoundBtn
+            android:id="@+id/rb3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:bgColor="#BBFA77"
+            app:name="B"
+            app:sub1="18"
+            app:sub2="优良" />
+
+        <com.yfbx.widgets.RoundBtn
+            android:id="@+id/rb4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:bgColor="#FFBA23"
+            app:name="C"
+            app:sub1="16"
+            app:sub2="良好" />
+
+        <com.yfbx.widgets.RoundBtn
+            android:id="@+id/rb5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:bgColor="#FB833A"
+            app:name="D"
+            app:sub1="10"
+            app:sub2="一般" />
+
+        <com.yfbx.widgets.RoundBtn
+            android:id="@+id/rb6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:bgColor="#F25C5D"
+            app:name="E"
+            app:sub1="4"
+            app:sub2="较差" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

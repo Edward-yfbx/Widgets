@@ -9,4 +9,19 @@
         <attr name="alignLeft" format="boolean" />
     </declare-styleable>
 
+
+    <declare-styleable name="RoundBtn">
+        <attr name="checked" format="boolean" />
+        <attr name="name" format="string" />
+        <attr name="nameSize" format="dimension" />
+        <attr name="subSize" format="dimension" />
+        <attr name="sub1" format="string" />
+        <attr name="sub2" format="string" />
+        <attr name="bgColor" format="color" />
+        <attr name="subColor" format="color" />
+        <attr name="startColor" format="color" />
+        <attr name="centerColor" format="color" />
+        <attr name="endColor" format="color" />
+    </declare-styleable>
+
 </resources>
