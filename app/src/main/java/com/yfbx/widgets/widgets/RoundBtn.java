@@ -1,4 +1,4 @@
-package com.yfbx.widgets;
+package com.yfbx.widgets.widgets;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -15,6 +15,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewParent;
 import android.widget.LinearLayout;
+
+import com.yfbx.widgets.R;
 
 /**
  * Author:Edward
@@ -64,17 +66,20 @@ public class RoundBtn extends View {
     private void getAttr(Context context, @Nullable AttributeSet attrs) {
         this.context = context;
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.RoundBtn);
+        checked = array.getBoolean(R.styleable.RoundBtn_android_checked, false);
         bgColor = array.getColor(R.styleable.RoundBtn_bgColor, Color.WHITE);
-        subColor = array.getColor(R.styleable.RoundBtn_subColor, 0xFF333333);
         startColor = array.getColor(R.styleable.RoundBtn_startColor, bgColor);
         centerColor = array.getColor(R.styleable.RoundBtn_centerColor, bgColor);
         endColor = array.getColor(R.styleable.RoundBtn_endColor, bgColor);
-        checked = array.getBoolean(R.styleable.RoundBtn_checked, false);
-        title = array.getString(R.styleable.RoundBtn_name);
-        titleSize = array.getDimension(R.styleable.RoundBtn_nameSize, sp2px(20));
-        subSize = array.getDimension(R.styleable.RoundBtn_subSize, sp2px(12));
+
+        title = array.getString(R.styleable.RoundBtn_android_text);
+        titleSize = array.getDimension(R.styleable.RoundBtn_android_textSize, sp2px(20));
+
         sub1 = array.getString(R.styleable.RoundBtn_sub1);
         sub2 = array.getString(R.styleable.RoundBtn_sub2);
+        subColor = array.getColor(R.styleable.RoundBtn_subColor, 0xFF333333);
+        subSize = array.getDimension(R.styleable.RoundBtn_subSize, sp2px(12));
+
         array.recycle();
     }
 

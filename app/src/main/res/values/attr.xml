@@ -9,16 +9,26 @@
         <attr name="alignLeft" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="EditView">
+        <attr name="title" />
+        <attr name="titleColor" />
+        <attr name="titleSize" />
+        <attr name="icon" />
+        <attr name="alignLeft" />
+    </declare-styleable>
+
 
     <declare-styleable name="RoundBtn">
-        <attr name="checked" format="boolean" />
-        <attr name="name" format="string" />
-        <attr name="nameSize" format="dimension" />
-        <attr name="subSize" format="dimension" />
+        <attr name="android:checked" />
+        <attr name="android:text" />
+        <attr name="android:textSize" />
+
         <attr name="sub1" format="string" />
         <attr name="sub2" format="string" />
-        <attr name="bgColor" format="color" />
+        <attr name="subSize" format="dimension" />
         <attr name="subColor" format="color" />
+
+        <attr name="bgColor" format="color" />
         <attr name="startColor" format="color" />
         <attr name="centerColor" format="color" />
         <attr name="endColor" format="color" />

@@ -1,28 +1,36 @@
-package com.yfbx.widgets;
+package com.yfbx.widgets.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements RoundBtn.OnCheckChangeListener {
+import com.yfbx.widgets.R;
+import com.yfbx.widgets.widgets.RoundBtn;
 
+import butterknife.BindView;
+
+/**
+ * Author:Edward
+ * Date:2018/4/12
+ * Description:
+ */
+
+public class RoundBtnActivity extends BaseActivity implements RoundBtn.OnCheckChangeListener {
+
+    @BindView(R.id.rb1)
     RoundBtn rb1;
+    @BindView(R.id.rb2)
     RoundBtn rb2;
+    @BindView(R.id.rb3)
     RoundBtn rb3;
-    RoundBtn rb5;
-    RoundBtn rb6;
+    @BindView(R.id.rb4)
     RoundBtn rb4;
+    @BindView(R.id.rb5)
+    RoundBtn rb5;
+    @BindView(R.id.rb6)
+    RoundBtn rb6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        rb1 = findViewById(R.id.rb1);
-        rb2 = findViewById(R.id.rb2);
-        rb3 = findViewById(R.id.rb3);
-        rb4 = findViewById(R.id.rb4);
-        rb5 = findViewById(R.id.rb5);
-        rb6 = findViewById(R.id.rb6);
 
         rb1.setOnCheckChangeListener(this);
         rb2.setOnCheckChangeListener(this);
@@ -32,6 +40,11 @@ public class MainActivity extends AppCompatActivity implements RoundBtn.OnCheckC
         rb6.setOnCheckChangeListener(this);
         rb6.setOnCheckChangeListener(this);
 
+    }
+
+    @Override
+    public int attachLayout() {
+        return R.layout.activity_round_btn;
     }
 
     /**

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <com.yfbx.widgets.widgets.ValueText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:text="张三"
+        android:textColor="@color/colorAccent"
+        app:alignLeft="true"
+        app:title="姓名:"
+        app:titleColor="@color/colorPrimary"
+        app:titleSize="16sp" />
+
+    <com.yfbx.widgets.widgets.ValueText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:text="张三"
+        android:textColor="@color/colorAccent"
+        app:title="姓名"
+        app:titleColor="@color/colorPrimary"
+        app:titleSize="16sp" />
+
+
+    <com.yfbx.widgets.widgets.ValueText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:padding="10dp"
+        app:icon="@mipmap/ic_arr_right"
+        app:title="设置"
+        app:titleColor="@color/colorPrimary"
+        app:titleSize="16sp" />
+
+    <com.yfbx.widgets.widgets.ValueText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:text="@string/app_name"
+        app:icon="@mipmap/ic_arr_right"
+        app:title="修改"
+        app:titleColor="@color/colorPrimary"
+        app:titleSize="16sp" />
+
+
+    <com.yfbx.widgets.widgets.EditView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:hint="请输入姓名"
+        android:padding="10dp"
+        app:alignLeft="true"
+        app:title="姓名:"
+        app:titleColor="@color/colorPrimary"
+        app:titleSize="16sp" />
+
+    <com.yfbx.widgets.widgets.EditView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:hint="请输入姓名"
+        android:padding="10dp"
+        app:title="姓名"
+        app:titleColor="@color/colorPrimary"
+        app:titleSize="16sp" />
+
+    <com.yfbx.widgets.widgets.EditView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:hint="请输入姓名"
+        android:padding="10dp"
+        app:icon="@mipmap/ic_close"
+        app:title="姓名"
+        app:titleColor="@color/colorPrimary"
+        app:titleSize="16sp" />
+
+    <com.yfbx.widgets.widgets.ClearEdit
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:hint="请输入账号"
+        android:padding="10dp" />
+
+</LinearLayout>

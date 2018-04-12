@@ -1,4 +1,4 @@
-package com.yfbx.widgets.text;
+package com.yfbx.widgets.widgets;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -59,12 +59,12 @@ public class EditView extends EditText {
      */
     private void getAttr(Context context, AttributeSet attrs) {
         this.context = context;
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.ValueText);
-        title = array.getString(R.styleable.ValueText_title);
-        titleColor = array.getColor(R.styleable.ValueText_titleColor, 0xFF565656);
-        titleSize = array.getDimension(R.styleable.ValueText_titleSize, getTextSize());
-        isAlignLeft = array.getBoolean(R.styleable.ValueText_alignLeft, false);
-        indicator = BitmapFactory.decodeResource(getResources(), array.getResourceId(R.styleable.ValueText_icon, 0));
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.EditView);
+        title = array.getString(R.styleable.EditView_title);
+        titleColor = array.getColor(R.styleable.EditView_titleColor, 0xFF565656);
+        titleSize = array.getDimension(R.styleable.EditView_titleSize, getTextSize());
+        isAlignLeft = array.getBoolean(R.styleable.EditView_alignLeft, false);
+        indicator = BitmapFactory.decodeResource(getResources(), array.getResourceId(R.styleable.EditView_icon, 0));
         array.recycle();
     }
 
@@ -82,6 +82,7 @@ public class EditView extends EditText {
         showHint = TextUtils.isEmpty(getText());
         setFocusable(true);
         setFocusableInTouchMode(true);
+        setCursorVisible(true);
     }
 
     /**

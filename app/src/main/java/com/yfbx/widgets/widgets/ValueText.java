@@ -1,4 +1,4 @@
-package com.yfbx.widgets.text;
+package com.yfbx.widgets.widgets;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
