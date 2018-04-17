@@ -28,7 +28,6 @@ public class RoundBtn extends View {
 
     private String title;
     private float titleSize;
-    private float adjust;
     private float subSize;
     private String sub1;
     private String sub2;
@@ -44,6 +43,7 @@ public class RoundBtn extends View {
     private Paint paint;
     private float height;
     private float width;
+    private float radius;//圆半径
     private OnCheckChangeListener checkListener;
     @Nullable
     private OnClickListener clickListener;
@@ -110,21 +110,15 @@ public class RoundBtn extends View {
         if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY) {
             height = MeasureSpec.getSize(heightMeasureSpec);
         } else {
-            height = computeHeight();
+            height = width * 1.5f;
         }
         setMeasuredDimension((int) width, (int) height);//存在精度损失
     }
 
-
-    /**
-     * 测量高度
-     */
-    private float computeHeight() {
-        float d = width / 3 * 2;//大圆直径；
-        paint.setTextSize(subSize);
-        float textH = getTextBounds(sub1).height() * 2;//副标题高度X2
-        float margin = width / 3;
-        return d + textH + margin;
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        radius = width / 3;
     }
 
 
@@ -134,7 +128,7 @@ public class RoundBtn extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.translate(width / 2, height / 2);
+        canvas.translate(width / 2, 0);
         drawCircle(canvas);
         if (!TextUtils.isEmpty(title)) {
             drawTitle(canvas);
@@ -151,11 +145,8 @@ public class RoundBtn extends View {
      * 绘制背景圆
      */
     private void drawCircle(Canvas canvas) {
-        float cx = 0;
-        float cy = checked ? 0 : -height / 4;
-        float radius = checked ? width / 3 : width / 4;
-        paint.setShader(new LinearGradient(cx + radius, cy + radius, cx - radius, cy - radius, gradient, null, Shader.TileMode.CLAMP));
-        canvas.drawCircle(cx, cy, radius, paint);
+        paint.setShader(new LinearGradient(radius, radius * 2, -radius, 0, gradient, null, Shader.TileMode.CLAMP));
+        canvas.drawCircle(0, radius, radius, paint);
         paint.setShader(null);
     }
 
@@ -168,7 +159,7 @@ public class RoundBtn extends View {
         paint.setTextSize(titleSize);
         Rect rect = getTextBounds(title);
         float left = -rect.width() / 2;
-        float top = -rect.exactCenterY() - height / 4 + adjust;
+        float top = checked ? rect.height() + dp2px(8) : rect.height() / 2 + radius;
         canvas.drawText(title, left, top, paint);
     }
 
@@ -180,7 +171,7 @@ public class RoundBtn extends View {
         paint.setTextSize(subSize);
         Rect rect = getTextBounds(sub1);
         float left = -rect.width() / 2;
-        float top = rect.exactCenterY() + height / 5;
+        float top = checked ? radius + rect.height() : radius * 2 + rect.height() + dp2px(4);
         canvas.drawText(sub1, left, top, paint);
     }
 
@@ -192,7 +183,7 @@ public class RoundBtn extends View {
         paint.setTextSize(subSize);
         Rect rect = getTextBounds(sub2);
         float left = -rect.width() / 2;
-        float top = rect.exactCenterY() + height / 2.5f;
+        float top = checked ? radius * 2 - rect.height() : radius * 4 - rect.height() / 2;
         canvas.drawText(sub2, left, top, paint);
     }
 
@@ -295,12 +286,6 @@ public class RoundBtn extends View {
 
     public void setTitleSize(float titleSize) {
         this.titleSize = sp2px(titleSize);
-        invalidate();
-    }
-
-    public void setTitleSize(float titleSize, float adjust) {
-        this.titleSize = sp2px(titleSize);
-        this.adjust = dp2px(adjust);
         invalidate();
     }
 

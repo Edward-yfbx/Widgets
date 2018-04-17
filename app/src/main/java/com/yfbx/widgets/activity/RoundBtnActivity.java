@@ -58,9 +58,7 @@ public class RoundBtnActivity extends BaseActivity implements RoundBtn.OnCheckCh
 
     @Override
     public void onCheckChange(RoundBtn btn, boolean isChecked) {
-        float size = isChecked ? 28 : 20;
-        float adjust = isChecked ? 4 : 0;
-        btn.setTitleSize(size, adjust);
+        btn.setTitleSize(isChecked ? 28 : 20);
     }
 
 }
