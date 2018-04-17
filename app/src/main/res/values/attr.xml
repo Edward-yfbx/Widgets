@@ -34,4 +34,14 @@
         <attr name="endColor" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="TabView">
+        <attr name="android:text" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="android:checked" />
+        <attr name="android:drawablePadding" />
+        <attr name="checkImg" format="reference" />
+        <attr name="unCheckImg" format="reference" />
+    </declare-styleable>
+
 </resources>
