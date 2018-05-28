@@ -32,13 +32,6 @@ public class RoundBtnActivity extends BaseActivity implements RoundBtn.OnCheckCh
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        rb1.setOnCheckChangeListener(this);
-        rb2.setOnCheckChangeListener(this);
-        rb3.setOnCheckChangeListener(this);
-        rb4.setOnCheckChangeListener(this);
-        rb5.setOnCheckChangeListener(this);
-        rb6.setOnCheckChangeListener(this);
-        rb6.setOnCheckChangeListener(this);
 
     }
 
@@ -53,7 +46,7 @@ public class RoundBtnActivity extends BaseActivity implements RoundBtn.OnCheckCh
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        rb1.setChecked(true);
+//        rb1.setChecked(true);
     }
 
     @Override

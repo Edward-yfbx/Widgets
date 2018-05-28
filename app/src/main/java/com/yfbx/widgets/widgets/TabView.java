@@ -34,7 +34,6 @@ public class TabView extends View implements Checkable {
     private Bitmap bitmap;
     private String text;
     private float textSize;
-    private int textColor;
     private ColorStateList colorStateList;
     private float drawablePadding;
     private TextPaint textPaint;
@@ -44,14 +43,6 @@ public class TabView extends View implements Checkable {
     private Bitmap normalImg;
     private float maxImgHeight;
     private OnClickListener clickListener;
-
-    /**
-     * 默认值
-     */
-    private int DEFAULT_TEXT_COLOR = Color.BLACK;//文字颜色
-    private float DEFAULT_TEXT_SIZE = 24;//文字大小
-    private float DEFAULT_DRAWABLE_PADDING = 8;//图文间距
-//    private float PADDING = 16;//留白
 
     private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
 
@@ -79,9 +70,8 @@ public class TabView extends View implements Checkable {
         checked = array.getBoolean(R.styleable.TabView_android_checked, false);
         text = array.getString(R.styleable.TabView_android_text);
         colorStateList = array.getColorStateList(R.styleable.TabView_android_textColor);
-        textColor = colorStateList == null ? Color.BLACK : colorStateList.getColorForState(getDrawableState(), colorStateList.getDefaultColor());
-        textSize = array.getDimension(R.styleable.TabView_android_textSize, DEFAULT_TEXT_SIZE);
-        drawablePadding = array.getDimension(R.styleable.TabView_android_drawablePadding, DEFAULT_DRAWABLE_PADDING);
+        textSize = array.getDimension(R.styleable.TabView_android_textSize, sp2px(14));
+        drawablePadding = array.getDimension(R.styleable.TabView_android_drawablePadding, dp2px(8));
         checkImg = BitmapFactory.decodeResource(getResources(), array.getResourceId(R.styleable.TabView_checkImg, 0));
         normalImg = BitmapFactory.decodeResource(getResources(), array.getResourceId(R.styleable.TabView_unCheckImg, 0));
         bitmap = checked ? checkImg : normalImg;
@@ -95,7 +85,6 @@ public class TabView extends View implements Checkable {
         textPaint.setStyle(Paint.Style.FILL);
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(textSize);
-        textPaint.setColor(textColor);
     }
 
 
@@ -106,13 +95,13 @@ public class TabView extends View implements Checkable {
         Rect textSize = getTextBounds();
 
         switch (MeasureSpec.getMode(heightMeasureSpec)) {
-            case MeasureSpec.UNSPECIFIED:
-                break;
+
             case MeasureSpec.EXACTLY://match_parent/具体数值
                 width = MeasureSpec.getSize(widthMeasureSpec);
                 height = MeasureSpec.getSize(heightMeasureSpec);
                 reSizeText();
                 break;
+            case MeasureSpec.UNSPECIFIED:
             case MeasureSpec.AT_MOST://wrap_content
                 width = Math.max(textSize.width(), bitmap.getWidth());
                 height = bitmap.getHeight() + textSize.height() + drawablePadding;
@@ -181,11 +170,14 @@ public class TabView extends View implements Checkable {
         canvas.translate(textLeft, textTop);
 
         //设置文字画笔颜色
-        textColor = colorStateList == null ? DEFAULT_TEXT_COLOR : colorStateList.getColorForState(getDrawableState(), colorStateList.getDefaultColor());
-        textPaint.setColor(textColor);
+        textPaint.setColor(getTextColor());
         //绘制文字
         canvas.drawText(text, 0, 0, textPaint);
 
+    }
+
+    public int getTextColor() {
+        return colorStateList == null ? Color.BLACK : colorStateList.getColorForState(getDrawableState(), colorStateList.getDefaultColor());
     }
 
     /**
@@ -267,6 +259,14 @@ public class TabView extends View implements Checkable {
     private float dp2px(float value) {
         float scale = context.getResources().getDisplayMetrics().density;
         return value * scale + 0.5f;
+    }
+
+    /**
+     * sp转换成px
+     */
+    protected float sp2px(float spValue) {
+        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return spValue * fontScale + 0.5f;
     }
 
 }

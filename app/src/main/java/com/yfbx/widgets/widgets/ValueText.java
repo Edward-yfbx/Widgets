@@ -1,42 +1,59 @@
 package com.yfbx.widgets.widgets;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
-import android.text.TextPaint;
-import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.widget.TextView;
+import android.view.View;
 
 import com.yfbx.widgets.R;
 
 /**
  * Author:Edward
- * Date:2018/3/15
+ * Date:2018/5/25
  * Description:
  */
 
-@SuppressLint("AppCompatCustomView")
-public class ValueText extends TextView {
+public class ValueText extends View {
 
     private Context context;
-    private int height;
-    private int width;
+    private Paint paint;
 
-    private TextPaint paint;
-    private float titleSize;
-    private int titleColor;
+    /**
+     * 文字尺寸
+     */
+    private Rect titleRect;
+    private Rect textRect;
+    /**
+     * textAlign 常量
+     */
+    public static final int ALIGN_LEFT = 0;
+    public static final int ALIGN_RIGHT = 1;
+
+    /**
+     * View尺寸
+     */
+    private float width;
+    private float height;
+    /**
+     * View属性
+     */
+    private String text;
     private String title;
-    private Bitmap indicator;
-    private boolean showIndicator = true;
-    private boolean isAlignLeft;
-    private boolean showHint;
+    private int textColor;
+    private int titleColor;
+    private float textSize;
+    private float titleSize;
+    private Drawable drawableLeft;
+    private Drawable drawableRight;
+    private float drawablePadding;
+    private int textAlign;
+
 
     public ValueText(Context context) {
         this(context, null);
@@ -58,168 +75,306 @@ public class ValueText extends TextView {
     private void getAttr(Context context, AttributeSet attrs) {
         this.context = context;
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.ValueText);
+        text = array.getString(R.styleable.ValueText_android_text);
         title = array.getString(R.styleable.ValueText_title);
-        titleColor = array.getColor(R.styleable.ValueText_titleColor, 0xFF565656);
-        titleSize = array.getDimension(R.styleable.ValueText_titleSize, getTextSize());
-        isAlignLeft = array.getBoolean(R.styleable.ValueText_alignLeft, false);
-        indicator = BitmapFactory.decodeResource(getResources(), array.getResourceId(R.styleable.ValueText_icon, 0));
+        textColor = array.getColor(R.styleable.ValueText_android_textColor, Color.GRAY);
+        titleColor = array.getColor(R.styleable.ValueText_titleColor, Color.GRAY);
+        textSize = array.getDimension(R.styleable.ValueText_android_textSize, sp2px(14));
+        titleSize = array.getDimension(R.styleable.ValueText_titleSize, sp2px(14));
+        drawableLeft = array.getDrawable(R.styleable.ValueText_android_drawableLeft);
+        drawableRight = array.getDrawable(R.styleable.ValueText_android_drawableRight);
+        drawablePadding = array.getDimension(R.styleable.ValueText_android_drawablePadding, dp2px(8));
+        textAlign = array.getInt(R.styleable.ValueText_textAlign, ALIGN_LEFT);
         array.recycle();
     }
+
 
     /**
      * 初始化
      */
     private void init() {
-        paint = new TextPaint();
-        paint.setColor(titleColor);
-        paint.setTextSize(titleSize);
+        paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
-        paint.setAntiAlias(true);
+        textRect = new Rect();
+        titleRect = new Rect();
+    }
 
-        showHint = TextUtils.isEmpty(getText());
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        //width
+        if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY) {
+            width = MeasureSpec.getSize(widthMeasureSpec);
+        } else {
+            width = measureWidth();
+        }
+
+        //height
+        if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY) {
+            height = MeasureSpec.getSize(heightMeasureSpec);
+        } else {
+            height = measureHeight();
+        }
+        setMeasuredDimension((int) width, (int) height);//存在精度损失
     }
 
     /**
-     * 尺寸
+     * 计算宽度
      */
+    private float measureWidth() {
+        float measureWidth = 0;
+        //测量title宽度
+        if (title != null) {
+            paint.setTextSize(titleSize);
+            paint.getTextBounds(title, 0, title.length(), titleRect);
+            measureWidth = titleRect.width();
+        }
+        //测量text宽度
+        if (text != null) {
+            paint.setTextSize(textSize);
+            paint.getTextBounds(text, 0, text.length(), textRect);
+            measureWidth = measureWidth + textRect.width();
+        }
+        //drawableLeft
+        if (drawableLeft != null) {
+            measureWidth = measureWidth + drawableLeft.getIntrinsicWidth() + drawablePadding;
+        }
+        //drawableRight
+        if (drawableRight != null) {
+            measureWidth = measureWidth + drawableRight.getIntrinsicWidth() + drawablePadding;
+        }
+        return measureWidth + getPaddingLeft() + getPaddingRight();
+    }
+
+    /**
+     * 计算高度
+     */
+    private float measureHeight() {
+        float measureHeight = 0;
+        //测量title高度
+        if (title != null) {
+            paint.setTextSize(titleSize);
+            paint.getTextBounds(title, 0, title.length(), titleRect);
+            measureHeight = titleRect.height();
+        }
+        //测量text高度
+        if (text != null) {
+            paint.setTextSize(textSize);
+            paint.getTextBounds(text, 0, text.length(), textRect);
+            measureHeight = Math.max(measureHeight, textRect.height());
+        }
+        //drawableLeft
+        if (drawableLeft != null) {
+            measureHeight = Math.max(measureHeight, drawableLeft.getIntrinsicHeight());
+        }
+        //drawableRight
+        if (drawableRight != null) {
+            measureHeight = Math.max(measureHeight, drawableRight.getIntrinsicHeight());
+        }
+        return measureHeight + getPaddingTop() + getPaddingBottom();
+    }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         width = w;
         height = h;
+
+        //title尺寸
+        if (title != null) {
+            paint.setTextSize(titleSize);
+            paint.getTextBounds(title, 0, title.length(), titleRect);
+        }
+        //text尺寸
+        if (text != null) {
+            paint.setTextSize(textSize);
+            paint.getTextBounds(text, 0, text.length(), textRect);
+        }
     }
 
 
-    public float getTitleSize() {
-        return titleSize;
+    @Override
+    protected void onDraw(Canvas canvas) {
+        canvas.translate(0, height / 2);
+
+        //drawableLeft
+        if (drawableLeft != null) {
+            drawableLeft.setBounds(getPaddingLeft(), -drawableLeft.getIntrinsicHeight() / 2, getPaddingLeft() + drawableLeft.getIntrinsicWidth(), drawableLeft.getIntrinsicHeight() / 2);
+            drawableLeft.draw(canvas);
+        }
+
+        //drawableRight
+        if (drawableRight != null) {
+            drawableRight.setBounds((int) (width - getPaddingRight() - drawableRight.getIntrinsicWidth()), -drawableRight.getIntrinsicHeight() / 2, (int) (width - getPaddingRight()), drawableRight.getIntrinsicHeight() / 2);
+            drawableRight.draw(canvas);
+        }
+
+        //title
+        if (title != null) {
+            paint.setTextSize(titleSize);
+            paint.setColor(titleColor);
+            float left = drawableLeft == null ? getPaddingLeft() : getPaddingLeft() + drawableLeft.getIntrinsicWidth() + drawablePadding;
+            canvas.drawText(title, left, -titleRect.exactCenterY(), paint);
+        }
+
+        //text
+        if (text != null) {
+            drawText(canvas);
+        }
+
     }
 
-    public int getTitleColor() {
-        return titleColor;
+
+    /**
+     * 绘制 text
+     */
+    private void drawText(Canvas canvas) {
+        paint.setTextSize(textSize);
+        paint.setColor(textColor);
+
+        //最大可用宽度
+        float maxWidth = width - getPaddingLeft() - getPaddingRight() - drawablePadding;
+        if (drawableLeft != null) {
+            maxWidth = maxWidth - drawableLeft.getIntrinsicWidth() - drawablePadding;
+        }
+        if (drawableRight != null) {
+            maxWidth = maxWidth - drawableRight.getIntrinsicWidth() - drawablePadding;
+        }
+        if (title != null) {
+            maxWidth = maxWidth - titleRect.width() - drawablePadding;
+        }
+
+        //超过最大可用宽度，截取文字
+        subText(maxWidth);
+
+        //靠左
+        if (textAlign == ALIGN_LEFT) {
+            float left = getPaddingLeft();
+            if (drawableLeft != null) {
+                left = left + drawableLeft.getIntrinsicWidth() + drawablePadding;
+            }
+            if (title != null) {
+                left = left + titleRect.width() + drawablePadding;
+            }
+            canvas.drawText(text, left, -textRect.exactCenterY(), paint);
+        }
+
+        //靠右
+        if (textAlign == ALIGN_RIGHT) {
+            float left = width - getPaddingRight() - textRect.width() - drawablePadding;
+            if (drawableRight != null) {
+                left = left - drawableRight.getIntrinsicWidth();
+            }
+            canvas.drawText(text, left, -textRect.exactCenterY(), paint);
+        }
+    }
+
+
+    /**
+     * 超过最大可用宽度，截取文字
+     */
+    private String subText(float maxWidth) {
+        if (textRect.width() < maxWidth) {
+            return text;
+        }
+        while (textRect.width() > maxWidth) {
+            text = text.substring(0, text.length() - 1);
+            paint.getTextBounds(text, 0, text.length(), textRect);
+        }
+        text = text.substring(0, text.length() - 1) + "...";
+        return text;
+    }
+
+
+    public void setText(String text) {
+        this.text = text;
+        invalidate();
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+        invalidate();
+    }
+
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
+        invalidate();
+    }
+
+    public void setTitleColor(int titleColor) {
+        this.titleColor = titleColor;
+        invalidate();
+    }
+
+    public void setTextSize(float textSize) {
+        this.textSize = textSize;
+        invalidate();
+    }
+
+    public void setTitleSize(float titleSize) {
+        this.titleSize = titleSize;
+        invalidate();
+    }
+
+    public void setDrawableLeft(Drawable drawableLeft) {
+        this.drawableLeft = drawableLeft;
+        invalidate();
+    }
+
+    public void setDrawableRight(Drawable drawableRight) {
+        this.drawableRight = drawableRight;
+        invalidate();
+    }
+
+    public void setDrawablePadding(float drawablePadding) {
+        this.drawablePadding = drawablePadding;
+        invalidate();
+    }
+
+    public void setTextAlign(int textAlign) {
+        this.textAlign = textAlign;
+        invalidate();
+    }
+
+    public String getText() {
+        return text;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public boolean isShowIndicator() {
-        return showIndicator;
+    public int getTextColor() {
+        return textColor;
     }
 
-    public Bitmap getIndicator() {
-        return indicator;
+    public int getTitleColor() {
+        return titleColor;
     }
 
-    /**
-     * 设置Title
-     */
-    public void setTitle(String title) {
-        this.title = title;
-        invalidate();
+    public float getTextSize() {
+        return textSize;
     }
 
-    /**
-     * 设置Title尺寸
-     */
-    public void setTitleSize(float titleSize) {
-        this.titleSize = titleSize;
-        invalidate();
+    public float getTitleSize() {
+        return titleSize;
     }
 
-    /**
-     * 设置Title颜色
-     */
-    public void setTitleColor(int titleColor) {
-        this.titleColor = titleColor;
-        invalidate();
+    public Drawable getDrawableLeft() {
+        return drawableLeft;
     }
 
-    /**
-     * 设置图标
-     */
-    public void setIndicator(Bitmap indicator) {
-        this.indicator = indicator;
-        invalidate();
+    public Drawable getDrawableRight() {
+        return drawableRight;
     }
 
-    /**
-     * 是否显示图标
-     */
-    public void setShowIndicator(boolean enable) {
-        this.showIndicator = enable;
+    public float getDrawablePadding() {
+        return drawablePadding;
     }
 
-    /**
-     * 绘制
-     */
-    @Override
-    protected void onDraw(Canvas canvas) {
-        //title
-        if (title != null) {
-            canvas.translate(0, height / 2);
-            paint.setColor(getTitleColor());
-            paint.setTextSize(getTitleSize());
-            Rect titleSize = getTextBounds(title);
-            float left = getPaddingLeft();
-            float top = -titleSize.exactCenterY();
-            canvas.drawText(title, left, top, paint);
-        }
-
-        //indicator
-        if (indicator != null && showIndicator) {
-            float imgH = indicator.getHeight();
-            float imgW = indicator.getWidth();
-            float imgLeft = width - imgW - getPaddingRight();
-            canvas.drawBitmap(indicator, imgLeft, -imgH / 2, null);
-        }
-
-        //text
-        if (!TextUtils.isEmpty(getText())) {
-            drawValue(canvas, getText().toString(), getCurrentTextColor());
-        }
-
-        //hint
-        if (showHint && !TextUtils.isEmpty(getHint())) {
-            drawValue(canvas, getHint().toString(), getCurrentHintTextColor());
-        }
-
-    }
-
-    private void drawValue(Canvas canvas, String value, int color) {
-        paint.setColor(color);
-        paint.setTextSize(getTextSize());
-        Rect rect = getTextBounds(value);
-        float top = -rect.exactCenterY();
-        float left = width - getPaddingRight() - rect.width();
-        if (isAlignLeft) {
-            int titleWidth = title == null ? 0 : getTextBounds(title).width();
-            left = getPaddingLeft() + titleWidth + dp2px(8);
-        } else {
-            left = indicator == null ? left : left - indicator.getWidth();
-        }
-        canvas.drawText(value, left, top, paint);
-    }
-
-    @Override
-    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
-        super.onFocusChanged(focused, direction, previouslyFocusedRect);
-        if (focused) {
-            showHint = false;
-        }
-
-        if (!focused && TextUtils.isEmpty(getText())) {
-            showHint = true;
-        }
-        invalidate();
-    }
-
-    /**
-     * 测量文字
-     */
-    protected Rect getTextBounds(String text) {
-        Rect rect = new Rect();
-        paint.getTextBounds(text, 0, text.length(), rect);
-        return rect;
+    public int getTextAlign() {
+        return textAlign;
     }
 
     /**
@@ -237,4 +392,6 @@ public class ValueText extends TextView {
         float scale = context.getResources().getDisplayMetrics().density;
         return value * scale + 0.5f;
     }
+
+
 }

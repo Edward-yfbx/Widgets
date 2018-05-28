@@ -17,6 +17,7 @@
         </activity>
         <activity android:name=".activity.RoundBtnActivity" />
         <activity android:name=".activity.TextActivity" />
+        <!--<activity android:name=".activity.LabelActivity" />-->
     </application>
 
 </manifest>
