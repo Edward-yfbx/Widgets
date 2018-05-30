@@ -10,22 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:drawableLeft="@mipmap/ic_close"
-        android:drawableRight="@mipmap/ic_close"
-        android:padding="10dp"
-        android:text="ValueValueValueValueValueValueValueValueValueValueValue"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        app:textAlign="right"
-        app:title="Name"
-        app:titleColor="@color/colorPrimary"
-        app:titleSize="18sp" />
-
-    <com.yfbx.widgets.widgets.ValueText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
         android:padding="10dp"
         android:text="张三"
         android:textColor="@color/colorAccent"
@@ -65,7 +49,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:background="@color/white"
-        android:drawableRight="@mipmap/ic_arr_right"
+        android:padding="10dp"
+        android:text="张三张三张三张三张三张三张三张三张三张三张三张三张三张三"
+        android:textColor="@color/colorAccent"
+        app:textAlign="left"
+        app:title="姓名"
+        app:titleColor="@color/colorPrimary"
+        app:titleSize="16sp" />
+
+    <com.yfbx.widgets.widgets.ValueText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
         android:padding="10dp"
         android:text="张三张三张三张三张三张三张三张三张三张三张三张三张三张三"
         android:textColor="@color/colorAccent"
