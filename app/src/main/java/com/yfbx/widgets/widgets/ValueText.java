@@ -55,7 +55,11 @@ public class ValueText extends View {
     private float drawablePadding;
     private int textAlign;
     private float textMargin;
+    private float lineSpace;
+    private boolean singleLine;
 
+    private boolean isOverLength;
+    private StringBuilder builder = new StringBuilder();//保存被截掉的文字
 
     public ValueText(Context context) {
         this(context, null);
@@ -88,6 +92,8 @@ public class ValueText extends View {
         drawablePadding = array.getDimension(R.styleable.ValueText_android_drawablePadding, dp2px(8));
         textAlign = array.getInt(R.styleable.ValueText_textAlign, ALIGN_LEFT);
         textMargin = array.getDimension(R.styleable.ValueText_textMargin, sp2px(16));
+        singleLine = array.getBoolean(R.styleable.ValueText_android_singleLine, false);
+        lineSpace = array.getDimension(R.styleable.ValueText_textMargin, dp2px(4));
         array.recycle();
     }
 
@@ -166,6 +172,10 @@ public class ValueText extends View {
             paint.setTextSize(textSize);
             paint.getTextBounds(text, 0, text.length(), textRect);
             measureHeight = Math.max(measureHeight, textRect.height());
+            isOverLength = getTextAvailableWidth() < textRect.width();
+            if (!singleLine && isOverLength) {
+                measureHeight = measureHeight + textRect.height();
+            }
         }
         //drawableLeft
         if (drawableLeft != null) {
@@ -176,6 +186,25 @@ public class ValueText extends View {
             measureHeight = Math.max(measureHeight, drawableRight.getIntrinsicHeight());
         }
         return measureHeight + getPaddingTop() + getPaddingBottom();
+    }
+
+
+    /**
+     * Text 可用宽度
+     */
+    private double getTextAvailableWidth() {
+        availableWidth = width - getPaddingLeft() - getPaddingRight();
+        if (title != null) {
+            availableWidth = availableWidth - titleRect.width() - textMargin;
+        }
+        if (drawableLeft != null) {
+            availableWidth = availableWidth - drawableLeft.getIntrinsicWidth() - drawablePadding;
+        }
+        //drawableRight
+        if (drawableRight != null) {
+            availableWidth = availableWidth - drawableRight.getIntrinsicWidth() - drawablePadding;
+        }
+        return availableWidth;
     }
 
     @Override
@@ -222,7 +251,6 @@ public class ValueText extends View {
 
     }
 
-
     /**
      * 绘制 text
      */
@@ -231,49 +259,84 @@ public class ValueText extends View {
         paint.setColor(textColor);
         paint.getTextBounds(text, 0, text.length(), textRect);
 
-        checkTextLength();
+        //超过最大可用宽度，截取文字
+        if (isOverLength) {
+            while (textRect.width() > availableWidth) {
+                builder.insert(0, text.substring(text.length() - 1));
+                text = text.substring(0, text.length() - 1);
+                paint.getTextBounds(text, 0, text.length(), textRect);
+            }
+        }
 
         //左对齐
         if (textAlign == ALIGN_LEFT) {
-            float left = getPaddingLeft();
-            if (drawableLeft != null) {
-                left = left + drawableLeft.getIntrinsicWidth() + drawablePadding;
-            }
-            if (title != null) {
-                left = left + titleRect.width() + textMargin;
-            }
-            canvas.drawText(text, left, -textRect.exactCenterY(), paint);
+            drawTextAlignLeft(canvas);
         }
 
         //右对齐
         if (textAlign == ALIGN_RIGHT) {
-            float left = width - getPaddingRight() - textRect.width();
-            if (drawableRight != null) {
-                left = left - drawableRight.getIntrinsicWidth() - drawablePadding;
-            }
-            canvas.drawText(text, left, -textRect.exactCenterY(), paint);
+            drawTextAlignRight(canvas);
         }
     }
-
 
     /**
-     * 超过最大可用宽度，截取文字
+     * 文字左对齐
      */
-    private String checkTextLength() {
-        //没有超过可用宽度
-        if (textRect.width() < availableWidth) {
-            return text;
+    private void drawTextAlignLeft(Canvas canvas) {
+        float left = getPaddingLeft();
+        if (drawableLeft != null) {
+            left = left + drawableLeft.getIntrinsicWidth() + drawablePadding;
         }
-        //超过最大可用宽度，截取文字
-        while (textRect.width() > availableWidth) {
-            text = text.substring(0, text.length() - 1);
-            paint.getTextBounds(text, 0, text.length(), textRect);
+        if (title != null) {
+            left = left + titleRect.width() + textMargin;
         }
-        text = text.substring(0, text.length() - 1) + "...";
-        paint.getTextBounds(text, 0, text.length(), textRect);
-        return text;
+
+        //超长且单行
+        if (isOverLength && singleLine) {
+            text = text.substring(0, text.length() - 1) + "...";
+            canvas.drawText(text, left, -textRect.exactCenterY(), paint);
+            return;
+        }
+        //超长多行
+        if (isOverLength) {
+            canvas.drawText(text, left, -textRect.bottom, paint);
+            canvas.drawText(builder.toString(), left, -textRect.top + lineSpace, paint);
+            return;
+        }
+        canvas.drawText(text, left, -textRect.exactCenterY(), paint);
     }
 
+    /**
+     * 文字右对齐
+     */
+    private void drawTextAlignRight(Canvas canvas) {
+        float left = width - getPaddingRight() - textRect.width();
+        if (drawableRight != null) {
+            left = left - drawableRight.getIntrinsicWidth() - drawablePadding;
+        }
+
+        //超长且单行
+        if (isOverLength && singleLine) {
+            text = text.substring(0, text.length() - 1) + "...";
+            canvas.drawText(text, left, -textRect.exactCenterY(), paint);
+            return;
+        }
+
+        //超长多行
+        if (isOverLength) {
+            canvas.drawText(text, left, -textRect.bottom, paint);
+            String secondLine = builder.toString();
+            Rect rect = new Rect();
+            paint.getTextBounds(secondLine, 0, secondLine.length(), rect);
+            float secondLeft = width - getPaddingRight() - rect.width();
+            if (drawableRight != null) {
+                secondLeft = secondLeft - drawableRight.getIntrinsicWidth() - drawablePadding;
+            }
+            canvas.drawText(builder.toString(), secondLeft, -textRect.top + lineSpace, paint);
+            return;
+        }
+        canvas.drawText(text, left, -textRect.exactCenterY(), paint);
+    }
 
     public void setText(String text) {
         this.text = text;

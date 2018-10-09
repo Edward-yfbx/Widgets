@@ -5,6 +5,7 @@
         <attr name="android:drawableLeft" />
         <attr name="android:drawableRight" />
         <attr name="android:drawablePadding" />
+        <attr name="android:singleLine" />
         <attr name="android:text" />
         <attr name="android:textSize" />
         <attr name="android:textColor" />
