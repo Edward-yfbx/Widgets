@@ -93,7 +93,7 @@ public class ValueText extends View {
         textAlign = array.getInt(R.styleable.ValueText_textAlign, ALIGN_LEFT);
         textMargin = array.getDimension(R.styleable.ValueText_textMargin, sp2px(16));
         singleLine = array.getBoolean(R.styleable.ValueText_android_singleLine, false);
-        lineSpace = array.getDimension(R.styleable.ValueText_lineSpace, dp2px(4));
+        lineSpace = array.getDimension(R.styleable.ValueText_lineSpace, dp2px(6));
         array.recycle();
     }
 
@@ -174,7 +174,7 @@ public class ValueText extends View {
             measureHeight = Math.max(measureHeight, textRect.height());
             isOverLength = getTextAvailableWidth() < textRect.width();
             if (!singleLine && isOverLength) {
-                measureHeight = measureHeight + textRect.height();
+                measureHeight = measureHeight + textRect.height() + lineSpace;
             }
         }
         //drawableLeft
@@ -299,8 +299,8 @@ public class ValueText extends View {
         }
         //超长多行
         if (isOverLength) {
-            canvas.drawText(text, left, -textRect.bottom, paint);
-            canvas.drawText(builder.toString(), left, -textRect.top + lineSpace, paint);
+            canvas.drawText(text, left, -textRect.bottom - lineSpace / 2, paint);
+            canvas.drawText(builder.toString(), left, -textRect.top + lineSpace / 2, paint);
             return;
         }
         canvas.drawText(text, left, -textRect.exactCenterY(), paint);
@@ -324,7 +324,8 @@ public class ValueText extends View {
 
         //超长多行
         if (isOverLength) {
-            canvas.drawText(text, left, -textRect.bottom, paint);
+            canvas.drawText(text, left, -textRect.bottom - lineSpace / 2, paint);
+            //测量第二行文字
             String secondLine = builder.toString();
             Rect rect = new Rect();
             paint.getTextBounds(secondLine, 0, secondLine.length(), rect);
@@ -332,7 +333,7 @@ public class ValueText extends View {
             if (drawableRight != null) {
                 secondLeft = secondLeft - drawableRight.getIntrinsicWidth() - drawablePadding;
             }
-            canvas.drawText(builder.toString(), secondLeft, -textRect.top + lineSpace, paint);
+            canvas.drawText(builder.toString(), secondLeft, -textRect.top + lineSpace / 2, paint);
             return;
         }
         canvas.drawText(text, left, -textRect.exactCenterY(), paint);
