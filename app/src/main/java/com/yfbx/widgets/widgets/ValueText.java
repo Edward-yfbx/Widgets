@@ -93,7 +93,7 @@ public class ValueText extends View {
         textAlign = array.getInt(R.styleable.ValueText_textAlign, ALIGN_LEFT);
         textMargin = array.getDimension(R.styleable.ValueText_textMargin, sp2px(16));
         singleLine = array.getBoolean(R.styleable.ValueText_android_singleLine, false);
-        lineSpace = array.getDimension(R.styleable.ValueText_textMargin, dp2px(4));
+        lineSpace = array.getDimension(R.styleable.ValueText_lineSpace, dp2px(4));
         array.recycle();
     }
 
@@ -426,6 +426,30 @@ public class ValueText extends View {
 
     public int getTextAlign() {
         return textAlign;
+    }
+
+    public float getLineSpace() {
+        return lineSpace;
+    }
+
+    public void setLineSpace(float lineSpace) {
+        this.lineSpace = lineSpace;
+    }
+
+    public boolean isSingleLine() {
+        return singleLine;
+    }
+
+    public void setSingleLine(boolean singleLine) {
+        this.singleLine = singleLine;
+    }
+
+    public boolean isOverLength() {
+        return isOverLength;
+    }
+
+    public void setOverLength(boolean overLength) {
+        isOverLength = overLength;
     }
 
     /**
