@@ -260,6 +260,7 @@ public class ValueText extends View {
         paint.getTextBounds(text, 0, text.length(), textRect);
 
         //超过最大可用宽度，截取文字
+        isOverLength = getTextAvailableWidth() < textRect.width();
         if (isOverLength) {
             while (textRect.width() > availableWidth) {
                 builder.insert(0, text.substring(text.length() - 1));
