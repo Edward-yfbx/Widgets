@@ -1,6 +1,9 @@
 package com.yfbx.widgets.activity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.yfbx.widgets.R;
 import com.yfbx.widgets.widgets.RoundBtn;
@@ -52,6 +55,11 @@ public class RoundBtnActivity extends BaseActivity implements RoundBtn.OnCheckCh
     @Override
     public void onCheckChange(RoundBtn btn, boolean isChecked) {
         btn.setTitleSize(isChecked ? 28 : 20);
+    }
+
+    public void onRadioClick(View view) {
+        Log.i("触发点击事件", "onRadioClick: ");
+        Toast.makeText(this, "点击事件", Toast.LENGTH_SHORT).show();
     }
 
 }

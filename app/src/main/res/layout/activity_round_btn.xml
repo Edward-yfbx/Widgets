@@ -3,72 +3,144 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEEEEE"
-    android:orientation="horizontal"
-    android:paddingTop="10dp">
+    android:orientation="vertical">
 
-
-    <com.yfbx.widgets.widgets.RoundBtn
-        android:id="@+id/rb1"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="2"
-        app:centerColor="#FF8710F8"
-        app:endColor="#FFCB05FF"
-        app:startColor="#FF231EFB"
-        app:sub1="未处理"
-        app:sub2="异常" />
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
-    <com.yfbx.widgets.widgets.RoundBtn
-        android:id="@+id/rb2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="A"
-        app:bgColor="#3BE2C4"
-        app:sub1="20"
-        app:sub2="优秀" />
+        <com.yfbx.widgets.widgets.RoundBtn
+            android:id="@+id/rb1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2"
+            app:centerColor="#FF8710F8"
+            app:endColor="#FFCB05FF"
+            app:startColor="#FF231EFB"
+            app:sub1="未处理"
+            app:sub2="异常" />
 
-    <com.yfbx.widgets.widgets.RoundBtn
-        android:id="@+id/rb3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="B"
-        app:bgColor="#BBFA77"
-        app:sub1="18"
-        app:sub2="优良" />
+        <com.yfbx.widgets.widgets.RoundBtn
+            android:id="@+id/rb2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="A"
+            app:bgColor="#3BE2C4"
+            app:sub1="20"
+            app:sub2="优秀" />
 
-    <com.yfbx.widgets.widgets.RoundBtn
-        android:id="@+id/rb4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="C"
-        app:bgColor="#FFBA23"
-        app:sub1="16"
-        app:sub2="良好" />
+        <com.yfbx.widgets.widgets.RoundBtn
+            android:id="@+id/rb3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="B"
+            app:bgColor="#BBFA77"
+            app:sub1="18"
+            app:sub2="优良" />
 
-    <com.yfbx.widgets.widgets.RoundBtn
-        android:id="@+id/rb5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="D"
-        app:bgColor="#FB833A"
-        app:sub1="10"
-        app:sub2="一般" />
+        <com.yfbx.widgets.widgets.RoundBtn
+            android:id="@+id/rb4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="C"
+            app:bgColor="#FFBA23"
+            app:sub1="16"
+            app:sub2="良好" />
 
-    <com.yfbx.widgets.widgets.RoundBtn
-        android:id="@+id/rb6"
-        android:layout_width="0dp"
+        <com.yfbx.widgets.widgets.RoundBtn
+            android:id="@+id/rb5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="D"
+            app:bgColor="#FB833A"
+            app:sub1="10"
+            app:sub2="一般" />
+
+        <com.yfbx.widgets.widgets.RoundBtn
+            android:id="@+id/rb6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="E"
+            app:bgColor="#F25C5D"
+            app:sub1="4"
+            app:sub2="较差" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="E"
-        app:bgColor="#F25C5D"
-        app:sub1="4"
-        app:sub2="较差" />
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <com.yfbx.widgets.widgets.RadioBtn
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:centerColor="#FF8710F8"
+            android:checked="true"
+            android:endColor="#FFCB05FF"
+            android:onClick="onRadioClick"
+            android:startColor="#FF231EFB"
+            android:text="27"
+            android:textSize="32sp"
+            app:desc="今日总任务"
+            app:descColor="@color/white"
+            app:descSize="12sp" />
+
+        <com.yfbx.widgets.widgets.RadioBtn
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:centerColor="#BBFA77"
+            android:endColor="#BBFA77"
+            android:startColor="#BBFA77"
+            android:text="10"
+            app:desc="已完成"
+            app:descSize="12sp" />
+
+
+        <com.yfbx.widgets.widgets.RadioBtn
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:centerColor="#FFBA23"
+            android:endColor="#FFBA23"
+            android:startColor="#FFBA23"
+            android:text="10"
+            app:desc="正在执行" />
+
+        <com.yfbx.widgets.widgets.RadioBtn
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:centerColor="#FB833A"
+            android:endColor="#FB833A"
+            android:startColor="#FB833A"
+            android:text="5"
+            app:desc="未执行" />
+
+        <com.yfbx.widgets.widgets.RadioBtn
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:centerColor="#F25C5D"
+            android:endColor="#F25C5D"
+            android:startColor="#F25C5D"
+            android:text="0"
+            app:desc="未读消息" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

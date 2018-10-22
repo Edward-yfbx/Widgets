@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+
+    <com.yfbx.widgets.widgets.RadioBtn
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:checked="true"
+        android:text="0"
+        android:textSize="32sp"
+        app:centerColor="#FF8710F8"
+        app:desc="今日总任务"
+        app:descColor="@color/white"
+        app:descSize="12sp"
+        app:endColor="#FFCB05FF"
+        app:startColor="#FF231EFB" />
+
+    <com.yfbx.widgets.widgets.RadioBtn
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="1"
+        app:centerColor="#FF8710F8"
+        app:desc="今日总任务"
+        app:descSize="12sp"
+        app:endColor="#FFCB05FF"
+        app:startColor="#FF231EFB" />
+
+
+    <com.yfbx.widgets.widgets.RadioBtn
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="10"
+        app:centerColor="#FF8710F8"
+        app:endColor="#FFCB05FF"
+        app:startColor="#FF231EFB" />
+
+    <com.yfbx.widgets.widgets.RadioBtn
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="15"
+        app:centerColor="#FF8710F8"
+        app:endColor="#FFCB05FF"
+        app:startColor="#FF231EFB" />
+
+    <com.yfbx.widgets.widgets.RadioBtn
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="100"
+        app:centerColor="#FF8710F8"
+        app:endColor="#FFCB05FF"
+        app:startColor="#FF231EFB" />
+
+</LinearLayout>

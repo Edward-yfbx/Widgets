@@ -38,6 +38,23 @@
         <attr name="endColor" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="RadioBtn">
+        <attr name="android:checked" />
+
+        <attr name="android:text" />
+        <attr name="android:textColor" />
+        <attr name="android:textSize" />
+
+        <attr name="android:startColor" />
+        <attr name="android:centerColor" />
+        <attr name="android:endColor" />
+
+        <attr name="desc" format="string" />
+        <attr name="descColor" format="color" />
+        <attr name="descSize" format="dimension" />
+
+    </declare-styleable>
+
     <declare-styleable name="TabView">
         <attr name="android:text" />
         <attr name="android:textSize" />
