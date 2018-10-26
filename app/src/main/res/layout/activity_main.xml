@@ -3,21 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EEEEEE"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/d_16">
 
 
     <Button
-        android:id="@+id/textBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Name Value Text" />
+        android:onClick="onTextBtnClicked"
+        android:text="Value Text" />
 
     <Button
-        android:id="@+id/roundBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:onClick="onRoundBtnClicked"
+        android:text="Round Check Button" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="onCarouselClick"
         android:text="Round Check Button" />
 
 </LinearLayout>

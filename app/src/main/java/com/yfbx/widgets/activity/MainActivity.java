@@ -1,34 +1,31 @@
 package com.yfbx.widgets.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.yfbx.widgets.R;
 
-import butterknife.OnClick;
-
-public class MainActivity extends BaseActivity {
+public class MainActivity extends Activity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
     }
 
-    @Override
-    public int attachLayout() {
-        return R.layout.activity_main;
-    }
-
-
-    @OnClick(R.id.textBtn)
-    public void onTextBtnClicked() {
+    public void onTextBtnClicked(View view) {
         startActivity(new Intent(this, TextActivity.class));
     }
 
-    @OnClick(R.id.roundBtn)
-    public void onRoundBtnClicked() {
+    public void onRoundBtnClicked(View view) {
         startActivity(new Intent(this, RoundBtnActivity.class));
+    }
+
+    public void onCarouselClick(View view) {
+        startActivity(new Intent(this, RecyclerCarousel.class));
     }
 }
