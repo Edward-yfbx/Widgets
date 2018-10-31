@@ -1,5 +1,6 @@
 package com.yfbx.widgets.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -11,16 +12,12 @@ import com.yfbx.widgets.R;
  * Description:
  */
 
-public class TextActivity extends BaseActivity {
+public class TextActivity extends Activity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public int attachLayout() {
-        return R.layout.activity_text;
+        setContentView(R.layout.activity_text);
     }
 
 

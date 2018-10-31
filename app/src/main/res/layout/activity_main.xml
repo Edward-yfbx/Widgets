@@ -25,6 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:onClick="onCarouselClick"
-        android:text="Round Check Button" />
+        android:text="Recycler Carouse" />
 
 </LinearLayout>

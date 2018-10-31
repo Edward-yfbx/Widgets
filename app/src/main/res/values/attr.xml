@@ -65,4 +65,16 @@
         <attr name="unCheckImg" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="CheckColorSelect">
+        <attr name="android:text" />
+        <attr name="android:textColor" />
+        <attr name="android:checked" />
+    </declare-styleable>
+
+    <declare-styleable name="CheckDrawableSelect">
+        <attr name="android:checked" />
+        <attr name="android:src" />
+    </declare-styleable>
+
+
 </resources>
