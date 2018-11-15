@@ -28,4 +28,8 @@ public class MainActivity extends Activity {
     public void onCarouselClick(View view) {
         startActivity(new Intent(this, RecyclerCarousel.class));
     }
+
+    public void onLoadingClick(View view) {
+        startActivity(new Intent(this, LoadingActivity.class));
+    }
 }

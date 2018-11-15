@@ -11,20 +11,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onTextBtnClicked"
-        android:text="Value Text" />
+        android:text="Value Text"
+        android:textAllCaps="false" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:onClick="onRoundBtnClicked"
-        android:text="Round Check Button" />
+        android:text="Round Check Button"
+        android:textAllCaps="false" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:onClick="onCarouselClick"
-        android:text="Recycler Carouse" />
+        android:text="Recycler Carouse"
+        android:textAllCaps="false" />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="onLoadingClick"
+        android:text="Loading View"
+        android:textAllCaps="false" />
 
 </LinearLayout>
