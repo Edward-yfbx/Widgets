@@ -1,6 +1,7 @@
 package com.yfbx.widgets.widgets;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -21,7 +22,6 @@ import com.yfbx.widgets.R;
 
 public class ValueText extends View {
 
-    private Context context;
     private Paint paint;
     private float availableWidth;
 
@@ -79,7 +79,6 @@ public class ValueText extends View {
      * 获取属性
      */
     private void getAttr(Context context, AttributeSet attrs) {
-        this.context = context;
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.ValueText);
         text = array.getString(R.styleable.ValueText_android_text);
         title = array.getString(R.styleable.ValueText_title);
@@ -458,7 +457,7 @@ public class ValueText extends View {
      * sp转换成px
      */
     protected float sp2px(float spValue) {
-        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
         return spValue * fontScale + 0.5f;
     }
 
@@ -466,7 +465,7 @@ public class ValueText extends View {
      * dp 转换为 px
      */
     private float dp2px(float value) {
-        float scale = context.getResources().getDisplayMetrics().density;
+        float scale = Resources.getSystem().getDisplayMetrics().density;
         return value * scale + 0.5f;
     }
 

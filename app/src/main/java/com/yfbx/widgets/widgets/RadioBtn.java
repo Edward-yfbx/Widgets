@@ -1,6 +1,7 @@
 package com.yfbx.widgets.widgets;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -28,7 +29,6 @@ public class RadioBtn extends View {
 
     private static final String TAG = "RadioBtn";
 
-    private Context context;
     private Paint circlePaint;
     private TextPaint textPaint;
     private TextPaint descPaint;
@@ -40,9 +40,6 @@ public class RadioBtn extends View {
     private String text;
     private int textColor;
     private float textSize;
-    private int startColor;
-    private int centerColor;
-    private int endColor;
     private String desc;
     private int descColor;
     private float descSize;
@@ -74,12 +71,11 @@ public class RadioBtn extends View {
      * 获取属性
      */
     private void getAttr(Context context, @Nullable AttributeSet attrs) {
-        this.context = context;
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.RadioBtn);
         checked = array.getBoolean(R.styleable.RadioBtn_android_checked, false);
-        startColor = array.getColor(R.styleable.RadioBtn_android_startColor, Color.GRAY);
-        centerColor = array.getColor(R.styleable.RadioBtn_android_centerColor, Color.GRAY);
-        endColor = array.getColor(R.styleable.RadioBtn_android_endColor, Color.GRAY);
+        int startColor = array.getColor(R.styleable.RadioBtn_android_startColor, Color.GRAY);
+        int centerColor = array.getColor(R.styleable.RadioBtn_android_centerColor, Color.GRAY);
+        int endColor = array.getColor(R.styleable.RadioBtn_android_endColor, Color.GRAY);
         gradient = new int[]{startColor, centerColor, endColor};
 
         text = array.getString(R.styleable.RadioBtn_android_text);
@@ -307,20 +303,19 @@ public class RadioBtn extends View {
     }
 
     /**
-     * 单位转换(将dp 转换为 px)
-     */
-    private float dp2px(float value) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return value * scale + 0.5f;
-    }
-
-    /**
      * sp转换成px
      */
     protected float sp2px(float spValue) {
-        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
         return spValue * fontScale + 0.5f;
     }
 
+    /**
+     * dp 转换为 px
+     */
+    private float dp2px(float value) {
+        float scale = Resources.getSystem().getDisplayMetrics().density;
+        return value * scale + 0.5f;
+    }
 
 }

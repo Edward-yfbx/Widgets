@@ -1,6 +1,7 @@
 package com.yfbx.widgets.widgets;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -39,7 +40,6 @@ public class RoundBtn extends View {
     private int endColor;
     private int[] gradient;
 
-    private Context context;
     private Paint paint;
     private float height;
     private float width;
@@ -64,7 +64,6 @@ public class RoundBtn extends View {
     }
 
     private void getAttr(Context context, @Nullable AttributeSet attrs) {
-        this.context = context;
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.RoundBtn);
         checked = array.getBoolean(R.styleable.RoundBtn_android_checked, false);
         bgColor = array.getColor(R.styleable.RoundBtn_bgColor, Color.WHITE);
@@ -332,18 +331,18 @@ public class RoundBtn extends View {
     }
 
     /**
-     * 单位转换(将dp 转换为 px)
-     */
-    private float dp2px(float value) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return value * scale + 0.5f;
-    }
-
-    /**
      * sp转换成px
      */
     protected float sp2px(float spValue) {
-        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
         return spValue * fontScale + 0.5f;
+    }
+
+    /**
+     * dp 转换为 px
+     */
+    private float dp2px(float value) {
+        float scale = Resources.getSystem().getDisplayMetrics().density;
+        return value * scale + 0.5f;
     }
 }

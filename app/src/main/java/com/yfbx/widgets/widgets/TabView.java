@@ -2,6 +2,7 @@ package com.yfbx.widgets.widgets;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,7 +38,6 @@ public class TabView extends View implements Checkable {
     private ColorStateList colorStateList;
     private float drawablePadding;
     private TextPaint textPaint;
-    private Context context;
     private boolean checked;
     private Bitmap checkImg;
     private Bitmap normalImg;
@@ -57,15 +57,14 @@ public class TabView extends View implements Checkable {
 
     public TabView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.context = context;
-        getAttr(attrs);
+        getAttr(context, attrs);
         init();
     }
 
     /**
      * 获得属性
      */
-    private void getAttr(AttributeSet attrs) {
+    private void getAttr(Context context, AttributeSet attrs) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.TabView);
         checked = array.getBoolean(R.styleable.TabView_android_checked, false);
         text = array.getString(R.styleable.TabView_android_text);
@@ -254,19 +253,19 @@ public class TabView extends View implements Checkable {
     }
 
     /**
-     * 单位转换(将dp 转换为 px)
-     */
-    private float dp2px(float value) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return value * scale + 0.5f;
-    }
-
-    /**
      * sp转换成px
      */
     protected float sp2px(float spValue) {
-        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
         return spValue * fontScale + 0.5f;
+    }
+
+    /**
+     * dp 转换为 px
+     */
+    private float dp2px(float value) {
+        float scale = Resources.getSystem().getDisplayMetrics().density;
+        return value * scale + 0.5f;
     }
 
 }
