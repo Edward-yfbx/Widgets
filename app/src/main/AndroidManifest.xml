@@ -19,6 +19,7 @@
         <activity android:name=".activity.TextActivity" />
         <activity android:name=".activity.RecyclerCarousel" />
         <activity android:name=".activity.LoadingActivity" />
+        <activity android:name=".activity.SelectorActivity" />
         <!--<activity android:name=".activity.LabelActivity" />-->
     </application>
 

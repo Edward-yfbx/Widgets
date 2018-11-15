@@ -32,4 +32,9 @@ public class MainActivity extends Activity {
     public void onLoadingClick(View view) {
         startActivity(new Intent(this, LoadingActivity.class));
     }
+
+
+    public void onSelectorClick(View view) {
+        startActivity(new Intent(this, SelectorActivity.class));
+    }
 }
