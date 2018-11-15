@@ -2,6 +2,7 @@ package com.yfbx.widgets.widgets;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -9,6 +10,8 @@ import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Checkable;
@@ -23,7 +26,6 @@ import com.yfbx.widgets.R;
 
 public class CheckColorSelect extends View implements Checkable {
 
-    private Context context;
     private TextPaint paint;
     private float width;
     private float height;
@@ -49,12 +51,11 @@ public class CheckColorSelect extends View implements Checkable {
 
     public CheckColorSelect(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        this.context = context;
-        getAttr(attrs);
+        getAttr(context, attrs);
         init();
     }
 
-    private void getAttr(AttributeSet attrs) {
+    private void getAttr(Context context, AttributeSet attrs) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CheckColorSelect);
         checked = array.getBoolean(R.styleable.CheckColorSelect_android_checked, false);
         text = array.getString(R.styleable.CheckColorSelect_android_text);
@@ -159,18 +160,18 @@ public class CheckColorSelect extends View implements Checkable {
     }
 
     /**
-     * sp转换成px
+     * sp 转换为 px
      */
-    protected float sp2px(float spValue) {
-        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return spValue * fontScale + 0.5f;
+    protected float sp2px(float value) {
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, value, metrics);
     }
 
     /**
      * dp 转换为 px
      */
     private float dp2px(float value) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return value * scale + 0.5f;
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, metrics);
     }
 }

@@ -10,6 +10,8 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.yfbx.widgets.R;
@@ -454,19 +456,19 @@ public class ValueText extends View {
     }
 
     /**
-     * sp转换成px
+     * sp 转换为 px
      */
-    protected float sp2px(float spValue) {
-        float fontScale = Resources.getSystem().getDisplayMetrics().scaledDensity;
-        return spValue * fontScale + 0.5f;
+    protected float sp2px(float value) {
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, value, metrics);
     }
 
     /**
      * dp 转换为 px
      */
     private float dp2px(float value) {
-        float scale = Resources.getSystem().getDisplayMetrics().density;
-        return value * scale + 0.5f;
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, metrics);
     }
 
 
