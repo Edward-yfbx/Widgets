@@ -6,15 +6,8 @@
     android:orientation="vertical">
 
 
-    <com.yfbx.widgets.anim.LoadingView
+    <com.yfbx.widgets.widgets.anim.LoadingView
         android:id="@+id/loading_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible" />
-
-
-    <com.yfbx.widgets.anim.SoundWave
-        android:id="@+id/sound_wave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

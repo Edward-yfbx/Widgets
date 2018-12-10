@@ -1,4 +1,4 @@
-package com.yfbx.widgets.anim;
+package com.yfbx.widgets.widgets.anim;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -23,6 +24,7 @@ public class SoundWave extends View {
     private Paint paint;
     private int width;
     private int height;
+    private boolean isPlaying;
     private int level = 2;
     private Handler handler = new Handler();
 
@@ -83,6 +85,21 @@ public class SoundWave extends View {
     }
 
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return event.getAction() != MotionEvent.ACTION_UP || performClick();
+    }
+
+    @Override
+    public boolean performClick() {
+        if (isPlaying) {
+            stop();
+        } else {
+            start();
+        }
+        return super.performClick();
+    }
+
     private void setLevel(int level) {
         this.level = level;
         invalidate();
@@ -90,11 +107,13 @@ public class SoundWave extends View {
 
     public void start() {
         handler.post(runnable);
+        isPlaying = true;
     }
 
     public void stop() {
         handler.removeCallbacks(runnable);
         setLevel(2);
+        isPlaying = false;
     }
 
 

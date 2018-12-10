@@ -1,40 +1,101 @@
 package com.yfbx.widgets.activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 
 import com.yfbx.widgets.R;
+import com.yfbx.widgets.fragment.LoadingFrag;
+import com.yfbx.widgets.fragment.RadioBtnFrag;
+import com.yfbx.widgets.fragment.SelectorFrag;
+import com.yfbx.widgets.fragment.SoundWaveFrag;
+import com.yfbx.widgets.fragment.ValueTextFrag;
 
-public class MainActivity extends Activity {
+import butterknife.BindView;
+import butterknife.OnClick;
+
+public class MainActivity extends BaseActivity {
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.drawer)
+    DrawerLayout drawer;
+
+    private Fragment oldFrag;
+    private LoadingFrag loadingFrag = new LoadingFrag();
+    private RadioBtnFrag radioBtnFrag = new RadioBtnFrag();
+    private SelectorFrag selectorFrag = new SelectorFrag();
+    private SoundWaveFrag soundWaveFrag = new SoundWaveFrag();
+    private ValueTextFrag valueTextFrag = new ValueTextFrag();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setToolbar();
+        switchFragment(loadingFrag);
     }
 
-    public void onTextBtnClicked(View view) {
-        startActivity(new Intent(this, TextActivity.class));
+    @Override
+    public int attachLayout() {
+        return R.layout.activity_main;
     }
 
-    public void onRoundBtnClicked(View view) {
-        startActivity(new Intent(this, RoundBtnActivity.class));
+    /**
+     * Toolbar
+     */
+    protected void setToolbar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        toolbar.setNavigationOnClickListener(v -> drawer.openDrawer(Gravity.START));
     }
 
-    public void onCarouselClick(View view) {
-        startActivity(new Intent(this, RecyclerCarousel.class));
+    @OnClick({R.id.value_txt, R.id.radio_btn, R.id.selector_test, R.id.loading_view, R.id.sound_wave})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.value_txt:
+                switchFragment(valueTextFrag);
+                break;
+            case R.id.radio_btn:
+                switchFragment(radioBtnFrag);
+                break;
+            case R.id.selector_test:
+                switchFragment(selectorFrag);
+                break;
+            case R.id.loading_view:
+                switchFragment(loadingFrag);
+                break;
+            case R.id.sound_wave:
+                switchFragment(soundWaveFrag);
+                break;
+        }
+        drawer.closeDrawer(Gravity.START);
     }
 
-    public void onLoadingClick(View view) {
-        startActivity(new Intent(this, LoadingActivity.class));
+
+    /**
+     * 切换Fragment
+     */
+    public void switchFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (!fragment.isAdded()) {
+            transaction.add(R.id.content_view, fragment);
+        }
+        if (oldFrag != null) {
+            transaction.hide(oldFrag);
+        }
+        transaction.show(fragment);
+        oldFrag = fragment;
+        transaction.commit();
     }
 
 
-    public void onSelectorClick(View view) {
-        startActivity(new Intent(this, SelectorActivity.class));
-    }
 }

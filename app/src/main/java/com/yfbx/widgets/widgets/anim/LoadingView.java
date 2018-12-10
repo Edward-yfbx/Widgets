@@ -1,4 +1,4 @@
-package com.yfbx.widgets.anim;
+package com.yfbx.widgets.widgets.anim;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -22,7 +22,6 @@ public class LoadingView extends View {
     private int degree;
     private int width;
     private int height;
-    private boolean loading;
 
     public LoadingView(Context context) {
         this(context, null);
@@ -67,9 +66,7 @@ public class LoadingView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawArc(8, 8, 120, 120, degree, 300, false, paint);
-        if (loading) {
-            setRotate();
-        }
+        setRotate();
     }
 
     private void setRotate() {
@@ -78,19 +75,6 @@ public class LoadingView extends View {
             degree = 0;
         }
         invalidate();
-    }
-
-    public void start() {
-        loading = true;
-        invalidate();
-    }
-
-    public void stop() {
-        loading = false;
-    }
-
-    public boolean isLoading() {
-        return loading;
     }
 
 }

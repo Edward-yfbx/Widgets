@@ -1,4 +1,4 @@
-package com.yfbx.widgets.widgets;
+package com.yfbx.widgets.widgets.selector;
 
 import android.content.Context;
 import android.content.res.ColorStateList;

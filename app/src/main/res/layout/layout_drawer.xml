@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/d_200"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="#EEEEEE"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/value_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/d_10"
+        android:text="Value Text"
+        android:textAllCaps="false" />
+
+
+    <TextView
+        android:id="@+id/radio_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/d_1"
+        android:background="@color/white"
+        android:padding="@dimen/d_10"
+        android:text="Radio Button"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/selector_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/d_1"
+        android:background="@color/white"
+        android:padding="@dimen/d_10"
+        android:text="Selector"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/d_1"
+        android:background="@color/white"
+        android:padding="@dimen/d_10"
+        android:text="Loading View"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/sound_wave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/d_1"
+        android:background="@color/white"
+        android:padding="@dimen/d_10"
+        android:text="Sound Wave"
+        android:textAllCaps="false" />
+
+</LinearLayout>
