@@ -12,6 +12,7 @@ import android.view.View;
 import com.yfbx.widgets.R;
 import com.yfbx.widgets.fragment.LoadingFrag;
 import com.yfbx.widgets.fragment.RadioBtnFrag;
+import com.yfbx.widgets.fragment.RollRecyclerFrag;
 import com.yfbx.widgets.fragment.SelectorFrag;
 import com.yfbx.widgets.fragment.SoundWaveFrag;
 import com.yfbx.widgets.fragment.ValueTextFrag;
@@ -32,6 +33,7 @@ public class MainActivity extends BaseActivity {
     private SelectorFrag selectorFrag = new SelectorFrag();
     private SoundWaveFrag soundWaveFrag = new SoundWaveFrag();
     private ValueTextFrag valueTextFrag = new ValueTextFrag();
+    private RollRecyclerFrag rollRecyclerFrag = new RollRecyclerFrag();
 
 
     @Override
@@ -58,7 +60,7 @@ public class MainActivity extends BaseActivity {
         toolbar.setNavigationOnClickListener(v -> drawer.openDrawer(Gravity.START));
     }
 
-    @OnClick({R.id.value_txt, R.id.radio_btn, R.id.selector_test, R.id.loading_view, R.id.sound_wave})
+    @OnClick({R.id.value_txt, R.id.radio_btn, R.id.selector_test, R.id.loading_view, R.id.sound_wave, R.id.roll_view})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.value_txt:
@@ -75,6 +77,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.sound_wave:
                 switchFragment(soundWaveFrag);
+                break;
+            case R.id.roll_view:
+                switchFragment(rollRecyclerFrag);
                 break;
         }
         drawer.closeDrawer(Gravity.START);
