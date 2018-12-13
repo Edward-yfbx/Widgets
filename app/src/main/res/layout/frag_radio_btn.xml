@@ -90,7 +90,6 @@
             android:centerColor="#FF8710F8"
             android:checked="true"
             android:endColor="#FFCB05FF"
-            android:onClick="onRadioClick"
             android:startColor="#FF231EFB"
             android:text="27"
             android:textSize="32sp"
