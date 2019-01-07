@@ -68,4 +68,15 @@
         android:text="Roll RecyclerView"
         android:textAllCaps="false" />
 
+
+    <TextView
+        android:id="@+id/draw_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/d_1"
+        android:background="@color/white"
+        android:padding="@dimen/d_10"
+        android:text="Draw Picture"
+        android:textAllCaps="false" />
+
 </LinearLayout>

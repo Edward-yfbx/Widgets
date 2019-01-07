@@ -1,5 +1,6 @@
 package com.yfbx.widgets.activity;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -9,7 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 
+import com.yfbx.resulthelper.ResultHelper;
 import com.yfbx.widgets.R;
+import com.yfbx.widgets.fragment.DrawFragment;
 import com.yfbx.widgets.fragment.LoadingFrag;
 import com.yfbx.widgets.fragment.RadioBtnFrag;
 import com.yfbx.widgets.fragment.RollRecyclerFrag;
@@ -34,6 +37,7 @@ public class MainActivity extends BaseActivity {
     private SoundWaveFrag soundWaveFrag = new SoundWaveFrag();
     private ValueTextFrag valueTextFrag = new ValueTextFrag();
     private RollRecyclerFrag rollRecyclerFrag = new RollRecyclerFrag();
+    private DrawFragment drawFragment = new DrawFragment();
 
 
     @Override
@@ -41,6 +45,13 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setToolbar();
         switchFragment(loadingFrag);
+        requestPermission();
+    }
+
+
+    private void requestPermission() {
+        ResultHelper.with(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE, b -> {
+        });
     }
 
     @Override
@@ -60,7 +71,8 @@ public class MainActivity extends BaseActivity {
         toolbar.setNavigationOnClickListener(v -> drawer.openDrawer(Gravity.START));
     }
 
-    @OnClick({R.id.value_txt, R.id.radio_btn, R.id.selector_test, R.id.loading_view, R.id.sound_wave, R.id.roll_view})
+    @OnClick({R.id.value_txt, R.id.radio_btn, R.id.selector_test, R
+            .id.loading_view, R.id.sound_wave, R.id.roll_view, R.id.draw_img})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.value_txt:
@@ -80,6 +92,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.roll_view:
                 switchFragment(rollRecyclerFrag);
+                break;
+            case R.id.draw_img:
+                switchFragment(drawFragment);
                 break;
         }
         drawer.closeDrawer(Gravity.START);
