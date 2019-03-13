@@ -89,7 +89,7 @@
         <attr name="progress" format="float" />
     </declare-styleable>
 
-    <declare-styleable name="HorizontalProgressBar">
+    <declare-styleable name="AnimProgressBar">
         <attr name="progressBackColor" format="color" />
         <attr name="gradientColor" format="color" />
         <attr name="progressColor" />

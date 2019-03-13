@@ -1,4 +1,4 @@
-package com.yfbx.widgets.java.charts
+package com.yfbx.widgets.kotlin.charts
 
 import android.content.Context
 import android.content.res.Resources
