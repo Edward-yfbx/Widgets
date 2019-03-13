@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.yfbx.widgets.R;
 import com.yfbx.widgets.adapter.CarouselAdapter;
-import com.yfbx.widgets.widgets.RollRecyclerView;
+import com.yfbx.widgets.java.RollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;

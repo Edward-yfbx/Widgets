@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.yfbx.widgets.R;
-import com.yfbx.widgets.widgets.anim.SoundWave;
+import com.yfbx.widgets.java.anim.SoundWave;
 
 /**
  * Author: Edward

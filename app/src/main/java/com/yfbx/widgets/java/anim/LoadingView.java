@@ -1,4 +1,4 @@
-package com.yfbx.widgets.widgets.anim;
+package com.yfbx.widgets.java.anim;
 
 import android.content.Context;
 import android.graphics.Canvas;

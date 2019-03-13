@@ -1,4 +1,4 @@
-package com.yfbx.widgets.widgets.selector;
+package com.yfbx.widgets.java.selector;
 
 import android.content.Context;
 import android.content.res.TypedArray;
