@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         roll_view.setOnClickListener(this::onViewClicked)
         draw_img.setOnClickListener(this::onViewClicked)
         chart_frag.setOnClickListener(this::onViewClicked)
+        anim_frag.setOnClickListener(this::onViewClicked)
     }
 
 
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity() {
             R.id.roll_view -> switchFragment(RollRecyclerFrag())
             R.id.draw_img -> switchFragment(DrawFragment())
             R.id.chart_frag -> switchFragment(ChartFragment())
+            R.id.anim_frag -> switchFragment(AnimFrag())
         }
         drawer.closeDrawer(Gravity.START)
     }

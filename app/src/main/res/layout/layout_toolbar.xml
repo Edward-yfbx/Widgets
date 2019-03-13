@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/colorPrimary"
-    app:navigationIcon="@drawable/ic_menu">
+    app:navigationIcon="@drawable/svg_menu">
 
     <TextView
         android:id="@+id/toolbar_title"
