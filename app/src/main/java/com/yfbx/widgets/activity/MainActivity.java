@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
@@ -20,31 +21,20 @@ import com.yfbx.widgets.fragment.SelectorFrag;
 import com.yfbx.widgets.fragment.SoundWaveFrag;
 import com.yfbx.widgets.fragment.ValueTextFrag;
 
-import butterknife.BindView;
-import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.drawer)
-    DrawerLayout drawer;
-
+    private DrawerLayout drawer;
     private Fragment oldFrag;
-    private LoadingFrag loadingFrag = new LoadingFrag();
-    private RadioBtnFrag radioBtnFrag = new RadioBtnFrag();
-    private SelectorFrag selectorFrag = new SelectorFrag();
-    private SoundWaveFrag soundWaveFrag = new SoundWaveFrag();
-    private ValueTextFrag valueTextFrag = new ValueTextFrag();
-    private RollRecyclerFrag rollRecyclerFrag = new RollRecyclerFrag();
-    private DrawFragment drawFragment = new DrawFragment();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        drawer = findViewById(R.id.drawer);
         setToolbar();
-        switchFragment(loadingFrag);
+        setClick();
+        switchFragment(new LoadingFrag());
         requestPermission();
     }
 
@@ -54,15 +44,12 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    @Override
-    public int attachLayout() {
-        return R.layout.activity_main;
-    }
 
     /**
      * Toolbar
      */
-    protected void setToolbar() {
+    private void setToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(false);
@@ -71,30 +58,39 @@ public class MainActivity extends BaseActivity {
         toolbar.setNavigationOnClickListener(v -> drawer.openDrawer(Gravity.START));
     }
 
-    @OnClick({R.id.value_txt, R.id.radio_btn, R.id.selector_test, R
-            .id.loading_view, R.id.sound_wave, R.id.roll_view, R.id.draw_img})
+    private void setClick() {
+        findViewById(R.id.value_txt).setOnClickListener(this::onViewClicked);
+        findViewById(R.id.radio_btn).setOnClickListener(this::onViewClicked);
+        findViewById(R.id.selector_test).setOnClickListener(this::onViewClicked);
+        findViewById(R.id.loading_view).setOnClickListener(this::onViewClicked);
+        findViewById(R.id.sound_wave).setOnClickListener(this::onViewClicked);
+        findViewById(R.id.roll_view).setOnClickListener(this::onViewClicked);
+        findViewById(R.id.draw_img).setOnClickListener(this::onViewClicked);
+    }
+
+
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.value_txt:
-                switchFragment(valueTextFrag);
+                switchFragment(new ValueTextFrag());
                 break;
             case R.id.radio_btn:
-                switchFragment(radioBtnFrag);
+                switchFragment(new RadioBtnFrag());
                 break;
             case R.id.selector_test:
-                switchFragment(selectorFrag);
+                switchFragment(new SelectorFrag());
                 break;
             case R.id.loading_view:
-                switchFragment(loadingFrag);
+                switchFragment(new LoadingFrag());
                 break;
             case R.id.sound_wave:
-                switchFragment(soundWaveFrag);
+                switchFragment(new SoundWaveFrag());
                 break;
             case R.id.roll_view:
-                switchFragment(rollRecyclerFrag);
+                switchFragment(new RollRecyclerFrag());
                 break;
             case R.id.draw_img:
-                switchFragment(drawFragment);
+                switchFragment(new DrawFragment());
                 break;
         }
         drawer.closeDrawer(Gravity.START);

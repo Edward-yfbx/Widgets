@@ -1,11 +1,13 @@
 package com.yfbx.widgets.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.MotionEvent;
+import android.view.View;
 
 import com.yfbx.widgets.R;
 import com.yfbx.widgets.widgets.anim.SoundWave;
-
-import butterknife.BindView;
 
 /**
  * Author: Edward
@@ -16,9 +18,12 @@ import butterknife.BindView;
 
 public class SoundWaveFrag extends BaseFragment {
 
+    private SoundWave soundWave;
 
-    @BindView(R.id.sound_wave)
-    SoundWave soundWave;
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        soundWave = view.findViewById(R.id.sound_wave);
+    }
 
     @Override
     public int getLayout() {

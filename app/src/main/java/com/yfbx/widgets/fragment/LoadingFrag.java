@@ -1,9 +1,6 @@
 package com.yfbx.widgets.fragment;
 
 import com.yfbx.widgets.R;
-import com.yfbx.widgets.widgets.anim.LoadingView;
-
-import butterknife.BindView;
 
 /**
  * Author: Edward
@@ -13,10 +10,6 @@ import butterknife.BindView;
 
 
 public class LoadingFrag extends BaseFragment {
-
-
-    @BindView(R.id.loading_view)
-    LoadingView loadingView;
 
 
     @Override

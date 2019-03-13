@@ -15,8 +15,6 @@ import com.yfbx.widgets.R;
 import com.yfbx.widgets.util.BitmapUtil;
 import com.yfbx.widgets.util.PxUtil;
 
-import butterknife.BindView;
-
 /**
  * Author: Edward
  * Date: 2019/1/7
@@ -26,12 +24,11 @@ import butterknife.BindView;
 
 public class DrawFragment extends BaseFragment {
 
-    @BindView(R.id.img)
     ImageView img;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        img = view.findViewById(R.id.img);
         draw();
     }
 

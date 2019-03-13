@@ -12,8 +12,6 @@ import com.yfbx.widgets.widgets.RollRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-
 /**
  * Author: Edward
  * Date: 2018/12/10
@@ -23,12 +21,10 @@ import butterknife.BindView;
 
 public class RollRecyclerFrag extends BaseFragment {
 
-    @BindView(R.id.recycler)
-    RollRecyclerView recycler;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        RollRecyclerView recycler = view.findViewById(R.id.recycler);
 
         List<String> data = new ArrayList<>();
         data.add("【日程】1-XXX执法，李某，2018-10-10");

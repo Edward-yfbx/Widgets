@@ -77,4 +77,30 @@
     </declare-styleable>
 
 
+    <declare-styleable name="ProgressChart">
+        <attr name="android:text" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="title" />
+        <attr name="titleColor" />
+        <attr name="titleSize" />
+        <attr name="stroke" format="dimension" />
+        <attr name="progressColor" format="color" />
+        <attr name="progress" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="HorizontalProgressBar">
+        <attr name="progressBackColor" format="color" />
+        <attr name="gradientColor" format="color" />
+        <attr name="progressColor" />
+        <attr name="progress" />
+    </declare-styleable>
+
+    <declare-styleable name="GradeChart">
+        <attr name="colors" format="string" />
+        <attr name="gap" format="dimension" />
+        <attr name="radius" format="dimension" />
+    </declare-styleable>
+
+
 </resources>
