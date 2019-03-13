@@ -89,17 +89,18 @@
         <attr name="progress" format="float" />
     </declare-styleable>
 
-    <declare-styleable name="AnimProgressBar">
-        <attr name="progressBackColor" format="color" />
-        <attr name="gradientColor" format="color" />
-        <attr name="progressColor" />
-        <attr name="progress" />
-    </declare-styleable>
 
     <declare-styleable name="GradeChart">
         <attr name="colors" format="string" />
         <attr name="gap" format="dimension" />
         <attr name="radius" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="HorizontalProgressBar">
+        <attr name="progressBackColor" format="color" />
+        <attr name="gradientColor" format="color" />
+        <attr name="progressColor" />
+        <attr name="progress" />
     </declare-styleable>
 
 

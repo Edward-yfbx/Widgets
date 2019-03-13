@@ -67,10 +67,14 @@ class HorizontalProgressBar @JvmOverloads constructor(context: Context, attrs: A
         paint.color = progressBackColor
         canvas.drawLine(paddingLeft.toFloat(), 0f, (mWidth - paddingRight).toFloat(), 0f, paint)
 
-        setProgressPaintColor()
+
         val end = progress / 100f * (mWidth - paddingRight)
-        canvas.drawLine(paddingLeft.toFloat(), 0F, end, 0F, paint)
-        paint.shader = null
+        if (end > 0) {
+            setProgressPaintColor()
+            canvas.drawLine(paddingLeft.toFloat(), 0F, end, 0F, paint)
+            paint.shader = null
+        }
+
 
     }
 

@@ -3,7 +3,6 @@ package com.yfbx.widgets.kotlin.charts
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.*
-import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -21,7 +20,6 @@ class ProgressChart @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private var paint = Paint()
     private var textPaint = Paint()
-    private lateinit var typeface: Typeface
 
     private var w = 0
     private var h = 0
@@ -108,25 +106,14 @@ class ProgressChart @JvmOverloads constructor(context: Context, attrs: Attribute
         //中间字
         canvas.translate((w / 2).toFloat(), (h / 2).toFloat())
         textPaint.color = textColor
-
-        /**
-         * Leo add
-         */
         textPaint.style = Paint.Style.FILL
         textPaint.strokeWidth = 1f
-        //设置自定义字体
-        textPaint.typeface = typeface
-
         val rect = measureText(textPaint, text, textSize)
         canvas.drawText(text, (-rect.width() / 2).toFloat(), (-rect.centerY()).toFloat(), textPaint)
 
         //底部字
         canvas.translate(0f, h / 2 - stroke)
         textPaint.color = titleColor
-
-        //恢复使用默认字体
-        textPaint.typeface = Typeface.DEFAULT
-
         val size = measureText(textPaint, title, titleSize)
         canvas.drawText(title, (-size.width() / 2).toFloat(), (-size.centerY()).toFloat(), textPaint)
 
