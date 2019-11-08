@@ -5,15 +5,15 @@
     android:orientation="vertical">
 
 
-    <com.yfbx.widgets.kotlin.charts.GradeChart
+    <com.yfbx.widgets.widget.charts.GradeChart
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.yfbx.widgets.kotlin.charts.HorizontalProgressBar
+    <com.yfbx.widgets.widget.charts.HorizontalProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.yfbx.widgets.kotlin.charts.ProgressChart
+    <com.yfbx.widgets.widget.charts.ProgressChart
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

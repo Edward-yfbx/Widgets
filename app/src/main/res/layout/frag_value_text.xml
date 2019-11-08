@@ -6,7 +6,7 @@
     android:background="@color/background"
     android:orientation="vertical">
 
-    <com.yfbx.widgets.java.ValueText
+    <com.yfbx.widgets.widget.ValueText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -17,7 +17,7 @@
         app:titleColor="@color/colorPrimary"
         app:titleSize="16sp" />
 
-    <com.yfbx.widgets.java.ValueText
+    <com.yfbx.widgets.widget.ValueText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
@@ -30,7 +30,7 @@
         app:titleColor="@color/colorPrimary"
         app:titleSize="16sp" />
 
-    <com.yfbx.widgets.java.ValueText
+    <com.yfbx.widgets.widget.ValueText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
@@ -44,7 +44,7 @@
         app:titleColor="@color/colorPrimary"
         app:titleSize="16sp" />
 
-    <com.yfbx.widgets.java.ValueText
+    <com.yfbx.widgets.widget.ValueText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
@@ -58,7 +58,7 @@
         app:titleColor="@color/colorPrimary"
         app:titleSize="16sp" />
 
-    <com.yfbx.widgets.java.ValueText
+    <com.yfbx.widgets.widget.ValueText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
@@ -71,7 +71,7 @@
         app:titleColor="@color/colorPrimary"
         app:titleSize="16sp" />
 
-    <com.yfbx.widgets.java.ValueText
+    <com.yfbx.widgets.widget.ValueText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
@@ -85,7 +85,7 @@
         app:titleColor="@color/colorPrimary"
         app:titleSize="16sp" />
 
-    <com.yfbx.widgets.java.ValueText
+    <com.yfbx.widgets.widget.ValueText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
@@ -99,7 +99,7 @@
         app:titleColor="@color/colorPrimary"
         app:titleSize="16sp" />
 
-    <com.yfbx.widgets.java.ClearEdit
+    <com.yfbx.widgets.widget.ClearEdit
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

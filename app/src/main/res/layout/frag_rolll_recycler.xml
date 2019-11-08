@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.yfbx.widgets.java.RollRecyclerView
+    <com.yfbx.widgets.widget.RollView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="@dimen/d_60"

@@ -14,7 +14,7 @@
         android:tint="@color/colorPrimary" />
 
 
-    <com.yfbx.widgets.kotlin.charts.HorizontalProgressBar
+    <com.yfbx.widgets.widget.charts.HorizontalProgressBar
         android:id="@+id/progress_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/d_16"

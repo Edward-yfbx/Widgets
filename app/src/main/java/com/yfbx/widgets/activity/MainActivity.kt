@@ -1,12 +1,10 @@
 package com.yfbx.widgets.activity
 
-import android.Manifest
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.View
-import com.yfbx.resulthelper.ResultHelper
 import com.yfbx.widgets.R
 import com.yfbx.widgets.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,14 +23,6 @@ class MainActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener { v -> drawer.openDrawer(Gravity.START) }
         setClick()
         switchFragment(LoadingFrag())
-        requestPermission()
-    }
-
-
-    private fun requestPermission() {
-        ResultHelper.with(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE) {
-
-        }
     }
 
 
@@ -59,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             R.id.roll_view -> switchFragment(RollRecyclerFrag())
             R.id.draw_img -> switchFragment(DrawFragment())
             R.id.chart_frag -> switchFragment(ChartFragment())
-            R.id.anim_frag -> switchFragment(AnimFrag())
+            R.id.anim_frag -> switchFragment(AnimFragment())
         }
         drawer.closeDrawer(Gravity.START)
     }
