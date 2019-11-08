@@ -1,10 +1,10 @@
 package com.yfbx.widgets.activity
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.view.Gravity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import com.yfbx.widgets.R
 import com.yfbx.widgets.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        toolbar.setNavigationOnClickListener { v -> drawer.openDrawer(Gravity.START) }
+        toolbar.setNavigationOnClickListener { drawer.openDrawer(GravityCompat.START) }
         setClick()
         switchFragment(LoadingFrag())
     }
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             R.id.chart_frag -> switchFragment(ChartFragment())
             R.id.anim_frag -> switchFragment(AnimFragment())
         }
-        drawer.closeDrawer(Gravity.START)
+        drawer.closeDrawer(GravityCompat.START)
     }
 
 
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             transaction.add(R.id.content_view, fragment)
         }
         if (oldFrag != null) {
-            transaction.hide(oldFrag)
+            transaction.hide(oldFrag!!)
         }
         transaction.show(fragment)
         oldFrag = fragment

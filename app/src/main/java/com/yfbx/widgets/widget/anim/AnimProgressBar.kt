@@ -1,4 +1,4 @@
-package com.useeinfo.caffee.widget
+package com.yfbx.widgets.widget.anim
 
 import android.content.Context
 import android.content.res.Resources

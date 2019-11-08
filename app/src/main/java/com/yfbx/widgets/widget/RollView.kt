@@ -2,21 +2,20 @@ package com.yfbx.widgets.widget
 
 import android.content.Context
 import android.os.Handler
-import android.support.annotation.LayoutRes
-import android.support.v7.widget.PagerSnapHelper
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Author: Edward
  * Date: 2018/12/10
  * Description: Recycler 轮播
  */
-class RollView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0)
-    : RecyclerView(context, attrs, defStyle), Runnable {
+class RollView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : RecyclerView(context, attrs, defStyle), Runnable {
 
     private var snapHelper = PagerSnapHelper()
     private var duration = 3000L//轮播间隔时间
@@ -68,7 +67,7 @@ class RollView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      * 每 1ms 移动 5px
      */
     private fun anim() {
-        if (layoutManager.canScrollVertically()) {
+        if (layoutManager!!.canScrollVertically()) {
             scrollBy(0, speed)
         } else {
             scrollBy(speed, 0)
@@ -84,9 +83,9 @@ class RollView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     private fun distance(): Int {
         val snapView = snapHelper.findSnapView(layoutManager)
         snapView?.let {
-            val ints = snapHelper.calculateDistanceToFinalSnap(layoutManager, snapView)
+            val ints = snapHelper.calculateDistanceToFinalSnap(layoutManager!!, snapView)
             ints?.let {
-                return if (layoutManager.canScrollVertically()) ints[1] else ints[0]
+                return if (layoutManager!!.canScrollVertically()) ints[1] else ints[0]
             }
         }
         return 0
