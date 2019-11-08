@@ -4,7 +4,7 @@ import android.graphics.*
 import android.os.Bundle
 import android.view.View
 import com.yfbx.widgets.R
-import com.yfbx.widgets.util.save
+import com.yfbx.widgets.util.saveCapture
 import com.yfbx.widgets.util.sp
 import kotlinx.android.synthetic.main.frag_draw.*
 
@@ -12,16 +12,17 @@ import kotlinx.android.synthetic.main.frag_draw.*
 /**
  * Author: Edward
  * Date: 2019/1/7
- * Description:
+ * Description:绘制图片
  */
-
-
 class DrawFragment : BaseFragment() {
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         draw()
+
+        saveBtn.setOnClickListener {
+            img.saveCapture()
+        }
     }
 
     override fun getLayout(): Int {
@@ -54,9 +55,6 @@ class DrawFragment : BaseFragment() {
 
         //展示
         img.setImageBitmap(bitmap)
-
-        //保存
-        bitmap.save("test")
 
     }
 

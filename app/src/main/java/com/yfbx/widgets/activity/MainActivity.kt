@@ -1,10 +1,12 @@
 package com.yfbx.widgets.activity
 
+import android.Manifest
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.yfbx.helper.request
 import com.yfbx.widgets.R
 import com.yfbx.widgets.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,16 +24,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         toolbar.setNavigationOnClickListener { drawer.openDrawer(GravityCompat.START) }
         setClick()
-        switchFragment(LoadingFrag())
+        switchFragment(AnimFragment())
+
+        request(Manifest.permission.WRITE_EXTERNAL_STORAGE) {
+        }
     }
 
 
     private fun setClick() {
         value_txt.setOnClickListener(this::onViewClicked)
         radio_btn.setOnClickListener(this::onViewClicked)
-        selector_test.setOnClickListener(this::onViewClicked)
-        loading_view.setOnClickListener(this::onViewClicked)
-        sound_wave.setOnClickListener(this::onViewClicked)
         roll_view.setOnClickListener(this::onViewClicked)
         draw_img.setOnClickListener(this::onViewClicked)
         chart_frag.setOnClickListener(this::onViewClicked)
@@ -43,9 +45,6 @@ class MainActivity : AppCompatActivity() {
         when (view.id) {
             R.id.value_txt -> switchFragment(ValueTextFrag())
             R.id.radio_btn -> switchFragment(RadioBtnFrag())
-            R.id.selector_test -> switchFragment(SelectorFrag())
-            R.id.loading_view -> switchFragment(LoadingFrag())
-            R.id.sound_wave -> switchFragment(SoundWaveFrag())
             R.id.roll_view -> switchFragment(RollRecyclerFrag())
             R.id.draw_img -> switchFragment(DrawFragment())
             R.id.chart_frag -> switchFragment(ChartFragment())

@@ -29,36 +29,6 @@
         android:textAllCaps="false" />
 
     <TextView
-        android:id="@+id/selector_test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/d_1"
-        android:background="@color/white"
-        android:padding="@dimen/d_10"
-        android:text="Selector"
-        android:textAllCaps="false" />
-
-    <TextView
-        android:id="@+id/loading_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/d_1"
-        android:background="@color/white"
-        android:padding="@dimen/d_10"
-        android:text="Loading View"
-        android:textAllCaps="false" />
-
-    <TextView
-        android:id="@+id/sound_wave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/d_1"
-        android:background="@color/white"
-        android:padding="@dimen/d_10"
-        android:text="Sound Wave"
-        android:textAllCaps="false" />
-
-    <TextView
         android:id="@+id/roll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

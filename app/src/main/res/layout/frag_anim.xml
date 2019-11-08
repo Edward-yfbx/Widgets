@@ -1,24 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical">
 
-
-    <ImageView
-        android:id="@+id/menu_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/svg_menu"
-        android:tint="@color/colorPrimary" />
-
-
     <com.yfbx.widgets.widget.charts.HorizontalProgressBar
-        android:id="@+id/progress_view"
+        android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/d_16"
         android:layout_margin="@dimen/d_16"
         android:padding="@dimen/d_10" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <ImageView
+            android:id="@+id/menuIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/svg_menu"
+            android:tint="@color/colorPrimary" />
+
+
+        <com.yfbx.widgets.widget.anim.LoadingView
+            android:id="@+id/loadingView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+
+        <com.yfbx.widgets.widget.anim.SoundWave
+            android:id="@+id/waveView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.yfbx.widgets.widget.selector.CheckColorSelect
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:text="自定义View中的Selector"
+            android:textColor="@color/check_primary_accent"
+            tools:ignore="HardcodedText" />
+
+        <com.yfbx.widgets.widget.selector.CheckDrawableSelect
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:src="@drawable/test_drawable_selector" />
+
+
+    </LinearLayout>
+
 
 </LinearLayout>

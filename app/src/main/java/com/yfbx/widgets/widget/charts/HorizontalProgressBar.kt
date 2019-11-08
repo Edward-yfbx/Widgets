@@ -1,12 +1,11 @@
 package com.yfbx.widgets.widget.charts
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.View
 import com.yfbx.widgets.R
+import com.yfbx.widgets.util.dp
 
 /**
  * Author: Edward
@@ -41,17 +40,17 @@ class HorizontalProgressBar @JvmOverloads constructor(context: Context, attrs: A
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         //width
-        if (View.MeasureSpec.getMode(widthMeasureSpec) == View.MeasureSpec.EXACTLY) {
-            mWidth = View.MeasureSpec.getSize(widthMeasureSpec)
+        if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY) {
+            mWidth = MeasureSpec.getSize(widthMeasureSpec)
         } else {
-            mWidth = dp2px(128f)
+            mWidth = dp(128)
         }
 
         //height
-        if (View.MeasureSpec.getMode(heightMeasureSpec) == View.MeasureSpec.EXACTLY) {
-            mHeight = View.MeasureSpec.getSize(heightMeasureSpec)
+        if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY) {
+            mHeight = MeasureSpec.getSize(heightMeasureSpec)
         } else {
-            mHeight = dp2px(4f)
+            mHeight = dp(4)
         }
         setMeasuredDimension(mWidth, mHeight)
     }
@@ -67,15 +66,12 @@ class HorizontalProgressBar @JvmOverloads constructor(context: Context, attrs: A
         paint.color = progressBackColor
         canvas.drawLine(paddingLeft.toFloat(), 0f, (mWidth - paddingRight).toFloat(), 0f, paint)
 
-
         val end = progress / 100f * (mWidth - paddingRight)
         if (end > 0) {
             setProgressPaintColor()
             canvas.drawLine(paddingLeft.toFloat(), 0F, end, 0F, paint)
             paint.shader = null
         }
-
-
     }
 
     /**
@@ -109,13 +105,5 @@ class HorizontalProgressBar @JvmOverloads constructor(context: Context, attrs: A
             this.progress = progress
             invalidate()
         }
-    }
-
-    /**
-     * dp 转换为 px
-     */
-    private fun dp2px(value: Float): Int {
-        val metrics = Resources.getSystem().displayMetrics
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, metrics).toInt()
     }
 }

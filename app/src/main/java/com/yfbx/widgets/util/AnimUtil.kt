@@ -1,9 +1,11 @@
 package com.yfbx.widgets.util
 
+import android.animation.AnimatorInflater
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.view.View
 import android.view.animation.LinearInterpolator
+import androidx.annotation.AnimatorRes
 
 
 /**
@@ -11,6 +13,16 @@ import android.view.animation.LinearInterpolator
  * Date: 2019/2/28
  * Description:
  */
+
+
+/**
+ * 加载动画资源
+ */
+fun View.loadAnim(@AnimatorRes animRes: Int) {
+    val anim = AnimatorInflater.loadAnimator(context, animRes)
+    anim.setTarget(this)
+    anim.start()
+}
 
 /**
  * Y轴平移
@@ -57,11 +69,24 @@ fun View.rotate(duration: Long = 1000): ObjectAnimator {
 /**
  * 值变化
  */
-fun valueInt(start: Int, end: Int, onUpdate: (Int) -> Unit) {
+fun valueInt(start: Int, end: Int, duration: Long = 300, onUpdate: (Int) -> Unit) {
     val anim = ValueAnimator.ofInt(start, end)
-    anim.duration = 300
+    anim.duration = duration
     anim.addUpdateListener {
         val value = it.animatedValue as Int
+        onUpdate.invoke(value)
+    }
+    anim.start()
+}
+
+/**
+ * 值变化
+ */
+fun valueFloat(start: Float, end: Float, duration: Long = 300, onUpdate: (Float) -> Unit) {
+    val anim = ValueAnimator.ofFloat(start, end)
+    anim.duration = duration
+    anim.addUpdateListener {
+        val value = it.animatedValue as Float
         onUpdate.invoke(value)
     }
     anim.start()

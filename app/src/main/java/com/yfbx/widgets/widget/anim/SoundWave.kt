@@ -68,20 +68,6 @@ class SoundWave @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         canvas.drawArc(dp(left), dp(top), dp(right), dp(bottom), -90f, 180f, false, paint)
     }
 
-
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        return event.action != MotionEvent.ACTION_UP || performClick()
-    }
-
-    override fun performClick(): Boolean {
-        if (isPlaying) {
-            stop()
-        } else {
-            start()
-        }
-        return super.performClick()
-    }
-
     private fun setLevel(level: Int) {
         this.level = level
         invalidate()
@@ -96,5 +82,9 @@ class SoundWave @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         handler.removeCallbacks(runnable)
         setLevel(2)
         isPlaying = false
+    }
+
+    fun isPlaying(): Boolean {
+        return isPlaying
     }
 }
