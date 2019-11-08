@@ -20,6 +20,7 @@ class RollView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     private var snapHelper = PagerSnapHelper()
     private var duration = 3000L//轮播间隔时间
     private var speed = 5//每 1ms 移动的距离,控制滚动速度
+    private val mHandler = Handler()
 
     init {
         snapHelper.attachToRecyclerView(this)
@@ -43,14 +44,14 @@ class RollView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      * 开始轮播
      */
     fun start() {
-        handler.post(this)
+        mHandler.post(this)
     }
 
     /**
      * 停止轮播
      */
     fun stop() {
-        handler.removeCallbacks(this)
+        mHandler.removeCallbacks(this)
     }
 
 
@@ -59,7 +60,7 @@ class RollView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      */
     override fun run() {
         anim()
-        handler.postDelayed(this, duration)
+        mHandler.postDelayed(this, duration)
     }
 
 

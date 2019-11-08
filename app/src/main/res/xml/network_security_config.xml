@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+
+    <!--没有在 domain-config 中配置的，都使用默认配-->
+    <base-config cleartextTrafficPermitted="true" />
+
+    <!--不允许使用明文流量-->
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">www.yuxiaor.com</domain>
+        <domain includeSubdomains="true">static.yuxiaor.com</domain>
+    </domain-config>
+
+</network-security-config>

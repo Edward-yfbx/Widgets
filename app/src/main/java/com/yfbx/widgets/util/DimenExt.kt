@@ -30,3 +30,11 @@ fun sp(value: Int): Int {
     return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, value.toFloat(), metrics).toInt()
 }
 
+fun matchParent(): Int {
+    return -1
+}
+
+fun wrapContent(): Int {
+    return -2
+}
+

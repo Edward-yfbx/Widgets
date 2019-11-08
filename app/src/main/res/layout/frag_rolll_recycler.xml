@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/d_60"
         android:layout_margin="@dimen/d_16"
-        android:background="@drawable/corner_solid_white"
-        android:elevation="@dimen/d_8"
+        android:background="@color/white"
+        android:elevation="8dp"
         android:orientation="vertical"
         app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/item_carousel" />

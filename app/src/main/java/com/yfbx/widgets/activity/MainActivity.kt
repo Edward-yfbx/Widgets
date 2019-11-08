@@ -3,9 +3,7 @@ package com.yfbx.widgets.activity
 import android.Manifest
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
 import com.yfbx.helper.request
 import com.yfbx.widgets.R
 import com.yfbx.widgets.fragment.*
@@ -14,9 +12,7 @@ import kotlinx.android.synthetic.main.layout_drawer.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
 
-class MainActivity : AppCompatActivity() {
-
-    private var oldFrag: Fragment? = null
+class MainActivity : BaseActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         toolbar.setNavigationOnClickListener { drawer.openDrawer(GravityCompat.START) }
         setClick()
-        switchFragment(AnimFragment())
+        switchFragment(RollRecyclerFrag())
 
         request(Manifest.permission.WRITE_EXTERNAL_STORAGE) {
         }
@@ -53,21 +49,5 @@ class MainActivity : AppCompatActivity() {
         drawer.closeDrawer(GravityCompat.START)
     }
 
-
-    /**
-     * 切换Fragment
-     */
-    private fun switchFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        if (!fragment.isAdded) {
-            transaction.add(R.id.content_view, fragment)
-        }
-        if (oldFrag != null) {
-            transaction.hide(oldFrag!!)
-        }
-        transaction.show(fragment)
-        oldFrag = fragment
-        transaction.commit()
-    }
 
 }
