@@ -104,4 +104,11 @@
     </declare-styleable>
 
 
+    <declare-styleable name="PageIndicator">
+        <attr name="space" />
+        <attr name="indicator" format="reference" />
+        <attr name="count" format="integer" />
+    </declare-styleable>
+
+
 </resources>
