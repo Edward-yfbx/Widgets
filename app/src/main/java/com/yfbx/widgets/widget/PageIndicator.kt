@@ -2,67 +2,85 @@ package com.yfbx.widgets.widget
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
+import com.yfbx.widgets.R
 
 /**
  * Author: Edward
  * Date: 2019/2/28
  * Description:
  */
-class PageIndicator @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
+class PageIndicator @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+    : View(context, attrs, defStyleAttr) {
 
+    private val SELECTED_STATE = intArrayOf(android.R.attr.state_selected)
+    private val UNSELECTED_STATE = intArrayOf(-android.R.attr.state_selected)
 
-    private var count = 3
-    private var select = 0
-    private var mWidth: Int = 0
-    private var mHeight: Int = 0
+    private var mWidth = 0
+    private var mHeight = 0
 
-    private val paint = Paint()
+    private var indicator: Drawable? = null
+    private var count = 0
+    private var space = 0f
+
+    private var selected = 0
+
 
     init {
-        paint.style = Paint.Style.FILL
-        paint.isAntiAlias = true
+        val array = context.obtainStyledAttributes(attrs, R.styleable.PageIndicator)
+        indicator = array.getDrawable(R.styleable.PageIndicator_indicator)
+        count = array.getInt(R.styleable.PageIndicator_count, 0)
+        space = array.getDimension(R.styleable.PageIndicator_space, defaultSpace())
+        array.recycle()
     }
-
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        if (View.MeasureSpec.getMode(heightMeasureSpec) == View.MeasureSpec.EXACTLY) {
-            mHeight = View.MeasureSpec.getSize(heightMeasureSpec)
+        mHeight = if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY) {
+            MeasureSpec.getSize(heightMeasureSpec)
         } else {
-            mHeight = 20
+            measureHeight()
         }
-        if (View.MeasureSpec.getMode(widthMeasureSpec) == View.MeasureSpec.EXACTLY) {
-            mWidth = View.MeasureSpec.getSize(widthMeasureSpec)
+        mWidth = if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY) {
+            MeasureSpec.getSize(widthMeasureSpec)
         } else {
-            mWidth = height * 2 * count * 2
+            measureWidth()
         }
         setMeasuredDimension(mWidth, mHeight)
-
     }
 
-    override fun onDraw(canvas: Canvas) {
-        val radius = mHeight / 2f
-        val total = radius * 2 * count * 2
-        val start = (mWidth - total) / 2
-        canvas.translate(start, radius)
+    private fun measureWidth(): Int {
+        val width = indicator?.intrinsicWidth ?: 0
+        return width * count + space.toInt() * (count - 1)
+    }
 
-        for (i in 1..count) {
-            if (i == select + 1) {
-                paint.color = Color.WHITE
-            } else {
-                paint.color = 0x55FFFFFF
-            }
-            canvas.drawCircle(i * radius * 3, 0f, radius, paint)
+    private fun measureHeight(): Int {
+        return indicator?.intrinsicHeight ?: 0
+    }
+
+    private fun defaultSpace(): Float {
+        return indicator?.intrinsicWidth?.toFloat() ?: 0f
+    }
+
+
+    override fun onDraw(canvas: Canvas) {
+        val drawable = indicator ?: return
+
+        for (i in 0 until count) {
+            val imgWidth = drawable.intrinsicWidth
+            val imgHeight = drawable.intrinsicHeight
+            drawable.state = if (i == selected) SELECTED_STATE else UNSELECTED_STATE
+            drawable.setBounds(0, 0, imgWidth, imgHeight)
+            drawable.draw(canvas)
+
+            canvas.translate(space + imgWidth, 0f)
         }
     }
 
-
-    fun select(select: Int) {
-        this.select = select
+    fun select(selected: Int) {
+        this.selected = selected
         invalidate()
     }
 
