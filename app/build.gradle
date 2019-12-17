@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
+    buildToolsVersion = '28.0.3'
     defaultConfig {
         applicationId "com.yfbx.widgets"
         minSdkVersion 21
@@ -22,6 +23,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 
 dependencies {
@@ -32,7 +34,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     //RecyclerView
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
     implementation 'com.github.yfbx:ResultHelper:1.0.2'
 }

@@ -20,7 +20,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
         toolbar.setNavigationOnClickListener { drawer.openDrawer(GravityCompat.START) }
         setClick()
-        switchFragment(RollRecyclerFrag())
+        switchFragment(TestFragment())
 
         request(Manifest.permission.WRITE_EXTERNAL_STORAGE) {
         }
