@@ -16,10 +16,16 @@ class MainActivity : BaseActivity() {
         viewPager.onPageChange { indicator.select(it) }
         viewPager.adapter = PageAdapter(arrayListOf(
                 Menu.ANIM,
-                Menu.ANIM,
-                Menu.ANIM,
-                Menu.ANIM,
-                Menu.ANIM,
+                Menu.CHART,
+                Menu.DRAW,
+                Menu.RADIO,
+                Menu.ROLL,
+                Menu.TEXT,
+                Menu.WEB,
+                Menu.TEST,
+                Menu.TEST,
+                Menu.TEST,
+                Menu.TEST,
                 Menu.TEST
         ))
     }

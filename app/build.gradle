@@ -38,4 +38,5 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
     implementation 'com.github.yfbx:ResultHelper:1.0.2'
+    implementation 'com.billy.android:smart-swipe:1.1.0'
 }

@@ -15,12 +15,10 @@ import com.yfbx.widgets.activity.WebActivity
 /**
  * Scheme 跳转
  */
-fun Context.startScheme(uri: String, clearTask: Boolean = false) {
+fun Context.startScheme(uri: String) {
     val intent = Intent(Intent.ACTION_VIEW)
+    intent.setPackage(packageName)
     intent.data = Uri.parse(uri)
-    if (clearTask) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-    }
     if (uri.startsWith("http") || uri.startsWith("file")) {
         intent.setClassName(packageName, WebActivity::class.java.name)
     }

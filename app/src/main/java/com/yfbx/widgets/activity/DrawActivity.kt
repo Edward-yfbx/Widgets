@@ -1,12 +1,11 @@
-package com.yfbx.widgets.fragment
+package com.yfbx.widgets.activity
 
 import android.graphics.*
 import android.os.Bundle
-import android.view.View
 import com.yfbx.widgets.R
 import com.yfbx.widgets.util.saveCapture
 import com.yfbx.widgets.util.sp
-import kotlinx.android.synthetic.main.frag_draw.*
+import kotlinx.android.synthetic.main.activity_draw.*
 
 
 /**
@@ -14,19 +13,15 @@ import kotlinx.android.synthetic.main.frag_draw.*
  * Date: 2019/1/7
  * Description:绘制图片
  */
-class DrawFragment : BaseFragment() {
+class DrawActivity : BaseActivity() {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_draw)
         draw()
-
         saveBtn.setOnClickListener {
             img.saveCapture()
         }
-    }
-
-    override fun getLayout(): Int {
-        return R.layout.frag_draw
     }
 
     private fun draw() {

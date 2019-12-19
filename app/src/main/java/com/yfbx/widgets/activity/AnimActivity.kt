@@ -1,30 +1,27 @@
-package com.yfbx.widgets.fragment
+package com.yfbx.widgets.activity
 
 import android.animation.ValueAnimator
 import android.os.Bundle
-import android.view.View
 import com.yfbx.widgets.R
 import com.yfbx.widgets.util.loadAnim
-import kotlinx.android.synthetic.main.frag_anim.*
+import kotlinx.android.synthetic.main.activity_anim.*
 
 /**
  * Author: Edward
- * Date: 2019/3/13
+ * Date: 2019-12-19
  * Description:
  */
-class AnimFragment : BaseFragment() {
+class AnimActivity : BaseActivity() {
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_anim)
         setProgress()
         loadAnimRes()
         waveAnim()
     }
 
-    override fun getLayout(): Int {
-        return R.layout.frag_anim
-    }
 
     /**
      * 自定义进度条
@@ -59,6 +56,5 @@ class AnimFragment : BaseFragment() {
             }
         }
     }
-
 
 }

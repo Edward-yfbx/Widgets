@@ -1,11 +1,9 @@
-package com.yfbx.widgets.fragment
+package com.yfbx.widgets.activity
 
 import android.os.Bundle
-import android.view.View
 import com.yfbx.widgets.R
-import com.yfbx.widgets.util.dp
 import com.yfbx.widgets.util.setCorner
-import kotlinx.android.synthetic.main.frag_rolll_recycler.*
+import kotlinx.android.synthetic.main.activity_rolll_recycler.*
 import kotlinx.android.synthetic.main.item_carousel.view.*
 import java.util.*
 
@@ -16,10 +14,11 @@ import java.util.*
  */
 
 
-class RollRecyclerFrag : BaseFragment() {
+class RollActivity : BaseActivity() {
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_rolll_recycler)
 
         recycler.setCorner(6f)
         val data = ArrayList<String>()
@@ -34,8 +33,5 @@ class RollRecyclerFrag : BaseFragment() {
         recycler.start()
     }
 
-    override fun getLayout(): Int {
-        return R.layout.frag_rolll_recycler
-    }
 
 }
