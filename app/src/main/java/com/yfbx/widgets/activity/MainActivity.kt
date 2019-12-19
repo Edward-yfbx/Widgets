@@ -13,8 +13,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewPager.onPageChange { indicator.select(it) }
-        viewPager.adapter = PageAdapter(arrayListOf(
+
+        val menus = arrayListOf(
                 Menu.ANIM,
                 Menu.CHART,
                 Menu.DRAW,
@@ -27,6 +27,11 @@ class MainActivity : BaseActivity() {
                 Menu.TEST,
                 Menu.TEST,
                 Menu.TEST
-        ))
+        )
+
+        val adapter = PageAdapter(menus)
+        viewPager.adapter = adapter
+        indicator.setCount(adapter.itemCount)
+        viewPager.onPageChange { indicator.select(it) }
     }
 }

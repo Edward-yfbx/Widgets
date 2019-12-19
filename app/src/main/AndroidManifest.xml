@@ -44,7 +44,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="anim" />
+                <data
+                    android:host="yfbx.com"
+                    android:path="/anim"
+                    android:scheme="yfbx" />
+
             </intent-filter>
         </activity>
         <activity android:name=".activity.ChartActivity">
@@ -54,7 +58,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="chart" />
+                <data
+                    android:host="yfbx.com"
+                    android:path="/charts"
+                    android:scheme="yfbx" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.DrawActivity">
@@ -64,7 +71,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="draw" />
+                <data
+                    android:host="yfbx.com"
+                    android:path="/draw"
+                    android:scheme="yfbx" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.RadioBtnActivity">
@@ -74,7 +84,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="radio" />
+                <data
+                    android:host="yfbx.com"
+                    android:path="/radio"
+                    android:scheme="yfbx" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.RollActivity">
@@ -84,7 +97,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="roll" />
+                <data
+                    android:host="yfbx.com"
+                    android:path="/roll"
+                    android:scheme="yfbx" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.TestActivity">
@@ -94,7 +110,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="test" />
+                <data
+                    android:host="yfbx.com"
+                    android:path="/test"
+                    android:scheme="yfbx" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.TextActivity">
@@ -104,7 +123,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="text" />
+                <data
+                    android:host="yfbx.com"
+                    android:path="/text"
+                    android:scheme="yfbx" />
             </intent-filter>
         </activity>
 
