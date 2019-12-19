@@ -27,8 +27,8 @@ class ProgressChart @JvmOverloads constructor(context: Context, attrs: Attribute
     private var stroke: Float = 0F
     private var progress: Float = 0F
     private var progressColor: Int = 0
-    private lateinit var title: String
-    private lateinit var text: String
+    private var title: String = ""
+    private var text: String = ""
     private var titleColor: Int = 0
     private var titleSize: Float = 0F
     private var textColor: Int = 0
@@ -45,8 +45,8 @@ class ProgressChart @JvmOverloads constructor(context: Context, attrs: Attribute
      */
     private fun getAttr(context: Context, attrs: AttributeSet?) {
         val array = context.obtainStyledAttributes(attrs, R.styleable.ProgressChart)
-        text = array.getString(R.styleable.ProgressChart_android_text)
-        title = array.getString(R.styleable.ProgressChart_title)
+        text = array.getString(R.styleable.ProgressChart_android_text) ?: ""
+        title = array.getString(R.styleable.ProgressChart_title) ?: ""
         textColor = array.getColor(R.styleable.ProgressChart_android_textColor, Color.BLACK)
         titleColor = array.getColor(R.styleable.ProgressChart_titleColor, Color.GRAY)
         textSize = array.getDimension(R.styleable.ProgressChart_android_textSize, sp2px(24f))
