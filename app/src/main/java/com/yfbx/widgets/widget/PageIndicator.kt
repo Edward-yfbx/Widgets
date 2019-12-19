@@ -86,6 +86,7 @@ class PageIndicator @JvmOverloads constructor(context: Context, attrs: Attribute
 
     fun setCount(count: Int) {
         this.count = count
+        requestLayout()
         invalidate()
     }
 

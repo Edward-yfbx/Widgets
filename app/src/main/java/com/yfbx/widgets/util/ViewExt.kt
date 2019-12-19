@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewOutlineProvider
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import androidx.viewpager2.widget.ViewPager2
 
 /**
  * Author: Edward
@@ -67,4 +68,13 @@ fun View.setOnScaleClick(onClick: () -> Unit) {
 fun View.scaleTo(scale: Float) {
     scaleX = scale
     scaleY = scale
+}
+
+
+fun ViewPager2.onPageChange(onChange: (Int) -> Unit) {
+    registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            onChange.invoke(position)
+        }
+    })
 }

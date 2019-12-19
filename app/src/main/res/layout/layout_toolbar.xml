@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorPrimary"
-    app:navigationIcon="@drawable/svg_menu">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/toolbarTxt"
@@ -14,7 +12,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/app_name"
-        android:textColor="@color/white"
-        android:textSize="@dimen/s_18" />
+        android:textColor="@color/fontDark"
+        android:textSize="@dimen/s_16" />
 
 </androidx.appcompat.widget.Toolbar>

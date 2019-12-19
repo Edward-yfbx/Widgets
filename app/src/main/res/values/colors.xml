@@ -11,6 +11,7 @@
     <color name="strokeLine">#DCE1EB</color>
     <color name="background">#F2F4F7</color>
 
+    <color name="transparent">#00FFFFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="red">#D72D3C</color>
