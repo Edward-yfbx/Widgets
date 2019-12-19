@@ -111,4 +111,13 @@
     </declare-styleable>
 
 
+    <declare-styleable name="IndexSideBar">
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="colorSelected" format="color" />
+        <attr name="space" />
+        <attr name="radius" />
+    </declare-styleable>
+
+
 </resources>
