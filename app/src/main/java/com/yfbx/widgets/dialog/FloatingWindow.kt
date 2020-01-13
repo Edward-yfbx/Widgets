@@ -1,6 +1,5 @@
 package com.yfbx.widgets.dialog
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.view.*
@@ -95,7 +94,6 @@ abstract class FloatingWindow(val context: Context) : LayoutContainer {
         this.onDismiss = onDismiss
     }
 
-    @SuppressLint("NewApi")
     private fun onTouch(v: View, event: MotionEvent): Boolean {
         if (cancelOnTouch && event.action == MotionEvent.ACTION_UP) {
             cancel()
