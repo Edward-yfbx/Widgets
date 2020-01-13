@@ -13,7 +13,7 @@ import kotlin.properties.Delegates
  * @Date: 2019-07-20
  * @Description:
  */
-abstract class FloatingWindow(val context: Context) : LayoutContainer {
+open class FloatingWindow(val context: Context) : LayoutContainer {
     override val containerView: View? by lazy { contentView }
 
     private val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -48,7 +48,9 @@ abstract class FloatingWindow(val context: Context) : LayoutContainer {
         }
     }
 
-    abstract fun onCreate(context: Context)
+    open fun onCreate(context: Context) {
+
+    }
 
 
     open fun setContentView(contentView: View) {
