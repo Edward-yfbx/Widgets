@@ -1,7 +1,10 @@
 package com.yfbx.widgets.app
 
 import android.app.Application
+import android.content.ContextWrapper
 import android.graphics.Color
+import android.os.IBinder
+import android.view.ContextThemeWrapper
 import com.billy.android.swipe.SmartSwipeBack
 import com.yfbx.widgets.activity.MainActivity
 
@@ -14,8 +17,13 @@ import com.yfbx.widgets.activity.MainActivity
 
 class App : Application() {
 
+    companion object {
+        lateinit var context: App
+    }
+
     override fun onCreate() {
         super.onCreate()
+        context = this
         slideBack()
     }
 

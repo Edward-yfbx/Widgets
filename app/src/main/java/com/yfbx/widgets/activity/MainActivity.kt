@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.yfbx.widgets.R
 import com.yfbx.widgets.adapter.PageAdapter
 import com.yfbx.widgets.bean.Menu
+import com.yfbx.widgets.dialog.Loading
 import com.yfbx.widgets.util.onPageChange
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -13,6 +14,10 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        loadingBtn.setOnClickListener {
+            Loading().show()
+        }
 
         val menus = arrayListOf(
                 Menu.ANIM,
