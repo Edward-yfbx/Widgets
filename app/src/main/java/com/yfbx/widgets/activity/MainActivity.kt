@@ -15,10 +15,6 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        loadingBtn.setOnClickListener {
-            Loading().show()
-        }
-
         val menus = arrayListOf(
                 Menu.ANIM,
                 Menu.CHART,
@@ -38,5 +34,10 @@ class MainActivity : BaseActivity() {
         viewPager.adapter = adapter
         indicator.setCount(adapter.itemCount)
         viewPager.onPageChange { indicator.select(it) }
+
+
+        loadingBtn.setOnClickListener {
+            Loading().show()
+        }
     }
 }
