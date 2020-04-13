@@ -1,6 +1,5 @@
 package com.yfbx.widgets.adapter
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +12,7 @@ import kotlin.math.ceil
  * Date: 2019-12-19
  * Description:
  */
-class PageAdapter(data: List<Menu>, private val column: Int = 4) : RecyclerView.Adapter<PageHelper>() {
+class PageAdapter(data: List<Menu>, private val column: Int = 4) : RecyclerView.Adapter<ViewHelper>() {
 
     private val pages = mutableListOf<List<Menu>>()
 
@@ -28,21 +27,19 @@ class PageAdapter(data: List<Menu>, private val column: Int = 4) : RecyclerView.
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PageHelper {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHelper {
         val recyclerView = RecyclerView(parent.context)
         recyclerView.layoutParams = ViewGroup.LayoutParams(matchParent(), matchParent())
         recyclerView.layoutManager = GridLayoutManager(parent.context, column)
-        return PageHelper(recyclerView)
+        return ViewHelper(recyclerView)
     }
 
     override fun getItemCount(): Int {
         return pages.size
     }
 
-    override fun onBindViewHolder(holder: PageHelper, position: Int) {
+    override fun onBindViewHolder(holder: ViewHelper, position: Int) {
         val recyclerView = holder.itemView as RecyclerView
-        recyclerView.adapter = MenuAdapter(pages[position])
+        recyclerView.adapter = TestAdapter(pages[position])
     }
 }
-
-class PageHelper(view: View) : RecyclerView.ViewHolder(view)

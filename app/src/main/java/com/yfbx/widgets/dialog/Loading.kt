@@ -17,6 +17,15 @@ import kotlinx.android.synthetic.main.window_loading.*
 class Loading : FloatingWindow(App.context) {
 
 
+    companion object {
+        fun show(): Loading {
+            val loading = Loading()
+            loading.show()
+            return loading
+        }
+    }
+
+
     override fun onCreate(context: Context) {
         setContentView(R.layout.window_loading)
         alpha = 0.8f

@@ -5,6 +5,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewOutlineProvider
 import android.widget.TextView
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.viewpager2.widget.ViewPager2
 
@@ -29,6 +30,10 @@ fun TextView.setDrawableEnd(@DrawableRes drawableRes: Int) {
 
 fun TextView.setDrawableBottom(@DrawableRes drawableRes: Int) {
     setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, drawableRes)
+}
+
+fun TextView.setColor(@ColorRes color: Int) {
+    setTextColor(context.findColor(color))
 }
 
 
@@ -60,6 +65,10 @@ fun View.setOnScaleClick(onClick: () -> Unit) {
         }
         true
     }
+}
+
+fun View.setPadding(padding: Int) {
+    setPadding(padding, padding, padding, padding)
 }
 
 /**
