@@ -6,12 +6,14 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
 import com.yfbx.widgets.R
 import com.yfbx.widgets.adapter.PageAdapter
 import com.yfbx.widgets.bean.Menu
 import com.yfbx.widgets.dialog.Loading
-import com.yfbx.widgets.util.*
+import com.yfbx.widgets.util.onPageChange
+import com.yfbx.widgets.util.permissionFor
+import com.yfbx.widgets.util.startForResult
+import com.yfbx.widgets.util.takePhoto
 import kotlinx.android.synthetic.main.activity_main.*
 
 
