@@ -8,33 +8,16 @@ import android.util.TypedValue
  * Date: 2019/1/7
  * Description:
  */
+private val metrics = Resources.getSystem().displayMetrics
 
+val Float.dp
+    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, metrics)
+val Float.sp
+    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, this, metrics)
 
-fun dp(value: Float): Float {
-    val metrics = Resources.getSystem().displayMetrics
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, metrics)
-}
+val Int.dp
+    get() = toFloat().dp.toInt()
 
-fun dp(value: Int): Int {
-    val metrics = Resources.getSystem().displayMetrics
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value.toFloat(), metrics).toInt()
-}
-
-fun sp(value: Float): Float {
-    val metrics = Resources.getSystem().displayMetrics
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, value, metrics)
-}
-
-fun sp(value: Int): Int {
-    val metrics = Resources.getSystem().displayMetrics
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, value.toFloat(), metrics).toInt()
-}
-
-fun matchParent(): Int {
-    return -1
-}
-
-fun wrapContent(): Int {
-    return -2
-}
+const val match_parent = -1
+const val wrap_content = -2
 

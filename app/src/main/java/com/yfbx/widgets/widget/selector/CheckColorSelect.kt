@@ -33,7 +33,7 @@ class CheckColorSelect @JvmOverloads constructor(context: Context, attrs: Attrib
 
     init {
         getAttr(context, attrs)
-        paint.textSize = sp(14f)
+        paint.textSize = 14f.sp
         paint.style = Paint.Style.FILL
         paint.isAntiAlias = true
     }

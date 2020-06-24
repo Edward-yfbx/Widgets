@@ -71,12 +71,12 @@ class RoundBtn @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         endColor = array.getColor(R.styleable.RoundBtn_endColor, bgColor)
 
         title = array.getString(R.styleable.RoundBtn_android_text)
-        titleSize = array.getDimension(R.styleable.RoundBtn_android_textSize, sp(20f))
+        titleSize = array.getDimension(R.styleable.RoundBtn_android_textSize, 20f.sp)
 
         sub1 = array.getString(R.styleable.RoundBtn_sub1)
         sub2 = array.getString(R.styleable.RoundBtn_sub2)
         subColor = array.getColor(R.styleable.RoundBtn_subColor, -0xcccccd)
-        subSize = array.getDimension(R.styleable.RoundBtn_subSize, sp(12f))
+        subSize = array.getDimension(R.styleable.RoundBtn_subSize, 12f.sp)
 
         array.recycle()
     }
@@ -91,7 +91,7 @@ class RoundBtn @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY) {
             width = MeasureSpec.getSize(widthMeasureSpec).toFloat()
         } else {
-            width = dp(80f)
+            width = 80f.dp
         }
 
         //height
@@ -145,7 +145,7 @@ class RoundBtn @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         paint.textSize = titleSize
         val rect = getTextBounds(title)
         val left = (-rect.width() / 2).toFloat()
-        val top = if (checked) rect.height() + dp(8f) else rect.height() / 2 + radius
+        val top = if (checked) rect.height() + 8f.dp else rect.height() / 2 + radius
         canvas.drawText(title!!, left, top, paint)
     }
 
@@ -157,7 +157,7 @@ class RoundBtn @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         paint.textSize = subSize
         val rect = getTextBounds(sub1)
         val left = (-rect.width() / 2).toFloat()
-        val top = if (checked) radius + rect.height() else radius * 2 + rect.height().toFloat() + dp(4f)
+        val top = if (checked) radius + rect.height() else radius * 2 + rect.height().toFloat() + 4f.dp
         canvas.drawText(sub1!!, left, top, paint)
     }
 
@@ -245,7 +245,7 @@ class RoundBtn @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     }
 
     fun setSubSize(subSize: Float) {
-        this.subSize = sp(subSize)
+        this.subSize = subSize.sp
         invalidate()
     }
 
@@ -254,7 +254,7 @@ class RoundBtn @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     }
 
     fun setTitleSize(titleSize: Float) {
-        this.titleSize = sp(titleSize)
+        this.titleSize = titleSize.sp
         invalidate()
     }
 

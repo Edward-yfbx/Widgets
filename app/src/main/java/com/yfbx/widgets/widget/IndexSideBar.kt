@@ -12,7 +12,7 @@ import android.widget.TextView
 import com.yfbx.widgets.R
 import com.yfbx.widgets.util.dp
 import com.yfbx.widgets.util.sp
-import com.yfbx.widgets.util.wrapContent
+import com.yfbx.widgets.util.wrap_content
 
 
 /**
@@ -28,11 +28,11 @@ class IndexSideBar @JvmOverloads constructor(context: Context, attrs: AttributeS
     private var mWidth = 0
     private var mHeight = 0
 
-    private var textSize = sp(10f)
+    private var textSize = 10f.sp
     private var textColor = Color.parseColor("#191E23")
     private var colorSelected = Color.parseColor("#D72D3C")
-    private var space = dp(2f)
-    private var radius = dp(8f)
+    private var space = 2f.dp
+    private var radius = 8f.dp
     private var diam = radius * 2
 
     private var letters = arrayOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
@@ -44,11 +44,11 @@ class IndexSideBar @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     init {
         val array = context.obtainStyledAttributes(attrs, R.styleable.IndexSideBar)
-        textSize = array.getDimension(R.styleable.IndexSideBar_android_textSize, sp(10f))
+        textSize = array.getDimension(R.styleable.IndexSideBar_android_textSize, 10f.sp)
         textColor = array.getColor(R.styleable.IndexSideBar_android_textColor, Color.parseColor("#191E23"))
         colorSelected = array.getColor(R.styleable.IndexSideBar_colorSelected, Color.parseColor("#D72D3C"))
-        space = array.getDimension(R.styleable.IndexSideBar_space, dp(2f))
-        radius = array.getDimension(R.styleable.IndexSideBar_radius, dp(8f))
+        space = array.getDimension(R.styleable.IndexSideBar_space, 2f.dp)
+        radius = array.getDimension(R.styleable.IndexSideBar_radius, 8f.dp)
         diam = radius * 2
         array.recycle()
         createPop()
@@ -160,7 +160,7 @@ class IndexSideBar @JvmOverloads constructor(context: Context, attrs: AttributeS
         val itemHeight = diam + space
         val offset = -mHeight / 2f + itemHeight * selected + popHeight() / 2f + itemHeight / 2f
         if (pop?.isShowing == true) {
-            pop?.update(mWidth, offset.toInt(), wrapContent(), wrapContent(), true)
+            pop?.update(mWidth, offset.toInt(), wrap_content, wrap_content, true)
         } else {
             pop?.showAtLocation(this, Gravity.END, mWidth, offset.toInt())
         }
@@ -187,7 +187,7 @@ class IndexSideBar @JvmOverloads constructor(context: Context, attrs: AttributeS
      * Pop offset 以左上角为起点
      */
     private fun popHeight(): Float {
-        return dp(48f)
+        return 48f.dp
     }
 
     private fun createPop() {
@@ -196,7 +196,7 @@ class IndexSideBar @JvmOverloads constructor(context: Context, attrs: AttributeS
         view.setBackgroundResource(R.drawable.pop_indicator)
         view.textSize = 24f
         view.gravity = Gravity.CENTER
-        view.setPadding(0, 0, dp(12), 0)
+        view.setPadding(0, 0, 12.dp, 0)
         view.paint.isFakeBoldText = true
         pop = PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }

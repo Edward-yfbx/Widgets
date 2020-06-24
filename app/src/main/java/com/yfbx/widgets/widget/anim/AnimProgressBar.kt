@@ -81,13 +81,4 @@ class AnimProgressBar @JvmOverloads constructor(context: Context, attrs: Attribu
         progress = mWidth - stroke
         invalidate()
     }
-
-
-    /**
-     * dp 转换为 px
-     */
-    private fun dp2px(value: Float): Int {
-        val metrics = Resources.getSystem().displayMetrics
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, metrics).toInt()
-    }
 }

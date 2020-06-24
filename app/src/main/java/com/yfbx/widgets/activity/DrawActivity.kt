@@ -41,7 +41,7 @@ class DrawActivity : BaseActivity() {
         paint.color = Color.WHITE
         canvas.drawCircle(0f, 0f, 100f, paint)
 
-        paint.textSize = sp(36).toFloat()
+        paint.textSize = 36f.sp
         paint.color = Color.BLUE
         val rect = Rect()
         val text = "E"

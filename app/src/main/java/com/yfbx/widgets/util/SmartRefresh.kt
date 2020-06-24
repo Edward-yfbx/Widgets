@@ -59,9 +59,9 @@ class RefreshView @kotlin.jvm.JvmOverloads constructor(context: Context, attrs: 
     private var anim: ObjectAnimator? = null
 
     init {
-        layoutParams = LayoutParams(matchParent(), dp(64))
-        imageView.layoutParams = LayoutParams(dp(20), dp(20))
-        textView.layoutParams = LayoutParams(dp(100), wrapContent())
+        layoutParams = LayoutParams(match_parent, 64.dp)
+        imageView.layoutParams = LayoutParams(20.dp, 20.dp)
+        textView.layoutParams = LayoutParams(100.dp, wrap_content)
 
         gravity = Gravity.CENTER
 
@@ -69,7 +69,7 @@ class RefreshView @kotlin.jvm.JvmOverloads constructor(context: Context, attrs: 
 
         textView.text = "下拉刷新"
         textView.textSize = 12f
-        textView.setPadding(dp(10))
+        textView.setPadding(10.dp)
         textView.setColor(R.color.fontLight)
 
         addView(imageView)

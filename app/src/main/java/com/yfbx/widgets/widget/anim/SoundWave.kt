@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.view.MotionEvent
 import android.view.View
 import com.yfbx.widgets.util.dp
 
@@ -48,8 +47,8 @@ class SoundWave @JvmOverloads constructor(context: Context, attrs: AttributeSet?
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        mWidth = dp(48)
-        mHeight = dp(48)
+        mWidth = 48.dp
+        mHeight = 48.dp
         setMeasuredDimension(mWidth, mHeight)
     }
 
@@ -65,7 +64,7 @@ class SoundWave @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     }
 
     private fun drawArc(left: Float, top: Float, right: Float, bottom: Float, canvas: Canvas) {
-        canvas.drawArc(dp(left), dp(top), dp(right), dp(bottom), -90f, 180f, false, paint)
+        canvas.drawArc(left.dp, top.dp, right.dp, bottom.dp, -90f, 180f, false, paint)
     }
 
     private fun setLevel(level: Int) {

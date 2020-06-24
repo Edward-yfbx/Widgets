@@ -26,7 +26,7 @@ fun View.setCorner(corner: Float) {
     clipToOutline = true
     outlineProvider = object : ViewOutlineProvider() {
         override fun getOutline(view: View, outline: Outline) {
-            outline.setRoundRect(0, 0, view.measuredWidth, view.measuredHeight, dp(corner))
+            outline.setRoundRect(0, 0, view.measuredWidth, view.measuredHeight, corner)
         }
     }
 }

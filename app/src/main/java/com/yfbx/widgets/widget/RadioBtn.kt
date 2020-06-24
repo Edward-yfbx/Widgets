@@ -71,11 +71,11 @@ class RadioBtn @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
         text = array.getString(R.styleable.RadioBtn_android_text)
         textColor = array.getColor(R.styleable.RadioBtn_android_textColor, Color.DKGRAY)
-        textSize = array.getDimension(R.styleable.RadioBtn_android_textSize, sp(20f))
+        textSize = array.getDimension(R.styleable.RadioBtn_android_textSize, 20f.sp)
 
         desc = array.getString(R.styleable.RadioBtn_desc)
         descColor = array.getColor(R.styleable.RadioBtn_descColor, Color.DKGRAY)
-        descSize = array.getDimension(R.styleable.RadioBtn_descSize, sp(12f))
+        descSize = array.getDimension(R.styleable.RadioBtn_descSize, 12f.sp)
 
         array.recycle()
     }
@@ -86,7 +86,7 @@ class RadioBtn @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY) {
             width = MeasureSpec.getSize(widthMeasureSpec).toFloat()
         } else {
-            width = dp(80f)
+            width = 80f.dp
         }
 
         //height
@@ -131,7 +131,7 @@ class RadioBtn @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     private fun drawText(canvas: Canvas) {
         if (text != null) {
             textPaint.color = if (checked) Color.WHITE else Color.DKGRAY
-            textSize = if (checked) sp(32f) else sp(20f)
+            textSize = if (checked) 32f.sp else 20f.sp
             val rect = measureText(textPaint, text ?: "", textSize)
             val left = -textPaint.measureText(text) / 2
             val top = radiusS - rect.exactCenterY()

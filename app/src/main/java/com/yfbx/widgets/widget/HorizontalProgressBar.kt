@@ -43,14 +43,14 @@ class HorizontalProgressBar @JvmOverloads constructor(context: Context, attrs: A
         if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY) {
             mWidth = MeasureSpec.getSize(widthMeasureSpec)
         } else {
-            mWidth = dp(128)
+            mWidth = 128.dp
         }
 
         //height
         if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY) {
             mHeight = MeasureSpec.getSize(heightMeasureSpec)
         } else {
-            mHeight = dp(4)
+            mHeight = 4.dp
         }
         setMeasuredDimension(mWidth, mHeight)
     }
