@@ -24,16 +24,3 @@ fun Context.startScheme(uri: String) {
     }
     startActivity(intent)
 }
-
-
-object Schemes {
-
-    /**
-     * 用户信息安全保密协议
-     */
-    const val PRIVACY = "file:///android_asset/personal_security.html?title=用户信息安全保密协议"
-    /**
-     * 寓工厂
-     */
-    const val YU_FACTORY = "https://shop43730129.youzan.com/v2/showcase/homepage?alias=uIVQfrb2Vp&title=寓工厂"
-}

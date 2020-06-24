@@ -1,73 +1,47 @@
 package com.yfbx.widgets.activity
 
-import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.activity.result.ActivityResult
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.yfbx.widgets.R
-import com.yfbx.widgets.adapter.PageAdapter
+import com.yfbx.widgets.util.ViewHelper
 import com.yfbx.widgets.bean.Menu
-import com.yfbx.widgets.dialog.Loading
-import com.yfbx.widgets.util.onPageChange
-import com.yfbx.widgets.util.permissionFor
-import com.yfbx.widgets.util.startForResult
-import com.yfbx.widgets.util.takePhoto
+import com.yfbx.widgets.util.startScheme
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_menu.*
 
 
 class MainActivity : BaseActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val menus = arrayListOf(
-                Menu.ANIM,
-                Menu.CHART,
-                Menu.DRAW,
-                Menu.RADIO,
-                Menu.ROLL,
-                Menu.TEXT,
-                Menu.WEB,
-                Menu.TEST,
-                Menu.TEST,
-                Menu.TEST,
-                Menu.TEST,
-                Menu.TEST
-        )
-
-        val adapter = PageAdapter(menus)
-        viewPager.adapter = adapter
-        indicator.setCount(adapter.itemCount)
-        viewPager.onPageChange { indicator.select(it) }
-
-
-        loadingBtn.setOnClickListener {
-            Loading().show()
-        }
+        recycleView.adapter = adapter
     }
 
+    private val menus = arrayListOf(
+            Menu.ANIM,
+            Menu.CHART,
+            Menu.DRAW,
+            Menu.RADIO,
+            Menu.ROLL,
+            Menu.TEXT,
+            Menu.WEB
+    )
 
-    fun testActivityResult() {
-        //
-        startForResult(Intent()) { result: ActivityResult ->
-            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
-                //TODO
-            }
+    private val adapter = object : RecyclerView.Adapter<ViewHelper>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHelper {
+            return ViewHelper(layoutInflater.inflate(R.layout.item_menu, parent, false))
         }
 
-
-        permissionFor(Manifest.permission.WRITE_EXTERNAL_STORAGE) { grant: Boolean ->
-            if (grant) {
-                //TODO
-            }
-
+        override fun getItemCount(): Int {
+            return menus.size
         }
 
-        takePhoto { drawable: Drawable? ->
-            //TODO:
+        override fun onBindViewHolder(holder: ViewHelper, position: Int) {
+            holder.btn.text = menus[position].title
+            holder.btn.setOnClickListener { startScheme(menus[position].scheme) }
         }
 
     }
