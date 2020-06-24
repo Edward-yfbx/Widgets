@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.yfbx.widgets.widget.charts.HorizontalProgressBar
+    <com.yfbx.widgets.widget.HorizontalProgressBar
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/d_16"

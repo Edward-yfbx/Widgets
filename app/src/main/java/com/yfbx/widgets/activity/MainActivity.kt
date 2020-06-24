@@ -22,11 +22,11 @@ class MainActivity : BaseActivity() {
 
     private val menus = arrayListOf(
             Menu.ANIM,
-            Menu.CHART,
             Menu.DRAW,
             Menu.RADIO,
             Menu.ROLL,
             Menu.TEXT,
+            Menu.TEST,
             Menu.WEB
     )
 

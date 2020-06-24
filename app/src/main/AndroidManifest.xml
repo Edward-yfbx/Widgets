@@ -51,19 +51,6 @@
 
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ChartActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="yfbx.com"
-                    android:path="/charts"
-                    android:scheme="yfbx" />
-            </intent-filter>
-        </activity>
         <activity android:name=".activity.DrawActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

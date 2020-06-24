@@ -1,4 +1,4 @@
-package com.yfbx.widgets.widget.charts
+package com.yfbx.widgets.widget
 
 import android.content.Context
 import android.graphics.*

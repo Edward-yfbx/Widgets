@@ -5,10 +5,9 @@ package com.yfbx.widgets.bean
  * Date: 2019-12-19
  * Description:
  */
-enum class Menu(val title: String, val scheme: String, val params: Map<String, Any>? = null) {
+enum class Menu(val title: String, val scheme: String) {
 
     ANIM("Anim", "yfbx://yfbx.com/anim"),
-    CHART("Chart", "yfbx://yfbx.com/charts"),
     DRAW("Draw", "yfbx://yfbx.com/draw"),
     RADIO("Radio", "yfbx://yfbx.com/radio"),
     ROLL("Roll", "yfbx://yfbx.com/roll"),

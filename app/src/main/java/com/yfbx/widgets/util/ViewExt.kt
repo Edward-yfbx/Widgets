@@ -1,36 +1,18 @@
 package com.yfbx.widgets.util
 
+import android.annotation.SuppressLint
 import android.graphics.Outline
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewOutlineProvider
 import android.widget.TextView
 import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
-import androidx.viewpager2.widget.ViewPager2
 
 /**
  * Author: Edward
  * Date: 2019-11-08
  * Description:
  */
-
-
-fun TextView.setDrawableStart(@DrawableRes drawableRes: Int) {
-    setCompoundDrawablesWithIntrinsicBounds(drawableRes, 0, 0, 0)
-}
-
-fun TextView.setDrawableTop(@DrawableRes drawableRes: Int) {
-    setCompoundDrawablesWithIntrinsicBounds(0, drawableRes, 0, 0)
-}
-
-fun TextView.setDrawableEnd(@DrawableRes drawableRes: Int) {
-    setCompoundDrawablesWithIntrinsicBounds(0, 0, drawableRes, 0)
-}
-
-fun TextView.setDrawableBottom(@DrawableRes drawableRes: Int) {
-    setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, drawableRes)
-}
 
 fun TextView.setColor(@ColorRes color: Int) {
     setTextColor(context.findColor(color))
@@ -53,6 +35,7 @@ fun View.setCorner(corner: Float) {
 /**
  * 带缩放动画的点击事件
  */
+@SuppressLint("ClickableViewAccessibility")
 fun View.setOnScaleClick(onClick: () -> Unit) {
     setOnTouchListener { _, event ->
         when (event.action) {
@@ -77,13 +60,4 @@ fun View.setPadding(padding: Int) {
 fun View.scaleTo(scale: Float) {
     scaleX = scale
     scaleY = scale
-}
-
-
-fun ViewPager2.onPageChange(onChange: (Int) -> Unit) {
-    registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-        override fun onPageSelected(position: Int) {
-            onChange.invoke(position)
-        }
-    })
 }
