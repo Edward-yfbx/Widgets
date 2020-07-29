@@ -38,11 +38,11 @@ class AdapterBuilder {
      * 自定义 itemViewType
      */
     fun <T> add(viewType: Int, layoutId: Int, items: List<T>, binder: (helper: ViewHelper, item: T) -> Unit) {
-        adapter.addItems(viewType, layoutId, items, binder)
+        adapter.add(viewType, layoutId, items, binder)
     }
 
     fun <T> add(viewType: Int, layoutId: Int, item: T, binder: (helper: ViewHelper, item: T) -> Unit) {
-        adapter.addItems(viewType, layoutId, listOf(item), binder)
+        adapter.add(viewType, layoutId, listOf(item), binder)
     }
 
     fun build(): MultiItemAdapter {
@@ -59,7 +59,7 @@ class MultiItemAdapter : RecyclerView.Adapter<ViewHelper>() {
     /**
      * 添加 布局&数据列表
      */
-    fun <T> addItems(viewType: Int, layoutId: Int, items: List<T>, binder: (helper: ViewHelper, item: T) -> Unit) {
+    fun <T> add(viewType: Int, layoutId: Int, items: List<T>, binder: (helper: ViewHelper, item: T) -> Unit) {
         if (!layouts.containsKey(viewType)) {
             layouts.append(viewType, layoutId)
         }
@@ -95,7 +95,7 @@ class MultiItemAdapter : RecyclerView.Adapter<ViewHelper>() {
     }
 }
 
-data class ItemEntity<T>(
+internal data class ItemEntity<T>(
         val type: Int,
         private val item: T,
         private val binder: (helper: ViewHelper, item: T) -> Unit) {
