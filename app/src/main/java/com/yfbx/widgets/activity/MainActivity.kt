@@ -31,30 +31,30 @@ class MainActivity : BaseActivity() {
         )
 
         //单布局
-        recycleView.bind(R.layout.item_menu, menus) { helper, item ->
-            helper.btn.text = item.title
-            helper.btn.setOnClickListener { startScheme(item.scheme) }
-        }
+//        recycleView.bind(R.layout.item_menu, menus) { helper, item ->
+//            helper.btn.text = item.title
+//            helper.btn.setOnClickListener { startScheme(item.scheme) }
+//        }
 
         //多布局
         recycleView.bind {
-            bind(R.layout.item_menu_test, "Group-1") { helper, item ->
+            add(R.layout.item_menu_test, "Group-1") { helper, item ->
                 groupBinder(helper, item)
             }
-            bind<Menu>(R.layout.item_menu, menus) { helper, item ->
+            add<Menu>(R.layout.item_menu, menus) { helper, item ->
                 helper.btn.text = item.title
                 helper.btn.setOnClickListener { startScheme(item.scheme) }
             }
-            bind(R.layout.item_menu_test, "Group-2") { helper, item ->
+            add(R.layout.item_menu_test, "Group-2") { helper, item ->
                 groupBinder(helper, item)
             }
-            bind(R.layout.item_menu_test, "test1", "test2", "test3") { helper, item ->
+            add<String>(R.layout.item_menu_test, listOf("test1", "test2", "test3")) { helper, item ->
                 helper.textView.text = item
             }
-            bind(R.layout.item_menu_test, "Group-3") { helper, item ->
+            add(R.layout.item_menu_test, "Group-3") { helper, item ->
                 groupBinder(helper, item)
             }
-            bind<Menu>(R.layout.item_menu, menus) { helper, item ->
+            add<Menu>(R.layout.item_menu, menus) { helper, item ->
                 helper.btn.text = item.title
                 helper.btn.setOnClickListener { startScheme(item.scheme) }
             }
