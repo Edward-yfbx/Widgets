@@ -31,7 +31,7 @@ class MainActivity : BaseActivity() {
         )
 
         //单布局
-//        recycleView.bind(R.layout.item_menu, menus) { helper, item ->
+//        val adapter = recycleView.bind(R.layout.item_menu, menus) { helper, item ->
 //            helper.btn.text = item.title
 //            helper.btn.setOnClickListener { startScheme(item.scheme) }
 //        }
@@ -45,19 +45,12 @@ class MainActivity : BaseActivity() {
                 helper.btn.text = item.title
                 helper.btn.setOnClickListener { startScheme(item.scheme) }
             }
-            add(R.layout.item_menu_test, "Group-2") { helper, item ->
-                groupBinder(helper, item)
-            }
+            addData("Group-2")
             add<Int>(R.layout.item_menu_test, listOf(1, 2, 3)) { helper, item ->
                 helper.textView.text = "test$item"
             }
-            add(R.layout.item_menu_test, "Group-3") { helper, item ->
-                groupBinder(helper, item)
-            }
-            add<Menu>(R.layout.item_menu, menus) { helper, item ->
-                helper.btn.text = item.title
-                helper.btn.setOnClickListener { startScheme(item.scheme) }
-            }
+            addData("Group-3")
+            addData(menus)
         }
     }
 

@@ -12,6 +12,20 @@ import kotlinx.android.extensions.LayoutContainer
  * Date: 2020-07-28
  * Description:
  */
+/**
+ * 单布局
+ */
+inline fun <reified T> RecyclerView.bind(layoutId: Int, data: List<T>, crossinline binder: (helper: ViewHelper, item: T) -> Unit): MultiItemAdapter {
+    val multiItemAdapter = MultiItemAdapter().apply {
+        add(layoutId, data, binder)
+    }
+    adapter = multiItemAdapter
+    return multiItemAdapter
+}
+
+/**
+ * 多布局
+ */
 fun RecyclerView.bind(builder: MultiItemAdapter.() -> Unit): MultiItemAdapter {
     val multiItemAdapter = MultiItemAdapter().apply(builder)
     adapter = multiItemAdapter
@@ -63,10 +77,6 @@ class MultiItemAdapter : RecyclerView.Adapter<ViewHelper>() {
         }
     }
 
-    fun addData(items: List<Any>, position: Int = itemCount) {
-        data.addAll(position, items)
-    }
-
     override fun getItemCount(): Int {
         return data.size
     }
@@ -96,6 +106,60 @@ class MultiItemAdapter : RecyclerView.Adapter<ViewHelper>() {
         val binder = binders[viewType]
         binder?.onBind(holder, item)
     }
+
+
+    fun addData(item: Any, position: Int = itemCount) {
+        require(position in 0..itemCount) {
+            "IndexOutOfBoundsException: size = $itemCount, position = $position"
+        }
+        data.add(position, item)
+        notifyItemInserted(position)
+        compatibilityDataSizeChanged(1)
+    }
+
+    fun addData(items: List<Any>, position: Int = itemCount) {
+        require(position in 0..itemCount) {
+            "IndexOutOfBoundsException: size = $itemCount, position = $position"
+        }
+        data.addAll(position, items)
+        notifyItemRangeInserted(position, items.size)
+        compatibilityDataSizeChanged(items.size)
+    }
+
+    fun remove(position: Int) {
+        require(position in 0 until data.size) {
+            "IndexOutOfBoundsException: size = $itemCount, position = $position"
+        }
+        data.removeAt(position)
+        notifyItemRemoved(position)
+        compatibilityDataSizeChanged(0)
+        notifyItemRangeChanged(position, data.size - position)
+    }
+
+    fun update(position: Int, item: Any) {
+        require(position in 0 until data.size) {
+            "IndexOutOfBoundsException: size = $itemCount, position = $position"
+        }
+        data[position] = item
+        notifyItemChanged(position)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    operator fun <T> get(position: Int): T {
+        require(position in 0 until data.size) {
+            "IndexOutOfBoundsException: size = $itemCount, position = $position"
+        }
+        return data[position] as T
+    }
+
+
+    private fun compatibilityDataSizeChanged(size: Int) {
+        val dataSize = data.size
+        if (dataSize == size) {
+            notifyDataSetChanged()
+        }
+    }
+
 }
 
 interface Binder<T> {
