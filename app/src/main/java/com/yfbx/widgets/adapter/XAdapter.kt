@@ -12,36 +12,10 @@ import kotlinx.android.extensions.LayoutContainer
  * Date: 2020-07-28
  * Description:
  */
-fun RecyclerView.bind(builder: AdapterBuilder.() -> Unit): MultiItemAdapter {
-    val xAdapter = AdapterBuilder().apply(builder).build()
-    adapter = xAdapter
-    return xAdapter
-}
-
-class AdapterBuilder {
-
-    val adapter = MultiItemAdapter()
-
-
-    inline fun <reified T> add(layoutId: Int, data: T, crossinline binder: (helper: ViewHelper, item: T) -> Unit) {
-        adapter.bind(layoutId, data, object : Binder<T> {
-            override fun onBind(viewHelper: ViewHelper, item: Any) {
-                binder.invoke(viewHelper, item as T)
-            }
-        })
-    }
-
-    inline fun <reified T> add(layoutId: Int, data: List<T>, crossinline binder: (helper: ViewHelper, item: T) -> Unit) {
-        adapter.bind(layoutId, data, object : Binder<T> {
-            override fun onBind(viewHelper: ViewHelper, item: Any) {
-                binder.invoke(viewHelper, item as T)
-            }
-        })
-    }
-
-    fun build(): MultiItemAdapter {
-        return adapter
-    }
+fun RecyclerView.bind(builder: MultiItemAdapter.() -> Unit): MultiItemAdapter {
+    val multiItemAdapter = MultiItemAdapter().apply(builder)
+    adapter = multiItemAdapter
+    return multiItemAdapter
 }
 
 class MultiItemAdapter : RecyclerView.Adapter<ViewHelper>() {
@@ -54,28 +28,40 @@ class MultiItemAdapter : RecyclerView.Adapter<ViewHelper>() {
 
     val data = mutableListOf<Any>()
 
+    inline fun <reified T> add(layoutId: Int, data: T, crossinline binder: (helper: ViewHelper, item: T) -> Unit) {
+        bind(layoutId, data, object : Binder<T> {
+            override fun onBind(viewHelper: ViewHelper, item: Any) {
+                binder.invoke(viewHelper, item as T)
+            }
+        })
+    }
 
-    inline fun <reified T> bind(layoutId: Int, binder: Binder<T>) {
-        val viewType = T::class.java.name.hashCode()
-        layouts[viewType] = layoutId
-        binders[viewType] = binder
+    inline fun <reified T> add(layoutId: Int, data: List<T>, crossinline binder: (helper: ViewHelper, item: T) -> Unit) {
+        bind(layoutId, data, object : Binder<T> {
+            override fun onBind(viewHelper: ViewHelper, item: Any) {
+                binder.invoke(viewHelper, item as T)
+            }
+        })
+    }
+
+    inline fun <reified T> bind(layoutId: Int, items: List<T>, binder: Binder<T>) {
+        items.forEach { bind(layoutId, it, binder) }
     }
 
     inline fun <reified T> bind(layoutId: Int, item: T, binder: Binder<T>) {
-        val viewType = T::class.java.name.hashCode()
-        layouts[viewType] = layoutId
-        binders[viewType] = binder
+        bind(layoutId, binder)
         data.add(item as Any)
     }
 
-    @Suppress("UNCHECKED_CAST")
-    inline fun <reified T> bind(layoutId: Int, items: List<T>, binder: Binder<T>) {
+    inline fun <reified T> bind(layoutId: Int, binder: Binder<T>) {
         val viewType = T::class.java.name.hashCode()
-        layouts[viewType] = layoutId
-        binders[viewType] = binder
-        data.addAll(items as List<Any>)
+        if (!layouts.containsKey(viewType)) {
+            layouts[viewType] = layoutId
+        }
+        if (!binders.containsKey(viewType)) {
+            binders[viewType] = binder
+        }
     }
-
 
     fun addData(items: List<Any>, position: Int = itemCount) {
         data.addAll(position, items)
