@@ -48,8 +48,8 @@ class MainActivity : BaseActivity() {
             add(R.layout.item_menu_test, "Group-2") { helper, item ->
                 groupBinder(helper, item)
             }
-            add<String>(R.layout.item_menu_test, listOf("test1", "test2", "test3")) { helper, item ->
-                helper.textView.text = item
+            add<Int>(R.layout.item_menu_test, listOf(1, 2, 3)) { helper, item ->
+                helper.textView.text = "test$item"
             }
             add(R.layout.item_menu_test, "Group-3") { helper, item ->
                 groupBinder(helper, item)

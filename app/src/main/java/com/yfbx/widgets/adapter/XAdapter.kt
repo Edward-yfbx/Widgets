@@ -3,7 +3,6 @@ package com.yfbx.widgets.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.collection.SparseArrayCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseViewHolder
 import kotlinx.android.extensions.LayoutContainer
@@ -21,28 +20,23 @@ fun RecyclerView.bind(builder: AdapterBuilder.() -> Unit): MultiItemAdapter {
 
 class AdapterBuilder {
 
-    private val adapter = MultiItemAdapter()
+    val adapter = MultiItemAdapter()
 
-    /**
-     * 将layoutId做为itemViewType
-     */
-    fun <T> add(layoutId: Int, items: List<T>, binder: (helper: ViewHelper, item: T) -> Unit) {
-        add(layoutId, layoutId, items, binder)
+
+    inline fun <reified T> add(layoutId: Int, data: T, crossinline binder: (helper: ViewHelper, item: T) -> Unit) {
+        adapter.bind(layoutId, data, object : Binder<T> {
+            override fun onBind(viewHelper: ViewHelper, item: Any) {
+                binder.invoke(viewHelper, item as T)
+            }
+        })
     }
 
-    fun <T> add(layoutId: Int, item: T, binder: (helper: ViewHelper, item: T) -> Unit) {
-        add(layoutId, layoutId, item, binder)
-    }
-
-    /**
-     * 自定义 itemViewType
-     */
-    fun <T> add(viewType: Int, layoutId: Int, items: List<T>, binder: (helper: ViewHelper, item: T) -> Unit) {
-        adapter.add(viewType, layoutId, items, binder)
-    }
-
-    fun <T> add(viewType: Int, layoutId: Int, item: T, binder: (helper: ViewHelper, item: T) -> Unit) {
-        adapter.add(viewType, layoutId, listOf(item), binder)
+    inline fun <reified T> add(layoutId: Int, data: List<T>, crossinline binder: (helper: ViewHelper, item: T) -> Unit) {
+        adapter.bind(layoutId, data, object : Binder<T> {
+            override fun onBind(viewHelper: ViewHelper, item: Any) {
+                binder.invoke(viewHelper, item as T)
+            }
+        })
     }
 
     fun build(): MultiItemAdapter {
@@ -51,33 +45,52 @@ class AdapterBuilder {
 }
 
 class MultiItemAdapter : RecyclerView.Adapter<ViewHelper>() {
-    private val data = mutableListOf<ItemEntity<*>>()
 
-    //<ViewType,layoutId>
-    private val layouts = SparseArrayCompat<Int>()
+    //<viewType,layoutId>
+    val layouts = mutableMapOf<Int, Int>()
 
-    /**
-     * 添加 布局&数据列表
-     */
-    fun <T> add(viewType: Int, layoutId: Int, items: List<T>, binder: (helper: ViewHelper, item: T) -> Unit) {
-        if (!layouts.containsKey(viewType)) {
-            layouts.append(viewType, layoutId)
-        }
-        data.addAll(items.map { ItemEntity(viewType, it, binder) })
+    //<viewType,binder>
+    val binders = mutableMapOf<Int, Binder<*>>()
+
+    val data = mutableListOf<Any>()
+
+
+    inline fun <reified T> bind(layoutId: Int, binder: Binder<T>) {
+        val viewType = T::class.java.name.hashCode()
+        layouts[viewType] = layoutId
+        binders[viewType] = binder
     }
 
-//    fun <T> addData(viewType: Int, item: T) {
-//        val helper = viewHelpers[viewType]
-//        require(helper != null) { "This type of view has not been set!" }
-//        data.add(ItemEntity(viewType, item, binder))
-//    }
+    inline fun <reified T> bind(layoutId: Int, item: T, binder: Binder<T>) {
+        val viewType = T::class.java.name.hashCode()
+        layouts[viewType] = layoutId
+        binders[viewType] = binder
+        data.add(item as Any)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    inline fun <reified T> bind(layoutId: Int, items: List<T>, binder: Binder<T>) {
+        val viewType = T::class.java.name.hashCode()
+        layouts[viewType] = layoutId
+        binders[viewType] = binder
+        data.addAll(items as List<Any>)
+    }
+
+
+    fun addData(items: List<Any>, position: Int = itemCount) {
+        data.addAll(position, items)
+    }
 
     override fun getItemCount(): Int {
         return data.size
     }
 
+    /**
+     * 用 class name 作为 view type
+     */
     override fun getItemViewType(position: Int): Int {
-        return data[position].type
+        val clazz = data[position]::class.java
+        return clazz.name.hashCode()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHelper {
@@ -91,19 +104,17 @@ class MultiItemAdapter : RecyclerView.Adapter<ViewHelper>() {
     }
 
     override fun onBindViewHolder(holder: ViewHelper, position: Int, payloads: MutableList<Any>) {
-        data[holder.adapterPosition].onBind(holder)
+        val index = holder.adapterPosition
+        val item = data[index]
+        val viewType = getItemViewType(index)
+        val binder = binders[viewType]
+        binder?.onBind(holder, item)
     }
 }
 
-internal data class ItemEntity<T>(
-        val type: Int,
-        private val item: T,
-        private val binder: (helper: ViewHelper, item: T) -> Unit) {
+interface Binder<T> {
 
-
-    fun onBind(viewHelper: ViewHelper) {
-        binder.invoke(viewHelper, item)
-    }
+    fun onBind(viewHelper: ViewHelper, item: Any)
 }
 
 class ViewHelper(override val containerView: View) : BaseViewHolder(containerView), LayoutContainer
