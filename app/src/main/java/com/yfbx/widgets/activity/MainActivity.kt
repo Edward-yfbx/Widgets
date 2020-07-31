@@ -39,7 +39,10 @@ class MainActivity : BaseActivity() {
         //多布局
         recycleView.bind {
             bind(R.layout.item_menu_test, "Group-1") { helper, item ->
-                groupBinder(helper, item)
+                helper.textView.setBackgroundResource(R.color.background)
+                helper.textView.setTextColor(findColor(R.color.fontDark))
+                helper.textView.gravity = Gravity.START
+                helper.textView.text = item
             }
             bind<Menu>(R.layout.item_menu, menus) { helper, item ->
                 helper.btn.text = item.title
@@ -52,13 +55,5 @@ class MainActivity : BaseActivity() {
             add("Group-3")
             add(menus)
         }
-    }
-
-
-    private fun groupBinder(helper: ViewHelper, item: String) {
-        helper.textView.setBackgroundResource(R.color.background)
-        helper.textView.setTextColor(findColor(R.color.fontDark))
-        helper.textView.gravity = Gravity.START
-        helper.textView.text = item
     }
 }
