@@ -17,7 +17,7 @@ import kotlinx.android.extensions.LayoutContainer
  */
 inline fun <reified T> RecyclerView.bind(layoutId: Int, data: List<T>, crossinline binder: (helper: ViewHelper, item: T) -> Unit): MultiItemAdapter {
     val multiItemAdapter = MultiItemAdapter().apply {
-        add(layoutId, data, binder)
+        bind(layoutId, data, binder)
     }
     adapter = multiItemAdapter
     return multiItemAdapter
@@ -32,6 +32,23 @@ fun RecyclerView.bind(builder: MultiItemAdapter.() -> Unit): MultiItemAdapter {
     return multiItemAdapter
 }
 
+
+inline fun <reified T> MultiItemAdapter.bind(layoutId: Int, data: T, crossinline binder: (helper: ViewHelper, item: T) -> Unit) {
+    build(layoutId, data, object : Binder<T> {
+        override fun onBind(viewHelper: ViewHelper, item: Any) {
+            binder.invoke(viewHelper, item as T)
+        }
+    })
+}
+
+inline fun <reified T> MultiItemAdapter.bind(layoutId: Int, data: List<T>, crossinline binder: (helper: ViewHelper, item: T) -> Unit) {
+    build(layoutId, data, object : Binder<T> {
+        override fun onBind(viewHelper: ViewHelper, item: Any) {
+            binder.invoke(viewHelper, item as T)
+        }
+    })
+}
+
 class MultiItemAdapter : RecyclerView.Adapter<ViewHelper>() {
 
     //<viewType,layoutId>
@@ -42,32 +59,16 @@ class MultiItemAdapter : RecyclerView.Adapter<ViewHelper>() {
 
     val data = mutableListOf<Any>()
 
-    inline fun <reified T> add(layoutId: Int, data: T, crossinline binder: (helper: ViewHelper, item: T) -> Unit) {
-        bind(layoutId, data, object : Binder<T> {
-            override fun onBind(viewHelper: ViewHelper, item: Any) {
-                binder.invoke(viewHelper, item as T)
-            }
-        })
+    inline fun <reified T> build(layoutId: Int, items: List<T>, binder: Binder<T>) {
+        items.forEach { build(layoutId, it, binder) }
     }
 
-    inline fun <reified T> add(layoutId: Int, data: List<T>, crossinline binder: (helper: ViewHelper, item: T) -> Unit) {
-        bind(layoutId, data, object : Binder<T> {
-            override fun onBind(viewHelper: ViewHelper, item: Any) {
-                binder.invoke(viewHelper, item as T)
-            }
-        })
-    }
-
-    inline fun <reified T> bind(layoutId: Int, items: List<T>, binder: Binder<T>) {
-        items.forEach { bind(layoutId, it, binder) }
-    }
-
-    inline fun <reified T> bind(layoutId: Int, item: T, binder: Binder<T>) {
-        bind(layoutId, binder)
+    inline fun <reified T> build(layoutId: Int, item: T, binder: Binder<T>) {
+        build(layoutId, binder)
         data.add(item as Any)
     }
 
-    inline fun <reified T> bind(layoutId: Int, binder: Binder<T>) {
+    inline fun <reified T> build(layoutId: Int, binder: Binder<T>) {
         val viewType = T::class.java.name.hashCode()
         if (!layouts.containsKey(viewType)) {
             layouts[viewType] = layoutId
@@ -108,7 +109,7 @@ class MultiItemAdapter : RecyclerView.Adapter<ViewHelper>() {
     }
 
 
-    fun addData(item: Any, position: Int = itemCount) {
+    fun add(item: Any, position: Int = itemCount) {
         require(position in 0..itemCount) {
             "IndexOutOfBoundsException: size = $itemCount, position = $position"
         }
@@ -117,7 +118,7 @@ class MultiItemAdapter : RecyclerView.Adapter<ViewHelper>() {
         compatibilityDataSizeChanged(1)
     }
 
-    fun addData(items: List<Any>, position: Int = itemCount) {
+    fun add(items: List<Any>, position: Int = itemCount) {
         require(position in 0..itemCount) {
             "IndexOutOfBoundsException: size = $itemCount, position = $position"
         }
