@@ -3,6 +3,7 @@ package com.yfbx.widgets.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.collection.SparseArrayCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseViewHolder
 import kotlinx.android.extensions.LayoutContainer
@@ -15,8 +16,8 @@ import kotlinx.android.extensions.LayoutContainer
 /**
  * 单布局
  */
-inline fun <reified T> RecyclerView.bind(layoutId: Int, data: List<T>, crossinline binder: (helper: ViewHelper, item: T) -> Unit): XAdapter {
-    val xAdapter = XAdapter().apply {
+inline fun <reified T> RecyclerView.bind(layoutId: Int, data: List<T>, noinline binder: (helper: ViewHelper, item: T) -> Unit): XAdapter {
+    val xAdapter = adapter {
         bind(layoutId, data, binder)
     }
     adapter = xAdapter
@@ -27,73 +28,69 @@ inline fun <reified T> RecyclerView.bind(layoutId: Int, data: List<T>, crossinli
  * 多布局
  */
 fun RecyclerView.bind(builder: XAdapter.() -> Unit): XAdapter {
-    val xAdapter = XAdapter().apply(builder)
+    val xAdapter = adapter(builder)
     adapter = xAdapter
     return xAdapter
 }
 
-
-inline fun <reified T> XAdapter.bind(layoutId: Int, data: T, crossinline binder: (helper: ViewHelper, item: T) -> Unit) {
-    build(layoutId, data, object : Binder<T> {
-        override fun onBind(viewHelper: ViewHelper, item: Any) {
-            binder.invoke(viewHelper, item as T)
-        }
-    })
+fun adapter(builder: XAdapter.() -> Unit): XAdapter {
+    return XAdapter().apply(builder)
 }
 
-inline fun <reified T> XAdapter.bind(layoutId: Int, data: List<T>, crossinline binder: (helper: ViewHelper, item: T) -> Unit) {
-    build(layoutId, data, object : Binder<T> {
-        override fun onBind(viewHelper: ViewHelper, item: Any) {
-            binder.invoke(viewHelper, item as T)
-        }
-    })
+
+inline fun <reified T> XAdapter.bind(layoutId: Int, item: T, noinline binder: (helper: ViewHelper, item: T) -> Unit) {
+    bind(layoutId, binder)
+    add(item as Any)
 }
+
+inline fun <reified T> XAdapter.bind(layoutId: Int, items: List<T>, noinline binder: (helper: ViewHelper, item: T) -> Unit) {
+    bind(layoutId, binder)
+    @Suppress("UNCHECKED_CAST")
+    addAll(items as List<Any>)
+}
+
+inline fun <reified T> XAdapter.bind(layoutId: Int, noinline binder: (helper: ViewHelper, item: T) -> Unit) {
+    val type = T::class.java.name.hashCode()
+    bind(type, layoutId, binder)
+}
+
+inline fun <reified T> XAdapter.bind(viewType: Int, layoutId: Int, noinline binder: (helper: ViewHelper, item: T) -> Unit) {
+    val className = T::class.java.name
+    addBinder(viewType, className, object : Binder<T>(layoutId, binder) {})
+}
+
 
 class XAdapter : RecyclerView.Adapter<ViewHelper>() {
 
-    //<viewType,layoutId>
-    val layouts = mutableMapOf<Int, Int>()
-
     //<viewType,binder>
-    val binders = mutableMapOf<Int, Binder<*>>()
+    private val binders = SparseArrayCompat<Binder<*>>()
+
+    //<className,viewType>
+    private val types = hashMapOf<String, Int>()
 
     val data = mutableListOf<Any>()
 
-    inline fun <reified T> build(layoutId: Int, items: List<T>, binder: Binder<T>) {
-        items.forEach { build(layoutId, it, binder) }
-    }
-
-    inline fun <reified T> build(layoutId: Int, item: T, binder: Binder<T>) {
-        build(layoutId, binder)
-        data.add(item as Any)
-    }
-
-    inline fun <reified T> build(layoutId: Int, binder: Binder<T>) {
-        val viewType = T::class.java.name.hashCode()
-        if (!layouts.containsKey(viewType)) {
-            layouts[viewType] = layoutId
-        }
-        if (!binders.containsKey(viewType)) {
-            binders[viewType] = binder
-        }
+    fun addBinder(viewType: Int, className: String, binder: Binder<*>) {
+        types[className] = viewType
+        binders.append(viewType, binder)
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    /**
-     * 用 class name 作为 view type
-     */
     override fun getItemViewType(position: Int): Int {
-        val clazz = data[position]::class.java
-        return clazz.name.hashCode()
+        val item = data[position]
+        val className = item::class.java.name
+        val type = types[className]
+        require(type != null) { "This type #$className of view  was not found!" }
+        return type
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHelper {
-        val layoutId = layouts[viewType]
-        require(layoutId != null) { "This type #$viewType of view  was not found!" }
-        return ViewHelper(LayoutInflater.from(parent.context).inflate(layoutId, parent, false))
+        val binder = binders[viewType]
+        require(binder != null) { "This type #$viewType of view  was not found!" }
+        return binder.createViewHelper(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHelper, position: Int) {
@@ -101,17 +98,16 @@ class XAdapter : RecyclerView.Adapter<ViewHelper>() {
     }
 
     override fun onBindViewHolder(holder: ViewHelper, position: Int, payloads: MutableList<Any>) {
-        val index = holder.adapterPosition
-        val item = data[index]
-        val viewType = getItemViewType(index)
-        val binder = binders[viewType]
-        binder?.onBind(holder, item)
+        holder.onBind(data[holder.adapterPosition])
     }
 
 
     fun add(item: Any, position: Int = itemCount) {
         require(position in 0..itemCount) {
             "IndexOutOfBoundsException: size = $itemCount, position = $position"
+        }
+        require(item !is List<*>) {
+            "IllegalArgumentException:Method #add(item) is only used to add single item.try: #addAll(items)"
         }
         data.add(position, item)
         notifyItemInserted(position)
@@ -163,9 +159,19 @@ class XAdapter : RecyclerView.Adapter<ViewHelper>() {
 
 }
 
-interface Binder<T> {
+abstract class Binder<T>(val layoutId: Int, val binder: (helper: ViewHelper, item: T) -> Unit) {
 
-    fun onBind(viewHelper: ViewHelper, item: Any)
+    @Suppress("UNCHECKED_CAST")
+    fun createViewHelper(parent: ViewGroup): ViewHelper {
+        return object : ViewHelper(LayoutInflater.from(parent.context).inflate(layoutId, parent, false)) {
+            override fun onBind(item: Any) {
+                binder.invoke(this, item as T)
+            }
+        }
+    }
 }
 
-class ViewHelper(override val containerView: View) : BaseViewHolder(containerView), LayoutContainer
+abstract class ViewHelper(override val containerView: View) : BaseViewHolder(containerView), LayoutContainer {
+
+    abstract fun onBind(item: Any)
+}

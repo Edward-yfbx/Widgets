@@ -3,7 +3,6 @@ package com.yfbx.widgets.activity
 import android.os.Bundle
 import android.view.Gravity
 import com.yfbx.widgets.R
-import com.yfbx.widgets.adapter.ViewHelper
 import com.yfbx.widgets.adapter.bind
 import com.yfbx.widgets.bean.Menu
 import com.yfbx.widgets.util.findColor
@@ -52,8 +51,9 @@ class MainActivity : BaseActivity() {
             bind<Int>(R.layout.item_menu_test, listOf(1, 2, 3)) { helper, item ->
                 helper.textView.text = "test$item"
             }
+
             add("Group-3")
-            add(menus)
+            addAll(menus)
         }
     }
 }
