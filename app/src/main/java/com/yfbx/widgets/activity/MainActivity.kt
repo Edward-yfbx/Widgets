@@ -2,7 +2,6 @@ package com.yfbx.widgets.activity
 
 import android.os.Bundle
 import android.view.Gravity
-import android.widget.TextView
 import com.yfbx.widgets.R
 import com.yfbx.widgets.adapter.bind
 import com.yfbx.widgets.bean.Menu
@@ -31,17 +30,13 @@ class MainActivity : BaseActivity() {
         )
 
         //单布局
-//        val adapter = recycleView.bind(R.layout.item_menu, menus) { helper, item ->
-//            helper.btn.text = item.title
-//            helper.btn.setOnClickListener { startScheme(item.scheme) }
-//        }
+        val adapter = recycleView.bind(R.layout.item_menu, menus) { helper, item ->
+            helper.btn.text = item.title
+            helper.btn.setOnClickListener { startScheme(item.scheme) }
+        }
 
         //多布局
         recycleView.bind {
-            bind(TextView(this@MainActivity).apply {
-                text = "TEST"
-            })
-            add(0.1f)
             bind(R.layout.item_menu_test, "Group-1") { helper, item ->
                 helper.textView.setBackgroundResource(R.color.background)
                 helper.textView.setTextColor(findColor(R.color.fontDark))
@@ -56,7 +51,6 @@ class MainActivity : BaseActivity() {
             bind<Int>(R.layout.item_menu_test, listOf(1, 2, 3)) { helper, item ->
                 helper.textView.text = "test$item"
             }
-
             add("Group-3")
             addAll(menus)
         }

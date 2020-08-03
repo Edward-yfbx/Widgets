@@ -1,4 +1,4 @@
-package com.yuxiaor.utils
+package com.yfbx.widgets.adapter
 
 import android.view.LayoutInflater
 import android.view.View
