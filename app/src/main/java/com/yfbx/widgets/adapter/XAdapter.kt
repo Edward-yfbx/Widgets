@@ -17,9 +17,7 @@ import kotlinx.android.extensions.LayoutContainer
  * 单布局
  */
 inline fun <reified T> RecyclerView.bind(layoutId: Int, data: List<T>, noinline binder: (helper: ViewHelper, item: T) -> Unit): XAdapter {
-    val xAdapter = adapter {
-        bind(layoutId, data, binder)
-    }
+    val xAdapter = adapter { bind(layoutId, data, binder) }
     adapter = xAdapter
     return xAdapter
 }
@@ -49,11 +47,17 @@ inline fun <reified T> XAdapter.bind(layoutId: Int, items: List<T>, noinline bin
     addAll(items as List<Any>)
 }
 
+/**
+ * 用 class name的 hashcode 作为 viewType
+ */
 inline fun <reified T> XAdapter.bind(layoutId: Int, noinline binder: (helper: ViewHelper, item: T) -> Unit) {
     val type = T::class.java.name.hashCode()
     bind(type, layoutId, binder)
 }
 
+/**
+ * 自己定义 viewType
+ */
 inline fun <reified T> XAdapter.bind(viewType: Int, layoutId: Int, noinline binder: (helper: ViewHelper, item: T) -> Unit) {
     val className = T::class.java.name
     addBinder(viewType, className, object : Binder<T>(layoutId, binder) {})
@@ -162,7 +166,7 @@ class XAdapter : RecyclerView.Adapter<ViewHelper>() {
 abstract class Binder<T>(val layoutId: Int, val binder: (helper: ViewHelper, item: T) -> Unit) {
 
     @Suppress("UNCHECKED_CAST")
-    fun createViewHelper(parent: ViewGroup): ViewHelper {
+    open fun createViewHelper(parent: ViewGroup): ViewHelper {
         return object : ViewHelper(LayoutInflater.from(parent.context).inflate(layoutId, parent, false)) {
             override fun onBind(item: Any) {
                 binder.invoke(this, item as T)
