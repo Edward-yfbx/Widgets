@@ -101,6 +101,27 @@ inline fun <reified T> XAdapter.bind(viewType: Int, layoutId: Int, noinline bind
     })
 }
 
+/**
+ * 简化使用，只加一个无数据的 View
+ */
+fun XAdapter.bind(view: View) {
+    val item = EmptyData()
+    val className = EmptyData::class.java.name
+    val viewType = className.hashCode()
+    addBinder(viewType, className, object : Binder<EmptyData>({ _, _ ->
+        //ignore
+    }) {
+        override fun createViewHelper(parent: ViewGroup): ViewHelper {
+            return object : ViewHelper(view) {
+                override fun onBind(item: Any) {
+                    //ignore
+                }
+            }
+        }
+    })
+    add(item)
+}
+
 
 class XAdapter : RecyclerView.Adapter<ViewHelper>() {
 
@@ -209,3 +230,5 @@ abstract class ViewHelper(override val containerView: View) : BaseViewHolder(con
 
     abstract fun onBind(item: Any)
 }
+
+internal class EmptyData

@@ -2,7 +2,6 @@ package com.yfbx.widgets.activity
 
 import android.os.Bundle
 import android.view.Gravity
-import android.view.View
 import android.widget.TextView
 import com.yfbx.widgets.R
 import com.yfbx.widgets.adapter.bind
@@ -39,9 +38,9 @@ class MainActivity : BaseActivity() {
 
         //多布局
         recycleView.bind {
-            bind<Float>(getItemView()) { helper, item ->
-
-            }
+            bind(TextView(this@MainActivity).apply {
+                text = "TEST"
+            })
             add(0.1f)
             bind(R.layout.item_menu_test, "Group-1") { helper, item ->
                 helper.textView.setBackgroundResource(R.color.background)
@@ -63,10 +62,4 @@ class MainActivity : BaseActivity() {
         }
     }
 
-
-    private fun getItemView(): View {
-        return TextView(this).apply {
-            text = "TEST"
-        }
-    }
 }
