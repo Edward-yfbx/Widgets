@@ -2,6 +2,8 @@ package com.yfbx.widgets.activity
 
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
+import android.widget.TextView
 import com.yfbx.widgets.R
 import com.yfbx.widgets.adapter.bind
 import com.yfbx.widgets.bean.Menu
@@ -37,6 +39,10 @@ class MainActivity : BaseActivity() {
 
         //多布局
         recycleView.bind {
+            bind<Float>(getItemView()) { helper, item ->
+
+            }
+            add(0.1f)
             bind(R.layout.item_menu_test, "Group-1") { helper, item ->
                 helper.textView.setBackgroundResource(R.color.background)
                 helper.textView.setTextColor(findColor(R.color.fontDark))
@@ -54,6 +60,13 @@ class MainActivity : BaseActivity() {
 
             add("Group-3")
             addAll(menus)
+        }
+    }
+
+
+    private fun getItemView(): View {
+        return TextView(this).apply {
+            text = "TEST"
         }
     }
 }
