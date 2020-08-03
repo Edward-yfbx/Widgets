@@ -1,4 +1,4 @@
-package com.yfbx.widgets.adapter
+package com.yuxiaor.utils
 
 import android.view.LayoutInflater
 import android.view.View
@@ -77,7 +77,7 @@ inline fun <reified T> XAdapter.bind(view: View, noinline binder: (helper: ViewH
 inline fun <reified T> XAdapter.bind(viewType: Int, view: View, noinline binder: (helper: ViewHelper, item: T) -> Unit) {
     val className = T::class.java.name
     addBinder(viewType, className, object : Binder<T>(binder) {
-        override fun createViewHelper(parent: ViewGroup): ViewHelper {
+        override fun createXHelper(parent: ViewGroup): ViewHelper {
             return object : ViewHelper(view) {
                 override fun onBind(item: Any) {
                     binder.invoke(this, item as T)
@@ -90,7 +90,7 @@ inline fun <reified T> XAdapter.bind(viewType: Int, view: View, noinline binder:
 inline fun <reified T> XAdapter.bind(viewType: Int, layoutId: Int, noinline binder: (helper: ViewHelper, item: T) -> Unit) {
     val className = T::class.java.name
     addBinder(viewType, className, object : Binder<T>(binder) {
-        override fun createViewHelper(parent: ViewGroup): ViewHelper {
+        override fun createXHelper(parent: ViewGroup): ViewHelper {
             val view = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
             return object : ViewHelper(view) {
                 override fun onBind(item: Any) {
@@ -101,28 +101,6 @@ inline fun <reified T> XAdapter.bind(viewType: Int, layoutId: Int, noinline bind
     })
 }
 
-/**
- * 简化使用，只加一个无数据的 View
- */
-fun XAdapter.bind(view: View) {
-    val item = EmptyData()
-    val className = EmptyData::class.java.name
-    val viewType = className.hashCode()
-    addBinder(viewType, className, object : Binder<EmptyData>({ _, _ ->
-        //ignore
-    }) {
-        override fun createViewHelper(parent: ViewGroup): ViewHelper {
-            return object : ViewHelper(view) {
-                override fun onBind(item: Any) {
-                    //ignore
-                }
-            }
-        }
-    })
-    add(item)
-}
-
-
 class XAdapter : RecyclerView.Adapter<ViewHelper>() {
 
     //<viewType,binder>
@@ -131,7 +109,7 @@ class XAdapter : RecyclerView.Adapter<ViewHelper>() {
     //<className,viewType>
     private val types = hashMapOf<String, Int>()
 
-    val data = mutableListOf<Any>()
+    private val data = mutableListOf<Any>()
 
     fun addBinder(viewType: Int, className: String, binder: Binder<*>) {
         types[className] = viewType
@@ -153,7 +131,7 @@ class XAdapter : RecyclerView.Adapter<ViewHelper>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHelper {
         val binder = binders[viewType]
         require(binder != null) { "This type #$viewType of view  was not found!" }
-        return binder.createViewHelper(parent)
+        return binder.createXHelper(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHelper, position: Int) {
@@ -173,8 +151,7 @@ class XAdapter : RecyclerView.Adapter<ViewHelper>() {
             "IllegalArgumentException:Method #add(item) is only used to add single item.try: #addAll(items)"
         }
         data.add(position, item)
-        notifyItemInserted(position)
-        compatibilityDataSizeChanged(1)
+        notifyInserted(position)
     }
 
     fun addAll(items: List<Any>, position: Int = itemCount) {
@@ -182,34 +159,62 @@ class XAdapter : RecyclerView.Adapter<ViewHelper>() {
             "IndexOutOfBoundsException: size = $itemCount, position = $position"
         }
         data.addAll(position, items)
-        notifyItemRangeInserted(position, items.size)
-        compatibilityDataSizeChanged(items.size)
+        notifyRangeInserted(items.size, position)
     }
 
     fun remove(position: Int) {
-        require(position in 0 until data.size) {
+        require(position in 0 until itemCount) {
             "IndexOutOfBoundsException: size = $itemCount, position = $position"
         }
         data.removeAt(position)
-        notifyItemRemoved(position)
-        compatibilityDataSizeChanged(0)
-        notifyItemRangeChanged(position, data.size - position)
+        notifyRemoved(position)
     }
 
     fun update(position: Int, item: Any) {
-        require(position in 0 until data.size) {
+        require(position in 0 until itemCount) {
             "IndexOutOfBoundsException: size = $itemCount, position = $position"
         }
         data[position] = item
         notifyItemChanged(position)
     }
 
+    fun getData(): MutableList<Any> {
+        return data
+    }
+
     inline operator fun <reified T> get(position: Int): T? {
-        require(position in 0 until data.size) {
+        require(position in 0 until itemCount) {
             "IndexOutOfBoundsException: size = $itemCount, position = $position"
         }
-        val item = data[position]
+        val item = getData()[position]
         return if (item is T) item else null
+    }
+
+    inline fun <reified T> getList(): List<T> {
+        val list = mutableListOf<T>()
+        getData().forEach {
+            if (it is T) {
+                list.add(it)
+            }
+        }
+        return list
+    }
+
+
+    fun notifyRemoved(position: Int) {
+        notifyItemRemoved(position)
+        compatibilityDataSizeChanged(0)
+        notifyItemRangeChanged(position, data.size - position)
+    }
+
+    fun notifyRangeInserted(size: Int, position: Int) {
+        notifyItemRangeInserted(position, size)
+        compatibilityDataSizeChanged(size)
+    }
+
+    fun notifyInserted(position: Int) {
+        notifyItemInserted(position)
+        compatibilityDataSizeChanged(1)
     }
 
 
@@ -223,12 +228,10 @@ class XAdapter : RecyclerView.Adapter<ViewHelper>() {
 
 abstract class Binder<T>(val binder: (helper: ViewHelper, item: T) -> Unit) {
 
-    abstract fun createViewHelper(parent: ViewGroup): ViewHelper
+    abstract fun createXHelper(parent: ViewGroup): ViewHelper
 }
 
 abstract class ViewHelper(override val containerView: View) : BaseViewHolder(containerView), LayoutContainer {
 
     abstract fun onBind(item: Any)
 }
-
-internal class EmptyData
