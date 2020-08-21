@@ -12,6 +12,7 @@ enum class Menu(val title: String, val scheme: String) {
     RADIO("Radio", "yfbx://yfbx.com/radio"),
     ROLL("Roll", "yfbx://yfbx.com/roll"),
     TEXT("Text", "yfbx://yfbx.com/text"),
+    IMAGE("Image", "yfbx://yfbx.com/image"),
     WEB("Web", "file:///android_asset/personal_security.html?title=用户信息安全保密协议"),
     TEST("Test", "yfbx://yfbx.com/test")
 

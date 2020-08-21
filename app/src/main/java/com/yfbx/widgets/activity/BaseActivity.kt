@@ -9,13 +9,16 @@ import androidx.fragment.app.Fragment
 import com.billy.android.swipe.SwipeConsumer
 import com.yfbx.widgets.util.slideBack
 import kotlinx.android.synthetic.main.layout_toolbar.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 
 /**
  * Author: Edward
  * Date: 2019-11-08
  * Description:
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
     private var oldFrag: Fragment? = null
     private var slideBack: SwipeConsumer? = null
@@ -66,4 +69,8 @@ abstract class BaseActivity : AppCompatActivity() {
         transaction.commit()
     }
 
+    override fun onDestroy() {
+        cancel()
+        super.onDestroy()
+    }
 }
